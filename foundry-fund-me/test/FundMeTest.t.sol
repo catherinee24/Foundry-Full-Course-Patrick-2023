@@ -30,7 +30,7 @@ contract FundMeTest is Test {
          */
         //console.log(fundMe.i_owner());
         //console.log(msg.sender);
-        assertEq(fundMe.i_owner(), msg.sender);
+        assertEq(fundMe.getOwner(), msg.sender);
     }
 
     /**
@@ -60,5 +60,68 @@ contract FundMeTest is Test {
         fundMe.fund{value: SEND_VALUE}();
         address funder = fundMe.getFunder(0);
         assertEq(funder, USER);
+    }
+
+    modifier funded() {
+        vm.prank(USER);
+        fundMe.fund{value: SEND_VALUE}();
+        _;
+    }
+
+    function testOnlyOwnerCanWithdraw() external funded {
+        vm.prank(USER);
+        vm.expectRevert();
+        fundMe.withdraw();
+    }
+
+    function testWithdrawWithASingleFunded() external funded {
+        //Arrenge
+        // Empezamos viendo cuanto es el balance del Owner y del contrato FundMe antes de hacer la TX.
+        uint256 startingOwnerBalance = fundMe.getOwner().balance;
+        uint256 startingFundMeBalance = address(fundMe).balance;
+
+        //Act
+        // fundMe.getOwner() por que solo el owner puede llamar a esta funcion.
+        vm.prank(fundMe.getOwner());
+        fundMe.withdraw();
+
+        // Assert
+        uint256 endingOwnerBalance = fundMe.getOwner().balance;
+        uint256 endingFundMeBalance = address(fundMe).balance;
+
+        // Nos aseguramos de que hayamos retirado todo el dinero del contrato FundMe.
+        assertEq(endingFundMeBalance, 0);
+        assertEq(startingOwnerBalance + startingFundMeBalance, endingOwnerBalance);
+    }
+
+    function testWithdrawFromMultipleFunders() external funded {
+        //Arrange
+        // Usamos uint160 porque tiene la misma cantidad de bytes que un address
+        uint160 numberOfFunders = 10;
+        uint160 startingFundersIndex = 1;
+
+        // A traves de este for loop vamos a crear addresses para los 10 numberOfFunders
+        for (uint160 i = startingFundersIndex; i < numberOfFunders; ++i) {
+            //vm.prank: new address
+            //vm.deal: fund the new address
+            // Fondear el contrato FundMe
+
+            // HOAX: Establece un prank de una dirección que tiene algo de éter.
+            hoax(address(i), SEND_VALUE);
+            fundMe.fund{value: SEND_VALUE}();
+        }
+
+        uint256 startingOwnerBalance = fundMe.getOwner().balance;
+        uint256 startingFundMeBalance = address(fundMe).balance;
+
+        //Act
+        vm.prank(fundMe.getOwner());
+        fundMe.withdraw();
+
+        //Assert
+        uint256 endingOwnerBalance = fundMe.getOwner().balance;
+        uint256 endingFundMeBalance = address(fundMe).balance;
+        assertEq(endingFundMeBalance, 0);
+        assertEq(startingFundMeBalance + startingOwnerBalance, endingOwnerBalance);
     }
 }

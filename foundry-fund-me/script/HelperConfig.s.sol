@@ -41,14 +41,15 @@ contract HelperConfig is Script {
     }
 
     function getOrCreateAnvilEthConfig() public returns (NetworkConfing memory) {
-        //Price feed address
         /**
          * 1. Deploy the Mocks
-         *     2. Return the Mocks addresses
+         * 2. Return the Mocks addresses
          */
         if (activeNetworkConfing.priceFeed != address(0)) {
             return activeNetworkConfing;
         }
+
+        // Deployamos el contrato MockV3Aggregator().
         vm.startBroadcast();
         MockV3Aggregator mockPriceFeed = new MockV3Aggregator(
             DECIMALS,
