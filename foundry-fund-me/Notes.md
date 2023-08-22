@@ -1,4 +1,4 @@
-# Lesson 7:
+# Lesson 7: https://github.com/catherinee24/Foundry-Course-Patrick
 ## Dependencies
 Para descargar los paquetes de chainlink.
 ```shell
