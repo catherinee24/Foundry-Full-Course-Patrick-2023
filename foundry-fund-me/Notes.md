@@ -1,3 +1,4 @@
+# Lesson 7:
 ## Dependencies
 Para descargar los paquetes de chainlink.
 ```shell
@@ -38,6 +39,8 @@ En el curso vimos unos cuantos como:
 -   `vm.prank();`: crea un usuario para saber que empieza un TX.
 -   `vm.makeAddr();`: crea el address de un usuario.
 -   `vm.deal();`: fondeamos dinero a un address.
+-   `hoax();`: Creamos y fondeamos multiples addresses.
+-   `vm.txGasPrice;`: Creamos y fondeamos multiples addresses.
 
 ## Std cheats codes HOAX
 https://book.getfoundry.sh/reference/forge-std/hoax
@@ -54,5 +57,39 @@ Cada vez que trabajemos con un test siempre vamos a pensar en este patron:
     2. Act: hacemos la accion que queremos testear.
     3. Assert: hacemos el assert del test.
 
-## rear addresses 
+## Crear addresses 
 usamos uint160 ya que tiene la misma cantidad de bytes que un address.
+
+## Foundry Chisel
+Chisel nos permite escribir codigo solidity en nuestra terminal y ejecutarlo linea por linea. 
+
+Para ejecutar chisel en la consola.
+```shell
+$ chisel 
+➜ uint256 cat = 1;
+➜ cat
+Type: uint
+├ Hex: 0x1
+└ Decimal: 1
+➜
+```
+`Ctrl + c` ----> para salir de la terminal de Chisel.
+
+## Gas: cheaper in test withdraw 
+Si queremos hacer mas barato un test podemos hacer lo siguiente:
+
+```shell
+$ forge snapshot --match-test testWithdrawFromMultipleFunders
+```
+Eate comando nos creara un archivo llamado `.gas-snapshot`. Dentro del archivo encotraremos una informacion asi:
+
+```
+FundMeTest:testWithdrawFromMultipleFunders() (gas: 487922)
+```
+El gas en anvil viene por defecto a cero(0), pero cuando queremos testear de manera real cuanto gas gastamos, podemos usar el siguiente cheatcode de foundry:
+### txGasPrice
+- https://book.getfoundry.sh/cheatcodes/tx-gas-price?highlight=txGas#txgasprice
+
+`vm.txGasPrice(GAS_PRICE);`
+
+## Storage 

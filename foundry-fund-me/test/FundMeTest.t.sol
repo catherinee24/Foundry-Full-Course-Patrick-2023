@@ -12,6 +12,7 @@ contract FundMeTest is Test {
     address USER = makeAddr("Cathe");
     uint256 constant SEND_VALUE = 0.1 ether;
     uint256 constant STARTING_BALANCE = 10 ether;
+    uint256 constant GAS_PRICE = 1;
 
     function setUp() external {
         //fundMe = new FundMe(0x694AA1769357215DE4FAC081bf1f309aDC325306);
@@ -91,7 +92,10 @@ contract FundMeTest is Test {
 
         // Nos aseguramos de que hayamos retirado todo el dinero del contrato FundMe.
         assertEq(endingFundMeBalance, 0);
-        assertEq(startingOwnerBalance + startingFundMeBalance, endingOwnerBalance);
+        assertEq(
+            startingOwnerBalance + startingFundMeBalance,
+            endingOwnerBalance
+        );
     }
 
     function testWithdrawFromMultipleFunders() external funded {
@@ -104,7 +108,7 @@ contract FundMeTest is Test {
         for (uint160 i = startingFundersIndex; i < numberOfFunders; ++i) {
             //vm.prank: new address
             //vm.deal: fund the new address
-            // Fondear el contrato FundMe
+            //Fondear el contrato FundMe
 
             // HOAX: Establece un prank de una dirección que tiene algo de éter.
             hoax(address(i), SEND_VALUE);
@@ -115,13 +119,21 @@ contract FundMeTest is Test {
         uint256 startingFundMeBalance = address(fundMe).balance;
 
         //Act
+        //uint256 gasStart = gasleft(); // gasleft: Es una funcion de solidity que nos permite saber cuanto gas queda en el contrato.
+        //vm.txGasPrice(GAS_PRICE);
         vm.prank(fundMe.getOwner());
         fundMe.withdraw();
+        //uint256 gasEnd = gasleft();
+        //uint256 gasUsed = (gasStart - gasEnd) * tx.gasprice; // tx.gasprice es otra funcion de solidity que nos dice el precio actual del Gas.
+        //console.log(gasUsed);
 
         //Assert
         uint256 endingOwnerBalance = fundMe.getOwner().balance;
         uint256 endingFundMeBalance = address(fundMe).balance;
         assertEq(endingFundMeBalance, 0);
-        assertEq(startingFundMeBalance + startingOwnerBalance, endingOwnerBalance);
+        assertEq(
+            startingFundMeBalance + startingOwnerBalance,
+            endingOwnerBalance
+        );
     }
 }
