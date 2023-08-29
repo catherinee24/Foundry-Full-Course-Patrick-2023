@@ -9,7 +9,7 @@ error FundMe__NotOwner();
 contract FundMe {
     using PriceConverter for uint256;
 
-    mapping(address => uint256) private s_addressToAmountFunded;
+    mapping(address => uint256) private s_addressToAmountFunded; // s: means storage
     address[] private s_funders;
 
     address private immutable i_owner;
@@ -22,7 +22,10 @@ contract FundMe {
     }
 
     function fund() public payable {
-        require(msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD, "You need to spend more ETH!");
+        require(
+            msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD,
+            "You need to spend more ETH!"
+        );
         s_addressToAmountFunded[msg.sender] += msg.value;
         s_funders.push(msg.sender);
     }
@@ -36,14 +39,37 @@ contract FundMe {
         _;
     }
 
+    /**
+     * cheaperWithdraw() Hacemos mas barata esta funcion en terminos de gas Cacheando el length del array para leerlo desde la memoria y no desde storage
+     */
+    function cheaperWithdraw() public onlyOwner {
+        uint256 funderLength = s_funders.length;
+        for (uint256 i = 0; i < funderLength; ++i) {
+            address funder = s_funders[i];
+            s_addressToAmountFunded[funder] = 0;
+        }
+        s_funders = new address[](0);
+
+        (bool callSuccess, ) = payable(msg.sender).call{
+            value: address(this).balance
+        }("");
+        require(callSuccess, "FundMe: Call faild");
+    }
+
     function withdraw() public onlyOwner {
-        for (uint256 funderIndex = 0; funderIndex < s_funders.length; funderIndex++) {
+        for (
+            uint256 funderIndex = 0;
+            funderIndex < s_funders.length;
+            funderIndex++
+        ) {
             address funder = s_funders[funderIndex];
             s_addressToAmountFunded[funder] = 0;
         }
         s_funders = new address[](0);
 
-        (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
+        (bool callSuccess, ) = payable(msg.sender).call{
+            value: address(this).balance
+        }("");
         require(callSuccess, "Call failed");
     }
 
@@ -63,7 +89,9 @@ contract FundMe {
      * address private immutable i_owner;
      */
 
-    function getAddressToAmounFunded(address _fundingAddress) external view returns (uint256) {
+    function getAddressToAmounFunded(
+        address _fundingAddress
+    ) external view returns (uint256) {
         return s_addressToAmountFunded[_fundingAddress];
     }
 

@@ -92,10 +92,7 @@ contract FundMeTest is Test {
 
         // Nos aseguramos de que hayamos retirado todo el dinero del contrato FundMe.
         assertEq(endingFundMeBalance, 0);
-        assertEq(
-            startingOwnerBalance + startingFundMeBalance,
-            endingOwnerBalance
-        );
+        assertEq(startingOwnerBalance + startingFundMeBalance, endingOwnerBalance);
     }
 
     function testWithdrawFromMultipleFunders() external funded {
@@ -131,9 +128,6 @@ contract FundMeTest is Test {
         uint256 endingOwnerBalance = fundMe.getOwner().balance;
         uint256 endingFundMeBalance = address(fundMe).balance;
         assertEq(endingFundMeBalance, 0);
-        assertEq(
-            startingFundMeBalance + startingOwnerBalance,
-            endingOwnerBalance
-        );
+        assertEq(startingFundMeBalance + startingOwnerBalance, endingOwnerBalance);
     }
 }
