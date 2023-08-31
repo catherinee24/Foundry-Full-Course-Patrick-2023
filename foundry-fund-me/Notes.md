@@ -160,3 +160,15 @@ Porque una varible este escrita privada no significa que sea privada, todo en la
 https://github.com/Cyfrin/foundry-devops
 
 * Usamos *(ffi = true)* en `foundry.toml`git sta para permitirle a foundry correr comandos directamente en mi maquina.
+
+- Creamos un archivo en la carpeta `Script` llamado `Interactions`, y ahi dentro codeamos dos contratos, en nuestro caso para testear las dos funciones del contrato FundMe `fundMe()` & `withdraw`. 
+- Importamos `DevOpsTools` de `Cyfrin`---> que es Un repositorio para obtener la implementación más reciente de un entorno dado en Foundry. De esta manera, puedes realizar scripts basados en implementaciones anteriores en Solidity.
+- Comando para instalarlo y tenerlo a disposicion cuando lo necesitemos.
+  ```shell
+  forge install Cyfrin/foundry-devops --no-commit
+  ```
+
+- La carpeta de `Test` la actualizamos y creamos 2 archivos 
+1. **Unit Test**: Las pruebas unitarias se centran en probar componentes individuales y aislados de código, como ``funciones``, ``métodos`` o ``clases``, de manera independiente. Estas pruebas se realizan para verificar que cada unidad de código funcione correctamente según su diseño y especificación. Generalmente, se ejecutan en un entorno controlado y aislado, utilizando "``mocks``" o simulaciones de las dependencias externas.
+
+2. **Integration Tests**: Las pruebas de integración se centran en probar la ``interacción`` y la ``colaboración`` entre diferentes componentes o módulos del sistema. Estas pruebas buscan identificar problemas que puedan surgir cuando varias partes del sistema interactúan entre sí, como comunicación entre servicios, bases de datos y componentes externos.
