@@ -156,4 +156,7 @@ $ cast storage 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512 2
 
 Porque una varible este escrita privada no significa que sea privada, todo en la blockchain es informacion publica y quien sea puede leer facilmente la informacion off de cualquier blockchain.
 
+## Intaractions.s.sol
+https://github.com/Cyfrin/foundry-devops
 
+* Usamos *(ffi = true)* en `foundry.toml`git sta para permitirle a foundry correr comandos directamente en mi maquina.

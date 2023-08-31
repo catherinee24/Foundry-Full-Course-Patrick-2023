@@ -2,8 +2,8 @@
 pragma solidity ^0.8.18;
 
 import {Test, console} from "forge-std/Test.sol";
-import {FundMe} from "../src/FundMe.sol";
-import {DeployFundMe} from "../script/DeployFundMe.s.sol";
+import {FundMe} from "../../src/FundMe.sol";
+import {DeployFundMe} from "../../script/DeployFundMe.s.sol";
 
 contract FundMeTest is Test {
     FundMe public fundMe;
@@ -120,6 +120,42 @@ contract FundMeTest is Test {
         //vm.txGasPrice(GAS_PRICE);
         vm.prank(fundMe.getOwner());
         fundMe.withdraw();
+        //uint256 gasEnd = gasleft();
+        //uint256 gasUsed = (gasStart - gasEnd) * tx.gasprice; // tx.gasprice es otra funcion de solidity que nos dice el precio actual del Gas.
+        //console.log(gasUsed);
+
+        //Assert
+        uint256 endingOwnerBalance = fundMe.getOwner().balance;
+        uint256 endingFundMeBalance = address(fundMe).balance;
+        assertEq(endingFundMeBalance, 0);
+        assertEq(startingFundMeBalance + startingOwnerBalance, endingOwnerBalance);
+    }
+
+    function testWithdrawFromMultipleFundersCheaper() external funded {
+        //Arrange
+        // Usamos uint160 porque tiene la misma cantidad de bytes que un address
+        uint160 numberOfFunders = 10;
+        uint160 startingFundersIndex = 1;
+
+        // A traves de este for loop vamos a crear addresses para los 10 numberOfFunders
+        for (uint160 i = startingFundersIndex; i < numberOfFunders; ++i) {
+            //vm.prank: new address
+            //vm.deal: fund the new address
+            //Fondear el contrato FundMe
+
+            // HOAX: Establece un prank de una dirección que tiene algo de éter.
+            hoax(address(i), SEND_VALUE);
+            fundMe.fund{value: SEND_VALUE}();
+        }
+
+        uint256 startingOwnerBalance = fundMe.getOwner().balance;
+        uint256 startingFundMeBalance = address(fundMe).balance;
+
+        //Act
+        //uint256 gasStart = gasleft(); // gasleft: Es una funcion de solidity que nos permite saber cuanto gas queda en el contrato.
+        //vm.txGasPrice(GAS_PRICE);
+        vm.prank(fundMe.getOwner());
+        fundMe.cheaperWithdraw();
         //uint256 gasEnd = gasleft();
         //uint256 gasUsed = (gasStart - gasEnd) * tx.gasprice; // tx.gasprice es otra funcion de solidity que nos dice el precio actual del Gas.
         //console.log(gasUsed);
