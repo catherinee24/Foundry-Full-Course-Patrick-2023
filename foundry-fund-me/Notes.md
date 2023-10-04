@@ -187,9 +187,9 @@ https://github.com/Cyfrin/foundry-devops
 - Creamos un archivo en la carpeta `Script` llamado `Interactions`, y ahi dentro codeamos dos contratos, en nuestro caso para testear las dos funciones del contrato FundMe `fundMe()` & `withdraw`. 
 - Importamos `DevOpsTools` de `Cyfrin`---> que es Un repositorio para obtener la implementación más reciente de un entorno dado en Foundry. De esta manera, puedes realizar scripts basados en implementaciones anteriores en Solidity.
 
-/////////////////////////////////////////////////////////////////////////
-IMPORTANT - IMPORTANT - IMPORTANT - IMPORTANT - IMPORTANT - IMPORTANT
-/////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////
+IMPORTANT - IMPORTANT  
+//////////////////////////////////////////////
 - Comando para instalarlo y tenerlo a disposicion cuando lo necesitemos.
   ```shell
   forge install Cyfrin/foundry-devops --no-commit
@@ -199,3 +199,15 @@ IMPORTANT - IMPORTANT - IMPORTANT - IMPORTANT - IMPORTANT - IMPORTANT
 1. **Unit Test**: Las pruebas unitarias se centran en probar componentes ``individuales`` y ``aislados`` de código, como ``funciones``, ``métodos`` o ``clases``, de manera independiente. Estas pruebas se realizan para verificar que cada ``unidad de código`` funcione correctamente según su diseño y especificación. Generalmente, se ejecutan en un entorno controlado y aislado, utilizando "``mocks``" o ``simulaciones`` de las dependencias externas.
 
 2. **Integration Tests**: Las pruebas de integración se centran en probar la ``interacción`` y la ``colaboración`` entre diferentes componentes o módulos del sistema. Estas pruebas buscan identificar problemas que puedan surgir cuando varias partes del sistema interactúan entre sí, como comunicación entre servicios, bases de datos y componentes externos.
+
+## Makefiles
+Nos perminte crear shortcuts para comandos que comunmente vamos a usar.
+
+## Comando para deployar los contratos el la testnet de Sepolia 
+//////////////////////////////////////////////
+IMPORTANT - IMPORTANT  
+//////////////////////////////////////////////
+**No colocar PRIVATE_KEY con dinero real** No quieras ser Hackeado :)
+```shell
+forge script script/DeployFundMe.s.sol --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY --broadcast --verify --etherscan-api-key $ETHERSCAN_API_KEY
+```
