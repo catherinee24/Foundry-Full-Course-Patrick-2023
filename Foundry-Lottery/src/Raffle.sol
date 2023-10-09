@@ -8,27 +8,36 @@ pragma solidity 0.8.20;
  * @dev: Implements Chainlink VRFv2
  */
 contract Raffle {
-    /**
-     * ERRORS
-     */
+    /*//////////////////////////////////////////////////////////////
+                                ERRORS
+    //////////////////////////////////////////////////////////////*/
+  
     error Raffle__NOT__ENOUGH__ETH();
 
-    /**
-     * VARIABLES DE ESTADO 
+    /*//////////////////////////////////////////////////////////////
+                         VARIABLES DE ESTADO
+    //////////////////////////////////////////////////////////////*/
+    
+    /** 
      * Hacemos las variables de estado (privadas) porque luego vamos a hacer las funciones (getters) de dichas variables
-     *     1. La primera varible es el (fee) que las personas pagaran al entrar en la rifa.
-     *     2. Un array de addressess payable para traquear a los jugadores.
+     *     @dev i_entranceFee = (fee) que las personas pagaran al entrar en la rifa.
+     *     @dev i_interval = Duracion de la loteria en segundos.
+     *     @dev s_players = array de addressess payable para traquear a los jugadores.
      */
     uint256 private immutable i_entranceFee;
+    uint256 private immutable i_interval;
     address payable[] private s_players;
+    uint256 private  s_lastTimeStamp;
 
     /**
      * EVENTS
      */
     event EnteredRaflle(address indexed player);
 
-    constructor(uint256 entranceFee) {
+    constructor(uint256 entranceFee, uint256 interval) {
         i_entranceFee = entranceFee;
+        i_interval = interval;
+        s_lastTimeStamp = block.timestamp;
     }
 
     /**
@@ -42,8 +51,16 @@ contract Raffle {
         emit EnteredRaflle(msg.sender);
     }
 
-    /** */
-    function pickWinner() public {}
+    /** 1. Hacemos una funcion para obtener un numero aleatoreo.
+            1.2 - Usamos el numero random para agarrar un jugador.
+            1.3 - Llamaremos al ganador automaticamente.
+      */
+    function pickWinner() public {
+        /** Chequeamos si ha pasado el tiempo suficiente para elegir un ganador */
+        if((block.timestamp - s_lastTimeStamp) < i_interval){
+            revert;
+        }
+    }
 
     /**
      * Getter Functions
