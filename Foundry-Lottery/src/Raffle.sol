@@ -8,6 +8,7 @@ pragma solidity 0.8.20;
  * @dev: Implements Chainlink VRFv2
  */
 contract Raffle {
+    error Raffle__NOT__ENOUGH__ETH();
     /**
      * Hacemos las variables de estado (privadas) porque luego vamos a hacer las funciones (getters) de dichas variables
      */
@@ -22,7 +23,9 @@ contract Raffle {
      *         1.2 - Queremos que las personan paguen algo de ETH para que puedan entrar a la loteria.
      *         1.3 - Hacemos la funcion (payable) así la funcion puede recibir ETH.
      */
-    function enterRaffle() public payable {}
+    function enterRaffle() external payable {
+        if(msg.value < i_entranceFee) revert Raffle_NOT_ENOUGH_ETH();
+    }
 
     function pickWinner() public {}
 
