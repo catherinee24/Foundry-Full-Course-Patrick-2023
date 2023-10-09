@@ -37,5 +37,7 @@
 - external & public view & pure functions
 
 ## Custom Errors
-Se recomienda hacer ``custom errors`` en verzde ``require`` statement ya que es mas ``gas eficcient`` 
+Se recomienda hacer ``custom errors`` en vez de ``require`` statement ya que es mas ``gas eficcient`` 
 error nombreDelContrato__NombreDelError();
+
+## Events
