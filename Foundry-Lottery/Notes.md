@@ -1,4 +1,5 @@
 # Lesson 9: 🤩 https://github.com/catherinee24/Foundry-Course-Patrick
+Foudry course: FOUNDRY-LOTTERY
 ``En esta parte del curso vamos a estar desarrollando una loteria con solidity y testeada con Foundry. Aprenderemos muchas cosas interesantes de foundry y buenas practicas a la hora de desarrollar un Proyecto Web3. ``
 ``rm -rf`` remove -removeforce ---------> Comando para eliminar una carpeta de nuestro path.
 
@@ -41,6 +42,7 @@ Se recomienda hacer ``custom errors`` en vez de ``require`` statement ya que es 
 error nombreDelContrato__NombreDelError();
 
 ## NatSpec Format
+[SOLIDITY DOCS 🫡](https://docs.soliditylang.org/en/v0.8.21/natspec-format.html)
 ### Para empezar un contrato 
 
 // SPDX-License-Identifier: GPL-3.0
