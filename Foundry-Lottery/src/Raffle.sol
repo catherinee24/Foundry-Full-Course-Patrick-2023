@@ -2,10 +2,10 @@
 pragma solidity 0.8.21;
 
 /**
- * @title: A Sample Raffle Smart Contract
+ * @title A Sample Raffle Smart Contract
  * @author Catherine Maverick
- * @notice: This contract is for creating a sample Raffle Smart Contract
- * @dev: Implements Chainlink VRFv2
+ * @notice This contract is for creating a sample Raffle Smart Contract
+ * @dev Implements Chainlink VRFv2
  */
 contract Raffle {
     /*//////////////////////////////////////////////////////////////
@@ -46,22 +46,16 @@ contract Raffle {
                                 FUNCTIONS
      //////////////////////////////////////////////////////////////*/
 
-    /**
-     * 1. Hacemos una funcion para que las personas puedan entrar a la loteria.
-     *         1.2 - Queremos que las personan paguen algo de ETH para que puedan entrar a la loteria.
-     *         1.3 - Hacemos la funcion (payable) así la funcion puede recibir ETH.
-     */
+    /// @notice Funcion para que los jugadores entren a la Rifa.
+    /// @dev Hacemos la funcion (payable) así la funcion puede recibir ETH.
     function enterRaffle() external payable {
         if (msg.value < i_entranceFee) revert Raffle_NOT_ENOUGH_ETH();
         s_players.push(payable(msg.sender));
         emit EnteredRaflle(msg.sender);
     }
 
-    /**
-     * 1. Hacemos una funcion para obtener un numero aleatoreo.
-     *         1.2 - Usamos el numero random para agarrar un jugador.
-     *         1.3 - Llamaremos al ganador automaticamente.
-     */
+    /// @notice Funcion para obtener un numero aleatorio.
+    /// @dev Usamos el numero random para agarrar un jugador.
     function pickWinner() public {
         /**
          * Chequeamos si ha pasado el tiempo suficiente para elegir un ganador
@@ -75,6 +69,8 @@ contract Raffle {
                           GETTERS FUNCTIONS
      //////////////////////////////////////////////////////////////*/
 
+    /// @notice Retorna el fee que ha pagado un jugador.
+    /// @dev Returns only a fixed number.
     function getEntranceFee() external view returns (uint256) {
         return i_entranceFee;
     }
