@@ -28,14 +28,14 @@ contract Raffle {
      *     @dev s_lastTimeStamp = El ultimo tiempo en segundos.
      */
 
-    uint256 private constant REQUEST_CONFIRMATIONS = 3;
-    uint256 private constant NUM_WORDS = 1;
+    uint16 private constant REQUEST_CONFIRMATIONS = 3;
+    uint32 private constant NUM_WORDS = 1;
 
     uint256 private immutable i_entranceFee;
     uint256 private immutable i_interval;
     uint64 private immutable i_suscriptionId;
     uint32 private immutable i_callbackGasLimit;
-    address private immutable i_vrfCoordinator;
+    VRFCoordinatorV2Interface private immutable i_vrfCoordinator;
     bytes32 private immutable i_gasLane; // keyHash
 
     address payable[] private s_players;
@@ -57,7 +57,7 @@ contract Raffle {
     ) {
         i_entranceFee = entranceFee;
         i_interval = interval;
-        i_vrfCoordinator = vrfCoordinator;
+        i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinator);
         i_suscriptionId = suscriptionId;
         i_gasLane = gasLane;
         i_callbackGasLimit = callbackGasLimit;
@@ -71,7 +71,10 @@ contract Raffle {
     /// @notice Funcion para que los jugadores entren a la Rifa.
     /// @dev Hacemos la funcion (payable) así la funcion puede recibir ETH.
     function enterRaffle() external payable {
-        if (msg.value < i_entranceFee) revert Raffle_NOT_ENOUGH_ETH();
+        if (msg.value < i_entranceFee){
+            revert Raffle__NOT__ENOUGH__ETH();
+        } 
+
         s_players.push(payable(msg.sender));
         emit EnteredRaflle(msg.sender);
     }
@@ -83,11 +86,15 @@ contract Raffle {
          * Chequeamos si ha pasado el tiempo suficiente para elegir un ganador
          */
         if ((block.timestamp - s_lastTimeStamp) < i_interval) {
-            revert;
+            revert();
         }
 
         uint256 requestId = i_vrfCoordinator.requestRandomWords(
-            i_gasLane, i_suscriptionId, REQUEST_CONFIRMATIONS, i_callbackGasLimit, NUM_WORDS
+            i_gasLane,
+            i_suscriptionId,
+            REQUEST_CONFIRMATIONS,
+            i_callbackGasLimit,
+            NUM_WORDS
         );
     }
 
