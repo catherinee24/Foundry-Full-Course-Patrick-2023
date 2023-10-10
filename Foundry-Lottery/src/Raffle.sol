@@ -27,6 +27,7 @@ contract Raffle {
      */
     uint256 private immutable i_entranceFee;
     uint256 private immutable i_interval;
+    uint256 private immutable i_vrfCoordinator;
     address payable[] private s_players;
     uint256 private s_lastTimeStamp;
 
@@ -36,9 +37,10 @@ contract Raffle {
 
     event EnteredRaflle(address indexed player);
 
-    constructor(uint256 entranceFee, uint256 interval) {
+    constructor(uint256 entranceFee, uint256 interval, address vrfCoordinator) {
         i_entranceFee = entranceFee;
         i_interval = interval;
+        i_vrfCoordinator = vrfCoordinator;
         s_lastTimeStamp = block.timestamp;
     }
 
@@ -63,6 +65,14 @@ contract Raffle {
         if ((block.timestamp - s_lastTimeStamp) < i_interval) {
             revert;
         }
+
+        uint256 requestId = i_vrfCoordinator.requestRandomWords(
+            keyHash,
+            s_subscriptionId,
+            requestConfirmations,
+            callbackGasLimit,
+            numWords
+        );
     }
 
     /*//////////////////////////////////////////////////////////////

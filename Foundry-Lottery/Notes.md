@@ -60,5 +60,9 @@ pragma solidity >=0.8.2 < 0.9.0;
 /// @param rings The number of rings from dendrochronological sample
 /// @return Age in years, rounded up for partial years
 
+## Chainlink VRF
+- Chainlink VRF son dos transacciones:
+    1. Request the RNG.
+    2. Get the random number.
 
 
