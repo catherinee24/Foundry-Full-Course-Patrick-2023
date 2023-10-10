@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.21;
 
+import {VRFCoordinatorV2Interface} from "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
+
 /**
  * @title A Sample Raffle Smart Contract
  * @author Catherine Maverick
@@ -25,9 +27,17 @@ contract Raffle {
      *     @dev s_players = array de addressess payable para traquear a los jugadores.
      *     @dev s_lastTimeStamp = El ultimo tiempo en segundos.
      */
+
+    uint256 private constant REQUEST_CONFIRMATIONS = 3;
+    uint256 private constant NUM_WORDS = 1;
+
     uint256 private immutable i_entranceFee;
     uint256 private immutable i_interval;
-    uint256 private immutable i_vrfCoordinator;
+    uint64 private immutable i_suscriptionId;
+    uint32 private immutable i_callbackGasLimit;
+    address private immutable i_vrfCoordinator;
+    bytes32 private immutable i_gasLane; // keyHash
+
     address payable[] private s_players;
     uint256 private s_lastTimeStamp;
 
@@ -37,10 +47,20 @@ contract Raffle {
 
     event EnteredRaflle(address indexed player);
 
-    constructor(uint256 entranceFee, uint256 interval, address vrfCoordinator) {
+    constructor(
+        uint256 entranceFee,
+        uint256 interval,
+        address vrfCoordinator,
+        bytes32 gasLane,
+        uint64 suscriptionId,
+        uint32 callbackGasLimit
+    ) {
         i_entranceFee = entranceFee;
         i_interval = interval;
         i_vrfCoordinator = vrfCoordinator;
+        i_suscriptionId = suscriptionId;
+        i_gasLane = gasLane;
+        i_callbackGasLimit = callbackGasLimit;
         s_lastTimeStamp = block.timestamp;
     }
 
@@ -67,11 +87,7 @@ contract Raffle {
         }
 
         uint256 requestId = i_vrfCoordinator.requestRandomWords(
-            keyHash,
-            s_subscriptionId,
-            requestConfirmations,
-            callbackGasLimit,
-            numWords
+            i_gasLane, i_suscriptionId, REQUEST_CONFIRMATIONS, i_callbackGasLimit, NUM_WORDS
         );
     }
 
