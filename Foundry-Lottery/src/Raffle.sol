@@ -2,7 +2,7 @@
 pragma solidity 0.8.18;
 
 import {VRFCoordinatorV2Interface} from "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
-import {VRFConsumerBaseV2} from "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBaseV2.sol";
+import {VRFConsumerBaseV2} from "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 
 /**
  * @title A Sample Raffle Smart Contract
@@ -39,16 +39,19 @@ contract Raffle is VRFConsumerBaseV2 {
      *     @dev s_lastTimeStamp = El ultimo tiempo en segundos.
      */
 
+    //Chainlink VRF Variables
+
     uint16 private constant REQUEST_CONFIRMATIONS = 3;
     uint32 private constant NUM_WORDS = 1;
 
-    uint256 private immutable i_entranceFee;
     uint256 private immutable i_interval;
     uint64 private immutable i_suscriptionId;
     uint32 private immutable i_callbackGasLimit;
     VRFCoordinatorV2Interface private immutable i_vrfCoordinator;
     bytes32 private immutable i_gasLane; // keyHash
 
+    // Lottery Variables
+    uint256 private immutable i_entranceFee;
     address payable[] private s_players;
     uint256 private s_lastTimeStamp;
     address private s_recentWinner;
@@ -64,17 +67,17 @@ contract Raffle is VRFConsumerBaseV2 {
     constructor(
         uint256 entranceFee,
         uint256 interval,
-        address vrfCoordinator,
+        address vrfCoordinatorV2,
         bytes32 gasLane,
         uint64 suscriptionId,
         uint32 callbackGasLimit
-    ) VRFConsumerBaseV2(vrfCoordinator) {
-        i_entranceFee = entranceFee;
-        i_interval = interval;
-        i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinator);
+    ) VRFConsumerBaseV2(vrfCoordinatorV2) {
+        i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinatorV2);
         i_suscriptionId = suscriptionId;
+        i_interval = interval;
         i_gasLane = gasLane;
         i_callbackGasLimit = callbackGasLimit;
+        i_entranceFee = entranceFee;
 
         s_raffleState = RaffleState.OPEN;
         s_lastTimeStamp = block.timestamp;
