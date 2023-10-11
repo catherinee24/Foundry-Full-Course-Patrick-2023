@@ -1,4 +1,5 @@
 # Lesson 9: 🤩 https://github.com/catherinee24/Foundry-Course-Patrick
+4:16:01
 Foudry course: FOUNDRY-LOTTERY
 ``En esta parte del curso vamos a estar desarrollando una loteria con solidity y testeada con Foundry. Aprenderemos muchas cosas interesantes de foundry y buenas practicas a la hora de desarrollar un Proyecto Web3. ``
 ``rm -rf`` remove -removeforce ---------> Comando para eliminar una carpeta de nuestro path.
