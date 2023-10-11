@@ -17,6 +17,17 @@ contract Raffle is VRFConsumerBaseV2 {
 
     error Raffle__NOT__ENOUGH__ETH();
     error Raffle__TRANSFER__FAILED();
+    error Raffle__RAFFLE__NOT__OPEN();
+
+    /*//////////////////////////////////////////////////////////////
+                          TYPE DECLARATIONS
+     //////////////////////////////////////////////////////////////*/
+     enum RaffleState{
+        OPEN,       // 0
+        CALCULATING // 1
+     }
+
+
 
     /*//////////////////////////////////////////////////////////////
                          VARIABLES DE ESTADO
@@ -43,6 +54,8 @@ contract Raffle is VRFConsumerBaseV2 {
     address payable[] private s_players;
     uint256 private s_lastTimeStamp;
     address private s_recentWinner;
+    RaffleState private s_raffleState;
+
 
     /*//////////////////////////////////////////////////////////////
                                 EVENTS
@@ -64,6 +77,8 @@ contract Raffle is VRFConsumerBaseV2 {
         i_suscriptionId = suscriptionId;
         i_gasLane = gasLane;
         i_callbackGasLimit = callbackGasLimit;
+
+        s_raffleState = RaffleState.OPEN;
         s_lastTimeStamp = block.timestamp;
     }
 
@@ -74,9 +89,11 @@ contract Raffle is VRFConsumerBaseV2 {
     /// @notice Funcion para que los jugadores entren a la Rifa.
     /// @dev Hacemos la funcion (payable) así la funcion puede recibir ETH.
     function enterRaffle() external payable {
-        if (msg.value < i_entranceFee){
+        if (msg.value < i_entranceFee) {
             revert Raffle__NOT__ENOUGH__ETH();
-        } 
+        }
+
+        if(s_raffleState != RaffleState.OPEN) revert Raffle__RAFFLE__NOT__OPEN();
 
         s_players.push(payable(msg.sender));
         emit EnteredRaflle(msg.sender);
@@ -93,11 +110,7 @@ contract Raffle is VRFConsumerBaseV2 {
         }
 
         uint256 requestId = i_vrfCoordinator.requestRandomWords(
-            i_gasLane,
-            i_suscriptionId,
-            REQUEST_CONFIRMATIONS,
-            i_callbackGasLimit,
-            NUM_WORDS
+            i_gasLane, i_suscriptionId, REQUEST_CONFIRMATIONS, i_callbackGasLimit, NUM_WORDS
         );
     }
 
@@ -105,9 +118,9 @@ contract Raffle is VRFConsumerBaseV2 {
         uint256 indexOfWinner = randomWords[0] % s_players.length;
         address payable winner = s_players[indexOfWinner];
         s_recentWinner = winner;
-        (bool success, ) = winner.call{value: address(this).balance}("");
-        if(!success) revert Raffle__TRANSFER__FAILED();
-
+        (bool success,) = winner.call{value: address(this).balance}("");
+        if (!success) revert Raffle__TRANSFER__FAILED();
+    }
 
     /*//////////////////////////////////////////////////////////////
                           GETTERS FUNCTIONS
@@ -115,7 +128,7 @@ contract Raffle is VRFConsumerBaseV2 {
 
     /// @notice Retorna el fee que ha pagado un jugador.
     /// @dev Returns only a fixed number.
-    function getEntranceFee() external view returns (uint256) {
+    function getEntranceFee() public view returns (uint256) {
         return i_entranceFee;
     }
 }
