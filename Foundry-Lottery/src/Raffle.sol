@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.21;
+pragma solidity 0.8.18;
 
 import {VRFCoordinatorV2Interface} from "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 import {VRFConsumerBaseV2} from "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBaseV2.sol";
@@ -99,7 +99,9 @@ contract Raffle is VRFConsumerBaseV2 {
         );
     }
 
-    function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords) internal override {}
+    function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords) internal override {
+        uint256 indexOfWinner = randomWords[0] % s_players.length;
+    }
 
     /*//////////////////////////////////////////////////////////////
                           GETTERS FUNCTIONS
