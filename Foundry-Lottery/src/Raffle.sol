@@ -18,6 +18,11 @@ contract Raffle is VRFConsumerBaseV2 {
     error Raffle__NOT__ENOUGH__ETH();
     error Raffle__TRANSFER__FAILED();
     error Raffle__RAFFLE__NOT__OPEN();
+    error Raffle__UpKeepNotNeeded(
+        uint256 currentBalance,
+        uint256 numPlayers,
+        uint256 raffleState
+    );
 
     /*//////////////////////////////////////////////////////////////
                           TYPE DECLARATIONS
@@ -64,6 +69,9 @@ contract Raffle is VRFConsumerBaseV2 {
     event EnteredRaflle(address indexed player);
     event PickedWinner(address indexed winner);
 
+    /*//////////////////////////////////////////////////////////////
+                             CONSTRUCTOR
+    //////////////////////////////////////////////////////////////*/
     constructor(
         uint256 entranceFee,
         uint256 interval,
@@ -111,11 +119,9 @@ contract Raffle is VRFConsumerBaseV2 {
      * 3. The contract has ETH.
      * 4. Implicity, your subscription is funded with LINK.
      */
-    function checkUpKeep(bytes memory /*checkData*/ )
-        public
-        view
-        returns (bool upKeepNeeded, bytes memory /*performData*/ )
-    {
+    function checkUpKeep(
+        bytes memory /*checkData*/
+    ) public view returns (bool upKeepNeeded, bytes memory /*performData*/) {
         bool timeHasPassed = (block.timestamp - s_lastTimeStamp) >= i_interval;
         bool isOpen = s_raffleState == RaffleState.OPEN;
         bool hasBalance = address(this).balance > 0;
@@ -127,22 +133,30 @@ contract Raffle is VRFConsumerBaseV2 {
 
     /// @notice Funcion para obtener un numero aleatorio.
     /// @dev Usamos el numero random para agarrar un jugador.
-    function pickWinner() public {
-        /**
-         * Chequeamos si ha pasado el tiempo suficiente para elegir un ganador
-         */
-        if ((block.timestamp - s_lastTimeStamp) < i_interval) {
-            revert();
-        }
+    function performUpkeep(bytes calldata /* performData */) external {
+        (bool upKeepNeeded, ) = checkUpKeep("");
+        if (!upKeepNeeded)
+            revert Raffle__UpKeepNotNeeded(
+                address(this).balance,
+                s_players.length,
+                uint256(s_raffleState)
+            );
 
         s_raffleState = RaffleState.CALCULATING;
 
         uint256 requestId = i_vrfCoordinator.requestRandomWords(
-            i_gasLane, i_suscriptionId, REQUEST_CONFIRMATIONS, i_callbackGasLimit, NUM_WORDS
+            i_gasLane,
+            i_suscriptionId,
+            REQUEST_CONFIRMATIONS,
+            i_callbackGasLimit,
+            NUM_WORDS
         );
     }
 
-    function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords) internal override {
+    function fulfillRandomWords(
+        uint256 requestId,
+        uint256[] memory randomWords
+    ) internal override {
         /**
          * Patrón de diseño [Checks - Effects - Interactions] Para evitar bugs como reentrancy
          *         CHECKS
@@ -165,7 +179,7 @@ contract Raffle is VRFConsumerBaseV2 {
         /**
          * INTERACTIONS (With other contracts)
          */
-        (bool success,) = winner.call{value: address(this).balance}("");
+        (bool success, ) = winner.call{value: address(this).balance}("");
         if (!success) revert Raffle__TRANSFER__FAILED();
     }
 
