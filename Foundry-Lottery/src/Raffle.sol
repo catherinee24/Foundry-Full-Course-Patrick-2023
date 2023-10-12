@@ -120,6 +120,15 @@ contract Raffle is VRFConsumerBaseV2 {
     }
 
     function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords) internal override {
+        /**
+         * Patrón de diseño [Checks - Effects - Interactions] Para evitar bugs como reentrancy 
+         *         CHECKS
+         *         require() or (if --> errors)
+         */
+
+        /**
+         * EFFECTS (Our own contract)
+         */
         uint256 indexOfWinner = randomWords[0] % s_players.length;
         address payable winner = s_players[indexOfWinner];
         s_recentWinner = winner;
@@ -128,10 +137,13 @@ contract Raffle is VRFConsumerBaseV2 {
         // Reseteamos el array para que haya una nueva rifa.
         s_players = new address payable[](0);
         s_lastTimeStamp = block.timestamp;
+        emit PickedWinner(winner);
+
+        /**
+         * INTERACTIONS (With other contracts)
+         */
         (bool success,) = winner.call{value: address(this).balance}("");
         if (!success) revert Raffle__TRANSFER__FAILED();
-
-        emit PickedWinner(winner);
     }
 
     /*//////////////////////////////////////////////////////////////
