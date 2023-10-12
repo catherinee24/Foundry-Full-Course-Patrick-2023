@@ -102,9 +102,28 @@ contract Raffle is VRFConsumerBaseV2 {
         emit EnteredRaflle(msg.sender);
     }
 
-    function checkUpKeep(
-        bytes memory /*checkData*/
-    ) public view returns (bool upKeepNeeded, bytes memory /*performData*/) {}
+    /**
+     * @dev This is the function that the Chainlink Keeper nodes call
+     * they look for `upkeepNeeded` to return True.
+     * the following should be true for this to return true:
+     * 1. The time interval has passed between raffle runs.
+     * 2. The lottery is open.
+     * 3. The contract has ETH.
+     * 4. Implicity, your subscription is funded with LINK.
+     */
+    function checkUpKeep(bytes memory /*checkData*/ )
+        public
+        view
+        returns (bool upKeepNeeded, bytes memory /*performData*/ )
+    {
+        bool timeHasPassed = (block.timestamp - s_lastTimeStamp) >= i_interval;
+        bool isOpen = s_raffleState == RaffleState.OPEN;
+        bool hasBalance = address(this).balance > 0;
+        bool hasPlayers = s_players.length > 0;
+
+        upKeepNeeded = (timeHasPassed && isOpen && hasBalance && hasPlayers);
+        return (upKeepNeeded, "0x0");
+    }
 
     /// @notice Funcion para obtener un numero aleatorio.
     /// @dev Usamos el numero random para agarrar un jugador.
@@ -119,18 +138,11 @@ contract Raffle is VRFConsumerBaseV2 {
         s_raffleState = RaffleState.CALCULATING;
 
         uint256 requestId = i_vrfCoordinator.requestRandomWords(
-            i_gasLane,
-            i_suscriptionId,
-            REQUEST_CONFIRMATIONS,
-            i_callbackGasLimit,
-            NUM_WORDS
+            i_gasLane, i_suscriptionId, REQUEST_CONFIRMATIONS, i_callbackGasLimit, NUM_WORDS
         );
     }
 
-    function fulfillRandomWords(
-        uint256 requestId,
-        uint256[] memory randomWords
-    ) internal override {
+    function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords) internal override {
         /**
          * Patrón de diseño [Checks - Effects - Interactions] Para evitar bugs como reentrancy
          *         CHECKS
@@ -153,7 +165,7 @@ contract Raffle is VRFConsumerBaseV2 {
         /**
          * INTERACTIONS (With other contracts)
          */
-        (bool success, ) = winner.call{value: address(this).balance}("");
+        (bool success,) = winner.call{value: address(this).balance}("");
         if (!success) revert Raffle__TRANSFER__FAILED();
     }
 
