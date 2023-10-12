@@ -66,6 +66,6 @@ pragma solidity >=0.8.2 < 0.9.0;
     1. Request the RNG.
     2. Get the random number.
 
-## Checks - Effects - Interactions 
+## Chainlink Automations
 
 

@@ -102,6 +102,10 @@ contract Raffle is VRFConsumerBaseV2 {
         emit EnteredRaflle(msg.sender);
     }
 
+    function checkUpKeep(
+        bytes memory /*checkData*/
+    ) public view returns (bool upKeepNeeded, bytes memory /*performData*/) {}
+
     /// @notice Funcion para obtener un numero aleatorio.
     /// @dev Usamos el numero random para agarrar un jugador.
     function pickWinner() public {
@@ -115,13 +119,20 @@ contract Raffle is VRFConsumerBaseV2 {
         s_raffleState = RaffleState.CALCULATING;
 
         uint256 requestId = i_vrfCoordinator.requestRandomWords(
-            i_gasLane, i_suscriptionId, REQUEST_CONFIRMATIONS, i_callbackGasLimit, NUM_WORDS
+            i_gasLane,
+            i_suscriptionId,
+            REQUEST_CONFIRMATIONS,
+            i_callbackGasLimit,
+            NUM_WORDS
         );
     }
 
-    function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords) internal override {
+    function fulfillRandomWords(
+        uint256 requestId,
+        uint256[] memory randomWords
+    ) internal override {
         /**
-         * Patrón de diseño [Checks - Effects - Interactions] Para evitar bugs como reentrancy 
+         * Patrón de diseño [Checks - Effects - Interactions] Para evitar bugs como reentrancy
          *         CHECKS
          *         require() or (if --> errors)
          */
@@ -142,7 +153,7 @@ contract Raffle is VRFConsumerBaseV2 {
         /**
          * INTERACTIONS (With other contracts)
          */
-        (bool success,) = winner.call{value: address(this).balance}("");
+        (bool success, ) = winner.call{value: address(this).balance}("");
         if (!success) revert Raffle__TRANSFER__FAILED();
     }
 
