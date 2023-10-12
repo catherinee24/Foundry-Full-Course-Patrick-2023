@@ -94,8 +94,9 @@ contract Raffle is VRFConsumerBaseV2 {
             revert Raffle__NOT__ENOUGH__ETH();
         }
 
-        if (s_raffleState != RaffleState.OPEN)
+        if (s_raffleState != RaffleState.OPEN) {
             revert Raffle__RAFFLE__NOT__OPEN();
+        }
 
         s_players.push(payable(msg.sender));
         emit EnteredRaflle(msg.sender);
@@ -114,18 +115,11 @@ contract Raffle is VRFConsumerBaseV2 {
         s_raffleState = RaffleState.CALCULATING;
 
         uint256 requestId = i_vrfCoordinator.requestRandomWords(
-            i_gasLane,
-            i_suscriptionId,
-            REQUEST_CONFIRMATIONS,
-            i_callbackGasLimit,
-            NUM_WORDS
+            i_gasLane, i_suscriptionId, REQUEST_CONFIRMATIONS, i_callbackGasLimit, NUM_WORDS
         );
     }
 
-    function fulfillRandomWords(
-        uint256 requestId,
-        uint256[] memory randomWords
-    ) internal override {
+    function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords) internal override {
         uint256 indexOfWinner = randomWords[0] % s_players.length;
         address payable winner = s_players[indexOfWinner];
         s_recentWinner = winner;
@@ -134,7 +128,7 @@ contract Raffle is VRFConsumerBaseV2 {
         // Reseteamos el array para que haya una nueva rifa.
         s_players = new address payable[](0);
         s_lastTimeStamp = block.timestamp;
-        (bool success, ) = winner.call{value: address(this).balance}("");
+        (bool success,) = winner.call{value: address(this).balance}("");
         if (!success) revert Raffle__TRANSFER__FAILED();
 
         emit PickedWinner(winner);
