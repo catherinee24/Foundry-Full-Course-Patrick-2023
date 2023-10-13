@@ -4,7 +4,6 @@ pragma solidity 0.8.18;
 import {Script} from "forge-std/Script.sol";
 import {Raffle} from "../src/Raffle.sol";
 
-
 /**
  * @title A Sample Raffle Smart Contract Deploy
  * @author Catherine Maverick
