@@ -67,6 +67,10 @@ pragma solidity >=0.8.2 < 0.9.0;
     2. Get the random number.
 
 ## Test & Deploy Script Setup for the Raffle Smart Contract 
-
+1. Vamos a escribir algunos scripts de deploy.
+2. vamos a escribir nuestro test
+    1. Work on a local chain 
+    2. Forked testnet 
+    3. Forked Mainnet 
 
 
