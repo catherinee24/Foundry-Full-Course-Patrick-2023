@@ -5,6 +5,9 @@ import {Script} from "forge-std/Script.sol";
 import {Raffle} from "../src/Raffle.sol";
 
 contract HelperConfig is Script {
+
+    NetworkConfig public activeNetworkConfig;
+
     struct NetworkConfig {
         uint256 entranceFee;
         uint256 interval;
@@ -12,6 +15,15 @@ contract HelperConfig is Script {
         bytes32 gasLane; 
         uint64 suscriptionId;
         uint32 callbackGasLimit;
+    }
+
+    constructor() {
+        // SEPOLIA CHAINID 11155111
+        if (block.chainid == 11155111) {
+            activeNetworkConfing = getSepoliaEthConfig();
+        } else {
+            activeNetworkConfing = getOrCreateAnvilEthConfig();
+        }
     }
 
     function getSepoliaEthConfig() public view returns(NetworkConfig memory){
@@ -23,5 +35,9 @@ contract HelperConfig is Script {
             suscriptionId = 0,
             callbackGasLimit = 500000 // 500,000 gas!!
         });
+    }
+
+    function getOrCreateAnvilEthConfig() public view returns(NetworkConfig memory){
+
     }
 }
