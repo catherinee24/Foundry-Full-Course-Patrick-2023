@@ -41,4 +41,13 @@ contract RaffleTest is Test {
         // Escribimos Raffle.RaffleState.OPEN diciendo: en el contrato `Raffle` encuentra un type `RaffleState` y que este OPEN.
         assert(raffle.getRaffleState() == Raffle.RaffleState.OPEN);
     }
+
+    /*//////////////////////////////////////////////////////////////
+                        ENTER RAFFLE TEST
+    //////////////////////////////////////////////////////////////*/
+    function testRaffleRevertsWhenYouDontPayEnough() public {
+        // Arrange
+        // Act 
+        //Assert
+    }    
 }
