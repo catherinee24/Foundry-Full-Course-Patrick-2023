@@ -14,7 +14,7 @@ contract DeployRaffle is Script {
     /**
      * Para deployar un contrato, hacemos una funcion llamada run(). Dentro de la funcion deployamos el contrato HelperConfig() que hicimos para saber con cual network estamos trabajando. Luego llamamos los parametros del contructor de nuestro contrato, que tambien definimos en el struct en el contrato HelperConfig().
      */
-    function run() external returns (Raffle) {
+    function run() external returns (Raffle, HelperConfig) {
         HelperConfig helperConfig = new HelperConfig();
         (
             uint256 entranceFee,
@@ -36,6 +36,6 @@ contract DeployRaffle is Script {
         );
         vm.stopBroadcast();
 
-        return raffle;
+        return (raffle, helperConfig);
     }
 }
