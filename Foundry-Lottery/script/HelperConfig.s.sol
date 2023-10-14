@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.18;
+pragma solidity 0.8.19;
 
 import {Script} from "forge-std/Script.sol";
 import {Raffle} from "../src/Raffle.sol";
 import {VRFCoordinatorV2Mock} from "@chainlink/contracts/src/v0.8/mocks/VRFCoordinatorV2Mock.sol";
 
-contract HelperConfig is Script, VRFCoordinatorV2Mock {
+contract HelperConfig is Script {
     NetworkConfig public activeNetworkConfig;
 
     // En el struct esta todo lo que tenemos en el contructor del contrato Raffle.

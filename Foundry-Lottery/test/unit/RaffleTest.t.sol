@@ -1,11 +1,12 @@
 //SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.18;
+pragma solidity 0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
 import {DeployRaffle} from "../../script/DeployRaffle.s.sol";
 import {Raffle} from "../../src/Raffle.sol";
 import {HelperConfig} from "../../script/HelperConfig.s.sol";
+import {Vm} from "forge-std/Vm.sol";
 
 contract RaffleTest is Test {
     /**
@@ -47,7 +48,11 @@ contract RaffleTest is Test {
     //////////////////////////////////////////////////////////////*/
     function testRaffleRevertsWhenYouDontPayEnough() public {
         // Arrange
-        // Act 
-        //Assert
+        vm.prank(PLAYER);
+
+        // Act /Assert
+        vm.expectRevert(Raffle.Raffle__NOT__ENOUGH__ETH.selector);
+        raffle.enterRaffle();
+
     }    
 }
