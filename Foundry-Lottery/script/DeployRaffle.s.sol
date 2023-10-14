@@ -11,6 +11,9 @@ import {HelperConfig} from "./HelperConfig.s.sol";
  * @notice This contract is for creating a sample Raffle Smart Contract Script Deploy.
  */
 contract DeployRaffle is Script {
+    /**
+     * Para deployar un contrato, hacemos una funcion llamada run(). Dentro de la funcion deployamos el contrato HelperConfig() que hicimos para saber con cual network estamos trabajando. Luego llamamos los parametros del contructor de nuestro contrato, que tambien definimos en el struct en el contrato HelperConfig().
+     */
     function run() external returns (Raffle) {
         HelperConfig helperConfig = new HelperConfig();
         (
