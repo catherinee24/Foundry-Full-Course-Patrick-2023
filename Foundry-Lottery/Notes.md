@@ -73,6 +73,11 @@ pragma solidity >=0.8.2 < 0.9.0;
     2. Forked testnet 
     3. Forked Mainnet 
 
+## vm.roll and vm.warp (FOUNDRY)
+- Foundry Cheatcodes Reference
+[vm.warp](https://book.getfoundry.sh/cheatcodes/warp?highlight=vm.warp#examples): Sets **block.timestamp**.
+[vm.roll](https://book.getfoundry.sh/cheatcodes/roll?highlight=vm.roll#examples): Sets **block.number**.
+
 
 
 
