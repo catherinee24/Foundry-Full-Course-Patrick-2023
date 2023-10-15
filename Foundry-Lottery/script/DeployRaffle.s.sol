@@ -21,11 +21,11 @@ contract DeployRaffle is Script {
             uint256 interval,
             address vrfCoordinatorV2,
             bytes32 gasLane,
-            uint64 suscriptionId,
+            uint64 subscriptionId,
             uint32 callbackGasLimit
         ) = helperConfig.activeNetworkConfig();
 
-        if(suscriptionId == 0) {
+        if(subscriptionId == 0) {
             //¡Necesitamos crear una suscripción!
         }
 
@@ -35,7 +35,7 @@ contract DeployRaffle is Script {
             interval,
             vrfCoordinatorV2,
             gasLane,
-            suscriptionId,
+            subscriptionId,
             callbackGasLimit
         );
         vm.stopBroadcast();

@@ -29,7 +29,7 @@ contract RaffleTest is Test {
     uint256 interval;
     address vrfCoordinatorV2;
     bytes32 gasLane;
-    uint64 suscriptionId;
+    uint64 subscriptionId;
     uint32 callbackGasLimit;
 
     /**
@@ -44,7 +44,7 @@ contract RaffleTest is Test {
             interval,
             vrfCoordinatorV2,
             gasLane,
-            suscriptionId,
+            subscriptionId,
             callbackGasLimit
         ) = helperConfig.activeNetworkConfig();
 

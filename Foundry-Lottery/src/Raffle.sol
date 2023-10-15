@@ -46,7 +46,7 @@ contract Raffle is VRFConsumerBaseV2 {
     uint32 private constant NUM_WORDS = 1;
 
     uint256 private immutable i_interval;
-    uint64 private immutable i_suscriptionId;
+    uint64 private immutable i_subscriptionId;
     uint32 private immutable i_callbackGasLimit;
     VRFCoordinatorV2Interface private immutable i_vrfCoordinator;
     bytes32 private immutable i_gasLane; // keyHash
@@ -73,11 +73,11 @@ contract Raffle is VRFConsumerBaseV2 {
         uint256 interval,
         address vrfCoordinatorV2,
         bytes32 gasLane,
-        uint64 suscriptionId,
+        uint64 subscriptionId,
         uint32 callbackGasLimit
     ) VRFConsumerBaseV2(vrfCoordinatorV2) {
         i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinatorV2);
-        i_suscriptionId = suscriptionId;
+        i_subscriptionId = subscriptionId;
         i_interval = interval;
         i_gasLane = gasLane;
         i_callbackGasLimit = callbackGasLimit;
@@ -140,7 +140,7 @@ contract Raffle is VRFConsumerBaseV2 {
         s_raffleState = RaffleState.CALCULATING;
 
         i_vrfCoordinator.requestRandomWords(
-            i_gasLane, i_suscriptionId, REQUEST_CONFIRMATIONS, i_callbackGasLimit, NUM_WORDS
+            i_gasLane, i_subscriptionId, REQUEST_CONFIRMATIONS, i_callbackGasLimit, NUM_WORDS
         );
     }
 
