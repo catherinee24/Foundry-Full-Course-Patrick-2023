@@ -44,7 +44,7 @@ contract RaffleTest is Test {
     }
 
     /*//////////////////////////////////////////////////////////////
-                        ENTER RAFFLE TEST
+                         ENTER RAFFLE TEST
     //////////////////////////////////////////////////////////////*/
     function testRaffleRevertsWhenYouDontPayEnough() public {
         // Arrange
@@ -53,6 +53,7 @@ contract RaffleTest is Test {
         // Act /Assert
         vm.expectRevert(Raffle.Raffle__NOT__ENOUGH__ETH.selector);
         raffle.enterRaffle();
+    }
 
-    }    
+    function testRaffleRecordsPlayerWhenTheyEnter() public {}    
 }
