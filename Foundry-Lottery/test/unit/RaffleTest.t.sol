@@ -77,5 +77,6 @@ contract RaffleTest is Test {
 
     function testEmitsEventOnEntrance() public {
         vm.startPrank(PLAYER);
+        vm.expectEmit(true, false, false,false, address(raffle));
     }
 }
