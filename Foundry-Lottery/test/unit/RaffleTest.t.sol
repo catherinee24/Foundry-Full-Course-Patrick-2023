@@ -9,6 +9,11 @@ import {HelperConfig} from "../../script/HelperConfig.s.sol";
 import {Vm} from "forge-std/Vm.sol";
 
 contract RaffleTest is Test {
+    /*//////////////////////////////////////////////////////////////
+                                EVENTS
+    //////////////////////////////////////////////////////////////*/
+    event EnteredRaflle(address indexed player);
+    
     /**
      * Variables de los contratos que vamos a deployar
      */
@@ -78,5 +83,7 @@ contract RaffleTest is Test {
     function testEmitsEventOnEntrance() public {
         vm.startPrank(PLAYER);
         vm.expectEmit(true, false, false,false, address(raffle));
+        emit EnteredRaflle(PLAYER);
+        raffle.enterRaffle{value: entranceFee}();
     }
 }
