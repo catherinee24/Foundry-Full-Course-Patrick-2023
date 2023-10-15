@@ -90,5 +90,12 @@ contract RaffleTest is Test {
     function testCantEnterWhenRaffleIsCalculating() public {
         vm.startPrank(PLAYER);
         raffle.enterRaffle{value: entranceFee}();
+        vm.warp(block.timestamp + interval + 1);
+        vm.roll(block.number + 1);
+        raffle.performUpkeep("");
+
+        vm.expectRevert(Raffle.Raffle__RAFFLE__NOT__OPEN.selector);
+        vm.startPrank(PLAYER);
+        raffle.enterRaffle{value: entranceFee}();
     }
 }
