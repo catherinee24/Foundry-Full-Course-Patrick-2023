@@ -16,3 +16,6 @@
 [submodule "Foundry-Lottery/lib/solmate"]
 	path = Foundry-Lottery/lib/solmate
 	url = https://github.com/transmissions11/solmate
+[submodule "Foundry-Lottery/lib/foundry-devops"]
+	path = Foundry-Lottery/lib/foundry-devops
+	url = https://github.com/ChainAccelOrg/foundry-devops
