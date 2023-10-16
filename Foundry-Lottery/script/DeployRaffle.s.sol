@@ -3,7 +3,8 @@ pragma solidity 0.8.19;
 
 import {Script} from "forge-std/Script.sol";
 import {Raffle} from "../src/Raffle.sol";
-import {HelperConfig} from "./HelperConfig.s.sol";
+import {HelperConfig} from "./HelperConfig.7s.sol";
+import {CreateSubscriptions} from "../script/Interactions.s.sol";
 
 /**
  * @title A Sample Raffle Smart Contract Deploy
