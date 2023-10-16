@@ -25,7 +25,7 @@ contract DeployRaffle is Script {
             uint32 callbackGasLimit
         ) = helperConfig.activeNetworkConfig();
 
-        if(subscriptionId == 0) {
+        if (subscriptionId == 0) {
             //¡Necesitamos crear una suscripción!
         }
 

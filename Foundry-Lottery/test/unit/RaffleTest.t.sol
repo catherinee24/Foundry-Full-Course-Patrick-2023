@@ -13,7 +13,7 @@ contract RaffleTest is Test {
                                 EVENTS
     //////////////////////////////////////////////////////////////*/
     event EnteredRaflle(address indexed player);
-    
+
     /**
      * Variables de los contratos que vamos a deployar
      */
@@ -39,14 +39,8 @@ contract RaffleTest is Test {
         deployer = new DeployRaffle();
         (raffle, helperConfig) = deployer.run();
 
-        (
-            entranceFee,
-            interval,
-            vrfCoordinatorV2,
-            gasLane,
-            subscriptionId,
-            callbackGasLimit
-        ) = helperConfig.activeNetworkConfig();
+        (entranceFee, interval, vrfCoordinatorV2, gasLane, subscriptionId, callbackGasLimit) =
+            helperConfig.activeNetworkConfig();
 
         vm.deal(PLAYER, STARTING_USER_BALANCE);
     }
@@ -82,7 +76,7 @@ contract RaffleTest is Test {
 
     function testEmitsEventOnEntrance() public {
         vm.startPrank(PLAYER);
-        vm.expectEmit(true, false, false,false, address(raffle));
+        vm.expectEmit(true, false, false, false, address(raffle));
         emit EnteredRaflle(PLAYER);
         raffle.enterRaffle{value: entranceFee}();
     }
