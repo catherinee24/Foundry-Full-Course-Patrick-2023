@@ -5,6 +5,7 @@ pragma solidity 0.8.19;
 import {Script, console} from "forge-std/Script.sol";
 import {HelperConfig} from "./HelperConfig.s.sol";
 import {VRFCoordinatorV2Mock} from "@chainlink/contracts/src/v0.8/mocks/VRFCoordinatorV2Mock.sol";
+import {LinkToken} from "../test/mocks/LinkToken.sol";
 
 contract CreateSubscriptions is Script {
     HelperConfig helperConfig;
@@ -55,10 +56,30 @@ contract FundSubscription is Script {
         fundSubscription(vrfCoordinatorV2, subscriptionId, link);
     }
 
-    function fundSubscription(address vrfCoordinatorV2, uint64 subscriptionId, address link) public {
-        console.log("Funding subscription:", subscripcion);
+    function fundSubscription(
+        address vrfCoordinatorV2,
+        uint64 subscriptionId,
+        address link
+    ) public {
+        console.log("Funding subscription:", subscriptionId);
         console.log("Using VRFCoordinator:", vrfCoordinatorV2);
         console.log("On ChainId:", block.chainid);
+        if (block.chainid == 31337) {
+            vm.startBroadcast();
+            VRFCoordinatorV2Mock(vrfCoordinatorV2).fundSubscription(
+                subscriptionId,
+                FUND_AMOUNT
+            );
+            vm.stopBroadcast();
+        } else {
+            vm.startBroadcast();
+            LinkToken(link).transferAndCall(
+                vrfCoordinatorV2,
+                FUND_AMOUNT,
+                abi.encode(subscriptionId)
+            );
+            vm.stopBroadcast();
+        }
     }
 
     function run() external {
