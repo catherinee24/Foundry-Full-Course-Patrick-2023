@@ -2,8 +2,8 @@
 pragma solidity 0.8.19;
 
 import {Script} from "forge-std/Script.sol";
-import {Raffle} from "../src/Raffle.sol";
 import {VRFCoordinatorV2Mock} from "@chainlink/contracts/src/v0.8/mocks/VRFCoordinatorV2Mock.sol";
+import {LinkToken} from "../test/mocks/LinkToken.sol";
 
 contract HelperConfig is Script {
     NetworkConfig public activeNetworkConfig;
@@ -29,15 +29,16 @@ contract HelperConfig is Script {
     }
 
     function getSepoliaEthConfig() public pure returns (NetworkConfig memory) {
-        return NetworkConfig({
-            entranceFee: 0.01 ether,
-            interval: 30,
-            vrfCoordinatorV2: 0x8103B0A8A00be2DDC778e6e7eaa21791Cd364625,
-            gasLane: 0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c, // Keyhash: https://docs.chain.link/vrf/v2/subscription/supported-networks
-            subscriptionId: 0,
-            callbackGasLimit: 500000, // 500,000 gas!!
-            link: 0x779877A7B0D9E8603169DdbD7836e478b4624789 // LINK TOKEN ADDRESS
-        });
+        return
+            NetworkConfig({
+                entranceFee: 0.01 ether,
+                interval: 30,
+                vrfCoordinatorV2: 0x8103B0A8A00be2DDC778e6e7eaa21791Cd364625,
+                gasLane: 0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c, // Keyhash: https://docs.chain.link/vrf/v2/subscription/supported-networks
+                subscriptionId: 0,
+                callbackGasLimit: 500000, // 500,000 gas!!
+                link: 0x779877A7B0D9E8603169DdbD7836e478b4624789 // LINK TOKEN ADDRESS
+            });
     }
 
     function getOrCreateAnvilEthConfig() public returns (NetworkConfig memory) {
@@ -49,16 +50,23 @@ contract HelperConfig is Script {
         uint96 gasPriceLink = 1e9; // 1 gwei LINK
 
         vm.startBroadcast();
-        VRFCoordinatorV2Mock vrfCoordinatorV2Mock = new VRFCoordinatorV2Mock(baseFee, gasPriceLink);
+        VRFCoordinatorV2Mock vrfCoordinatorV2Mock = new VRFCoordinatorV2Mock(
+            baseFee,
+            gasPriceLink
+        );
+
+        LinkToken link = new LinkToken();
         vm.stopBroadcast();
 
-        return NetworkConfig({
-            entranceFee: 0.01 ether,
-            interval: 30,
-            vrfCoordinatorV2: address(vrfCoordinatorV2Mock),
-            gasLane: 0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c, // Keyhash: https://docs.chain.link/vrf/v2/subscription/supported-networks
-            subscriptionId: 0, //Nuestro script agregará esto
-            callbackGasLimit: 500000 // 500,000 gas!!
-        });
+        return
+            NetworkConfig({
+                entranceFee: 0.01 ether,
+                interval: 30,
+                vrfCoordinatorV2: address(vrfCoordinatorV2Mock),
+                gasLane: 0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c, // Keyhash: https://docs.chain.link/vrf/v2/subscription/supported-networks
+                subscriptionId: 0, //Nuestro script agregará esto
+                callbackGasLimit: 500000, // 500,000 gas!!
+                link: address(link)
+            });
     }
 }
