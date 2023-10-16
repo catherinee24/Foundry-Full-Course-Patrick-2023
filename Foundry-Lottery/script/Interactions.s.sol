@@ -6,7 +6,7 @@ import {Script, console} from "forge-std/Script.sol";
 import {HelperConfig} from "./HelperConfig.s.sol";
 import {VRFCoordinatorV2Mock} from "@chainlink/contracts/src/v0.8/mocks/VRFCoordinatorV2Mock.sol";
 import {LinkToken} from "../test/mocks/LinkToken.sol";
-import {DevOpsTools} from "foundry-devops/src/DevOpsTools.sol";
+import {DevOpsTools} from "lib/foundry-devops/src/DevOpsTools.sol";
 
 contract CreateSubscriptions is Script {
     HelperConfig helperConfig;
@@ -89,14 +89,21 @@ contract FundSubscription is Script {
 }
 
 contract AddConsumer is Script {
-    function AddConsumer(
+    function addConsumer(
         address raffle,
         address vrfCoordinatorV2,
         uint64 subscriptionId
     ) public {
         console.log("Adding consumer contracr:", raffle);
         console.log("Using VRFCoordinatorV2:", vrfCoordinatorV2);
-        console.log("On ChainId:",subscriptionId);
+        console.log("On ChainId:", subscriptionId);
+
+        vm.startBroadcast();
+        VRFCoordinatorV2Mock(vrfCoordinatorV2).addConsumer(
+            subscriptionId,
+            raffle
+        );
+        vm.stopBroadcast();
     }
 
     function addConsumerUsingConfig(address raffle) public {
@@ -107,7 +114,6 @@ contract AddConsumer is Script {
             address vrfCoordinatorV2,
             ,
             uint64 subscriptionId,
-            ,
             ,
 
         ) = helperConfig.activeNetworkConfig();

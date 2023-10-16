@@ -4,7 +4,8 @@ pragma solidity 0.8.19;
 import {Script} from "forge-std/Script.sol";
 import {Raffle} from "../src/Raffle.sol";
 import {HelperConfig} from "../script/HelperConfig.s.sol";
-import {CreateSubscriptions} from "../script/Interactions.s.sol";
+import {CreateSubscriptions, FundSubscription, AddConsumer} from "../script/Interactions.s.sol";
+
 
 /**
  * @title A Sample Raffle Smart Contract Deploy
@@ -33,6 +34,8 @@ contract DeployRaffle is Script {
             subscriptionId = createSubscription.createSubscription(vrfCoordinatorV2);
 
             //Luego de crear una subscripcion, necesitamos fondearlo con LINK. !!!
+            FundSubscription fundSubscription = new FundSubscription();
+            fundSubscription.fundSubscription(vrfCoordinatorV2, subscriptionId, link);
         }
 
         vm.startBroadcast();
@@ -46,6 +49,8 @@ contract DeployRaffle is Script {
         );
         vm.stopBroadcast();
 
+        AddConsumer addCosumer = new AddConsumer();
+        addCosumer.addConsumer(address(raffle), vrfCoordinatorV2, subscriptionId);
         return (raffle, helperConfig);
     }
 }
