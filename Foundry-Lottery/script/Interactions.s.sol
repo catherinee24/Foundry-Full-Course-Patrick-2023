@@ -6,14 +6,13 @@ import {Script, console} from "forge-std/Script.sol";
 import {HelperConfig} from "./HelperConfig.s.sol";
 import {VRFCoordinatorV2Mock} from "@chainlink/contracts/src/v0.8/mocks/VRFCoordinatorV2Mock.sol";
 
-
 contract CreateSubscriptions is Script {
     HelperConfig helperConfig;
 
     function subscriptionUsingConfig() public returns (uint64) {
         helperConfig = new HelperConfig();
 
-        (,, address vrfCoordinatorV2,,,) = helperConfig.activeNetworkConfig();
+        (,, address vrfCoordinatorV2,,,,) = helperConfig.activeNetworkConfig();
 
         return createSubscription(vrfCoordinatorV2);
     }
@@ -23,7 +22,7 @@ contract CreateSubscriptions is Script {
         vm.startBroadcast();
         uint64 subId = VRFCoordinatorV2Mock(vrfCoordinatorV2).createSubscription();
         vm.stopBroadcast();
-        
+
         console.log("Your subId is:", subId);
         console.log("Please update subscriptionId in HelperConfig.s.sol");
         return subId;
@@ -31,5 +30,18 @@ contract CreateSubscriptions is Script {
 
     function run() external returns (uint64) {
         return subscriptionUsingConfig();
+    }
+}
+
+contract FundSubscription is Script {
+    uint96 public constant FUND_AMOUNT = 3 ether;
+
+    function fundSubscriptionUsingConfig() public {
+        helperConfig = new HelperConfig();
+        (,, address vrfCoordinatorV2,, uint64 subscriptionId,,) = helperConfig.activeNetworkConfig();
+    }
+
+    function run() external {
+        fundSubscriptionUsingConfig();
     }
 }

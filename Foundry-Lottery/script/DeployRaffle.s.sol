@@ -30,6 +30,8 @@ contract DeployRaffle is Script {
             //¡Necesitamos crear una suscripción!
             CreateSubscriptions createSubscription = new CreateSubscriptions();
             subscriptionId = createSubscription.createSubscription(vrfCoordinatorV2);
+
+            //Luego de crear una subscripcion, necesitamos fondearlo con LINK. !!!
         }
 
         vm.startBroadcast();
