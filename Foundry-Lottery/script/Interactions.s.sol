@@ -89,6 +89,16 @@ contract FundSubscription is Script {
 }
 
 contract AddConsumer is Script {
+    function AddConsumer(
+        address raffle,
+        address vrfCoordinatorV2,
+        uint64 subscriptionId
+    ) public {
+        console.log("Adding consumer contracr:", raffle);
+        console.log("Using VRFCoordinatorV2:", vrfCoordinatorV2);
+        console.log("On ChainId:",subscriptionId);
+    }
+
     function addConsumerUsingConfig(address raffle) public {
         HelperConfig helperConfig = new HelperConfig();
         (
@@ -101,7 +111,7 @@ contract AddConsumer is Script {
             ,
 
         ) = helperConfig.activeNetworkConfig();
-        addConsumer(raffle, vrfCoordinatorV, subscriptionId);
+        addConsumer(raffle, vrfCoordinatorV2, subscriptionId);
     }
 
     function run() external {
