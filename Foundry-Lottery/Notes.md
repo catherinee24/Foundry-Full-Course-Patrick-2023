@@ -83,9 +83,14 @@ pragma solidity >=0.8.2 < 0.9.0;
 
 ## Add Consumer Script
 - Comando para instalar DevOps de Cyfrin!!
-
 ```shell
 $ forge install ChainAccelOrg/foundry-devops --no-commit
 ```
+
+- Comando para tener el total coverage de mis test.
+```shell
+$ forge coverage --report debug > coverage.txt
+```
+
 
 
