@@ -6,7 +6,6 @@ import {Raffle} from "../src/Raffle.sol";
 import {HelperConfig} from "../script/HelperConfig.s.sol";
 import {CreateSubscriptions, FundSubscription, AddConsumer} from "../script/Interactions.s.sol";
 
-
 /**
  * @title A Sample Raffle Smart Contract Deploy
  * @author Catherine Maverick
