@@ -99,3 +99,6 @@ $ forge coverage --report debug > coverage.txt
 ```solidity
 error Raffle__UpKeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint256 raffleState);
 ```
+
+## Getting event data intro Foundry Scripts
+- Vamos a usar un nuevo **cheatcodes** de **Foundry** llamado ----> [recordlogs](https://book.getfoundry.sh/cheatcodes/record-logs?highlight=recordLogs#recordlogs) ----> **vm.recordLogs();**

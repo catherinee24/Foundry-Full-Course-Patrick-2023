@@ -180,6 +180,8 @@ contract RaffleTest is Test {
         uint256 currentBalance = 0;
         uint256 numPlayers = 0;
         uint256 raffleState = 0;
+
+        //Act // Assert
         vm.expectRevert(
             abi.encodeWithSelector(
                 Raffle.Raffle__UpKeepNotNeeded.selector,
@@ -189,5 +191,20 @@ contract RaffleTest is Test {
             )
         );
         raffle.performUpkeep("");
+    }
+
+    modifier raffleEnteredAndTimePassed() {        
+        vm.startPrank(PLAYER);
+        raffle.enterRaffle{value: entranceFee}();
+        vm.warp(block.timestamp + interval + 1);
+        vm.roll(block.number + 1);
+        _;
+    }
+
+    //Que si necesito testear usando el output de un evento??
+    function testPerfomrUpKeepUpdatesRaffleStateAndEmitRequestId() public raffleEnteredAndTimePassed {
+        //Act 
+        vm.recordLogs();
+
     }
 }
