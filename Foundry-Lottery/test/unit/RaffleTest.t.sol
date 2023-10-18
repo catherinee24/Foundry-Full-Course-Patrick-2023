@@ -40,8 +40,15 @@ contract RaffleTest is Test {
         deployer = new DeployRaffle();
         (raffle, helperConfig) = deployer.run();
 
-        (entranceFee, interval, vrfCoordinatorV2, gasLane, subscriptionId, callbackGasLimit, link) =
-            helperConfig.activeNetworkConfig();
+        (
+            entranceFee,
+            interval,
+            vrfCoordinatorV2,
+            gasLane,
+            subscriptionId,
+            callbackGasLimit,
+            link
+        ) = helperConfig.activeNetworkConfig();
 
         vm.deal(PLAYER, STARTING_USER_BALANCE);
     }
@@ -52,7 +59,7 @@ contract RaffleTest is Test {
     }
 
     /*//////////////////////////////////////////////////////////////
-                         ENTER RAFFLE TEST
+                         enterRaffle() TEST
     //////////////////////////////////////////////////////////////*/
     /** */
     function testRaffleRevertsWhenYouDontPayEnough() public {
@@ -99,7 +106,7 @@ contract RaffleTest is Test {
     }
 
     /*//////////////////////////////////////////////////////////////
-                         checkUpKeep TEST
+                         checkUpKeep() TEST
     //////////////////////////////////////////////////////////////*/
     function testCheckUpKeepReturnsFalseIfItHasNoBalance() public {
         //Arrange
@@ -107,7 +114,7 @@ contract RaffleTest is Test {
         vm.roll(block.number + 1);
 
         //Act
-        (bool upKeepNeeded,) = raffle.checkUpKeep("");
+        (bool upKeepNeeded, ) = raffle.checkUpKeep("");
 
         //Assert
         assert(!upKeepNeeded);
@@ -122,7 +129,7 @@ contract RaffleTest is Test {
         raffle.performUpkeep("");
 
         //Act
-        (bool upKeepNedeed,) = raffle.checkUpKeep("");
+        (bool upKeepNedeed, ) = raffle.checkUpKeep("");
 
         //Assert
         assert(upKeepNedeed == false);
@@ -134,7 +141,7 @@ contract RaffleTest is Test {
         raffle.enterRaffle{value: entranceFee}();
 
         //Act
-        (bool upKeepNedeed,) = raffle.checkUpKeep("");
+        (bool upKeepNedeed, ) = raffle.checkUpKeep("");
 
         //Assert
         assert(!upKeepNedeed);
@@ -148,9 +155,38 @@ contract RaffleTest is Test {
         vm.roll(block.number + 1);
 
         //Act
-        (bool upKeepNedeed,) = raffle.checkUpKeep("");
+        (bool upKeepNedeed, ) = raffle.checkUpKeep("");
 
         //Assert
         assert(upKeepNedeed);
+    }
+
+    /*//////////////////////////////////////////////////////////////
+                         performUpkeep() TEST
+    //////////////////////////////////////////////////////////////*/
+    function testPerformUpKeekCanOnlyRunIfCheckUpKeepIsTrue() public {
+        //Arrange
+        vm.startPrank(PLAYER);
+        raffle.enterRaffle{value: entranceFee}();
+        vm.warp(block.timestamp + interval + 1);
+        vm.roll(block.number + 1);
+
+        //Act //Assert
+        raffle.performUpkeep("");
+    }
+
+    function testPerformUpKeepRvertsWhenCheckUpKeepIsFalse() public {
+        //Arrange
+        vm.startPrank(PLAYER);
+        raffle.enterRaffle{value: entranceFee}();
+        vm.warp(block.timestamp + interval + 1);
+        vm.roll(block.number + 1);
+        raffle.performUpkeep("");
+
+        //Act //Assert
+        vm.expectRevert(Raffle.Raffle__UpKeepNotNeeded.selector);
+        raffle.performUpkeep("");
+
+        
     }
 }

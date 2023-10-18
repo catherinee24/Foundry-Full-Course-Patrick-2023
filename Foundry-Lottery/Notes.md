@@ -92,5 +92,6 @@ $ forge install ChainAccelOrg/foundry-devops --no-commit
 $ forge coverage --report debug > coverage.txt
 ```
 
-
+## vm.expectRevert() con parametros
+[FoundryBook](https://book.getfoundry.sh/cheatcodes/expect-revert?highlight=expectRevert#examples).
 
