@@ -54,6 +54,7 @@ contract RaffleTest is Test {
     /*//////////////////////////////////////////////////////////////
                          ENTER RAFFLE TEST
     //////////////////////////////////////////////////////////////*/
+    /** */
     function testRaffleRevertsWhenYouDontPayEnough() public {
         // Arrange
         vm.prank(PLAYER);
