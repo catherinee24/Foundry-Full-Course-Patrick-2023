@@ -95,3 +95,7 @@ $ forge coverage --report debug > coverage.txt
 ## vm.expectRevert() con parametros
 [FoundryBook](https://book.getfoundry.sh/cheatcodes/expect-revert?highlight=expectRevert#examples).
 
+- Ejemplo: nuestro CustomError con parametros ---> 
+```solidity
+error Raffle__UpKeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint256 raffleState);
+```

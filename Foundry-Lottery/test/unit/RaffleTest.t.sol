@@ -177,16 +177,17 @@ contract RaffleTest is Test {
 
     function testPerformUpKeepRvertsWhenCheckUpKeepIsFalse() public {
         //Arrange
-        vm.startPrank(PLAYER);
-        raffle.enterRaffle{value: entranceFee}();
-        vm.warp(block.timestamp + interval + 1);
-        vm.roll(block.number + 1);
+        uint256 currentBalance = 0;
+        uint256 numPlayers = 0;
+        uint256 raffleState = 0;
+        vm.expectRevert(
+            abi.encodeWithSelector(
+                Raffle.Raffle__UpKeepNotNeeded.selector,
+                currentBalance,
+                numPlayers,
+                raffleState
+            )
+        );
         raffle.performUpkeep("");
-
-        //Act //Assert
-        vm.expectRevert(Raffle.Raffle__UpKeepNotNeeded.selector);
-        raffle.performUpkeep("");
-
-        
     }
 }
