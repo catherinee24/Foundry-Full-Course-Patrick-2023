@@ -1,12 +1,12 @@
 //SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.19;
+pragma solidity ^0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
+import {Vm} from "forge-std/Vm.sol";
 import {DeployRaffle} from "../../script/DeployRaffle.s.sol";
 import {Raffle} from "../../src/Raffle.sol";
 import {HelperConfig} from "../../script/HelperConfig.s.sol";
-import {Vm} from "forge-std/Vm.sol";
 
 contract RaffleTest is Test {
     /*//////////////////////////////////////////////////////////////
@@ -193,7 +193,7 @@ contract RaffleTest is Test {
         raffle.performUpkeep("");
     }
 
-    modifier raffleEnteredAndTimePassed() {        
+    modifier raffleEnteredAndTimePassed() {
         vm.startPrank(PLAYER);
         raffle.enterRaffle{value: entranceFee}();
         vm.warp(block.timestamp + interval + 1);
@@ -202,9 +202,22 @@ contract RaffleTest is Test {
     }
 
     //Que si necesito testear usando el output de un evento??
-    function testPerfomrUpKeepUpdatesRaffleStateAndEmitRequestId() public raffleEnteredAndTimePassed {
-        //Act 
+    function testPerfomrUpKeepUpdatesRaffleStateAndEmitRequestId()
+        public
+        raffleEnteredAndTimePassed
+    {
+        //Act
+        // Lo que esto va a hacer es guardar automaticamente todos los Logs outputs en getRecordedLogs().
         vm.recordLogs();
+        raffle.performUpkeep("");
 
+        //Este es un tipado especial que viene con Foundry test.
+        Vm.Log[] memory entries = vm.getRecordedLogs();
+        bytes32 requestId = entries[1].topics[1];
+
+        Raffle.RaffleState rState = raffle.getRaffleState();
+        // De este modo nos aseguramos de que el evento `requestId` se generó.
+        assert(uint256(requestId) > 0);
+        assert(uint256(rState) == 1);
     }
 }
