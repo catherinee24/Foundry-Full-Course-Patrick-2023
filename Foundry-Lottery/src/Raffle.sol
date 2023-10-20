@@ -162,7 +162,7 @@ contract Raffle is VRFConsumerBaseV2 {
         s_recentWinner = winner;
         s_raffleState = RaffleState.OPEN;
 
-        // Reseteamos el array para que haya una nueva rifa.
+        // Reestablecemos el array para que haya una nueva rifa.
         s_players = new address payable[](0);
         s_lastTimeStamp = block.timestamp;
         emit PickedWinner(winner);
@@ -190,5 +190,13 @@ contract Raffle is VRFConsumerBaseV2 {
 
     function getPlayer(uint256 indexOfPlayer) external view returns (address) {
         return s_players[indexOfPlayer];
+    }
+
+    function getRecentWinner() external view returns (address) {
+        return s_recentWinner;
+    }
+
+    function getLengthOfPlayers() external view returns (uint256) {
+        return s_players.length;
     }
 }

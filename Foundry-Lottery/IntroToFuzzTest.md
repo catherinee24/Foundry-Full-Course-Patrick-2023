@@ -1,4 +1,4 @@
-## RaffleTest:fulfillRandomWords() <------- Aplicamos Fuzz Test 
+## RaffleTest:testfulfillRandomWordsCanOnlyBeCalledAfterPerformUpkeep() <------- Aplicamos Fuzz Test 
 Las pruebas de **fuzz (fuzz testing)** son una técnica de prueba de software que se utiliza para descubrir problemas de seguridad y estabilidad en programas al **inyectar datos de prueba aleatorios**, corruptos o inesperados. Lo más importante a destacar es que las pruebas de fuzz:
 
 1. Se centran en probar cómo un programa responde a datos inesperados o maliciosos.
