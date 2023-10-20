@@ -220,4 +220,16 @@ contract RaffleTest is Test {
         assert(uint256(requestId) > 0);
         assert(uint256(rState) == 1);
     }
+
+    /*//////////////////////////////////////////////////////////////
+                         fulfillRandomWords() TEST
+    //////////////////////////////////////////////////////////////*/
+    function testfulfillRandomWordsCanOnlyBeCalledAfterPerformUpkeep() public raffleEnteredAndTimePassed {
+        //Arrange 
+
+        //Act 
+
+        //Assert
+    }
+
 }
