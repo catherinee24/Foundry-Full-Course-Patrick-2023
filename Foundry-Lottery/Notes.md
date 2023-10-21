@@ -102,3 +102,7 @@ error Raffle__UpKeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint25
 
 ## Getting event data intro Foundry Scripts
 - Vamos a usar un nuevo **cheatcodes** de **Foundry** llamado ----> [recordlogs](https://book.getfoundry.sh/cheatcodes/record-logs?highlight=recordLogs#recordlogs) ----> **vm.recordLogs();**
+
+## Pasando la Private Key a vm.startBroadcast()
+**vm.envUint("PRIVATE_KEY")** usamos este cheatcode de Foundry para guardar la private key (FALSA).
+!NUCA USES TU PRIVATE KEY REAL, ESTO ES SOLO UN EJEMPLO¡

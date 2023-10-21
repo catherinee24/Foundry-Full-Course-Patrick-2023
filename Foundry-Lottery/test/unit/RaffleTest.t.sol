@@ -7,7 +7,8 @@ import {Vm} from "forge-std/Vm.sol";
 import {DeployRaffle} from "../../script/DeployRaffle.s.sol";
 import {Raffle} from "../../src/Raffle.sol";
 import {HelperConfig} from "../../script/HelperConfig.s.sol";
-import {VRFCoordinatorV2Mock} from "../../lib/chainlink-brownie-contracts/contracts/src/v0.8/mocks/VRFCoordinatorV2Mock.sol";
+import {VRFCoordinatorV2Mock} from
+    "../../lib/chainlink-brownie-contracts/contracts/src/v0.8/mocks/VRFCoordinatorV2Mock.sol";
 
 contract RaffleTest is Test {
     /*//////////////////////////////////////////////////////////////
@@ -41,15 +42,8 @@ contract RaffleTest is Test {
         deployer = new DeployRaffle();
         (raffle, helperConfig) = deployer.run();
 
-        (
-            entranceFee,
-            interval,
-            vrfCoordinatorV2,
-            gasLane,
-            subscriptionId,
-            callbackGasLimit,
-            link
-        ) = helperConfig.activeNetworkConfig();
+        (entranceFee, interval, vrfCoordinatorV2, gasLane, subscriptionId, callbackGasLimit, link,) =
+            helperConfig.activeNetworkConfig();
 
         vm.deal(PLAYER, STARTING_USER_BALANCE);
     }
@@ -116,7 +110,7 @@ contract RaffleTest is Test {
         vm.roll(block.number + 1);
 
         //Act
-        (bool upKeepNeeded, ) = raffle.checkUpKeep("");
+        (bool upKeepNeeded,) = raffle.checkUpKeep("");
 
         //Assert
         assert(!upKeepNeeded);
@@ -131,7 +125,7 @@ contract RaffleTest is Test {
         raffle.performUpkeep("");
 
         //Act
-        (bool upKeepNedeed, ) = raffle.checkUpKeep("");
+        (bool upKeepNedeed,) = raffle.checkUpKeep("");
 
         //Assert
         assert(upKeepNedeed == false);
@@ -143,7 +137,7 @@ contract RaffleTest is Test {
         raffle.enterRaffle{value: entranceFee}();
 
         //Act
-        (bool upKeepNedeed, ) = raffle.checkUpKeep("");
+        (bool upKeepNedeed,) = raffle.checkUpKeep("");
 
         //Assert
         assert(!upKeepNedeed);
@@ -157,7 +151,7 @@ contract RaffleTest is Test {
         vm.roll(block.number + 1);
 
         //Act
-        (bool upKeepNedeed, ) = raffle.checkUpKeep("");
+        (bool upKeepNedeed,) = raffle.checkUpKeep("");
 
         //Assert
         assert(upKeepNedeed);
@@ -185,12 +179,7 @@ contract RaffleTest is Test {
 
         //Act // Assert
         vm.expectRevert(
-            abi.encodeWithSelector(
-                Raffle.Raffle__UpKeepNotNeeded.selector,
-                currentBalance,
-                numPlayers,
-                raffleState
-            )
+            abi.encodeWithSelector(Raffle.Raffle__UpKeepNotNeeded.selector, currentBalance, numPlayers, raffleState)
         );
         raffle.performUpkeep("");
     }
@@ -204,10 +193,7 @@ contract RaffleTest is Test {
     }
 
     //Que si necesito testear usando el output de un evento??
-    function testPerfomrUpKeepUpdatesRaffleStateAndEmitRequestId()
-        public
-        raffleEnteredAndTimePassed
-    {
+    function testPerfomrUpKeepUpdatesRaffleStateAndEmitRequestId() public raffleEnteredAndTimePassed {
         //Act
         // Lo que esto va a hacer es guardar automaticamente todos los Logs outputs en getRecordedLogs().
         vm.recordLogs();
@@ -226,30 +212,21 @@ contract RaffleTest is Test {
     /*//////////////////////////////////////////////////////////////
                          fulfillRandomWords() TEST
     //////////////////////////////////////////////////////////////*/
-    function testfulfillRandomWordsCanOnlyBeCalledAfterPerformUpkeep(
-        uint256 _randomRequestId
-    ) public raffleEnteredAndTimePassed {
-        //Arrange
-        vm.expectRevert("nonexistent request");
-        VRFCoordinatorV2Mock(vrfCoordinatorV2).fulfillRandomWords(
-            _randomRequestId,
-            address(raffle)
-        );
-    }
-
-    function testfulfillRandomWordsPicksAWinnerResetsAndSendsMoney()
+    function testfulfillRandomWordsCanOnlyBeCalledAfterPerformUpkeep(uint256 _randomRequestId)
         public
         raffleEnteredAndTimePassed
     {
         //Arrange
+        vm.expectRevert("nonexistent request");
+        VRFCoordinatorV2Mock(vrfCoordinatorV2).fulfillRandomWords(_randomRequestId, address(raffle));
+    }
+
+    function testfulfillRandomWordsPicksAWinnerResetsAndSendsMoney() public raffleEnteredAndTimePassed {
+        //Arrange
         uint256 aditionalEntrants = 5;
         uint256 startingIndex = 1;
 
-        for (
-            uint256 i = startingIndex;
-            i < startingIndex + aditionalEntrants;
-            i++
-        ) {
+        for (uint256 i = startingIndex; i < startingIndex + aditionalEntrants; i++) {
             address player = address(uint160(i)); // Podemos hacer un makeAdd().
             hoax(player, STARTING_USER_BALANCE); // hoax -----> Establece un prank de una dirección que tiene algo de éter.
             raffle.enterRaffle{value: entranceFee}();
@@ -272,13 +249,10 @@ contract RaffleTest is Test {
         );
 
         //Asserts
-        // assert(uint256(raffle.getRaffleState()) == 0); // La Rifa tiene que estar OPEN.
-        // assert(raffle.getRecentWinner() != address(0)); // El ganador no puede ser la dirección `0`.
-        // assert(raffle.getLengthOfPlayers() == 0); // Despues de elegir un ganador se reestablecen los jugadores, para que haya una rifa nueva.
-        // assert(previousTimestamp < raffle.getLastTimestamp()); // El tiempo debería ser actualizado.
-        assert(
-            raffle.getRecentWinner().balance ==
-                STARTING_USER_BALANCE + prize - entranceFee
-        ); //El balance del ganador deberia ser mas despues de ganar la rifa.
+        assert(uint256(raffle.getRaffleState()) == 0); // La Rifa tiene que estar OPEN.
+        assert(raffle.getRecentWinner() != address(0)); // El ganador no puede ser la dirección `0`.
+        assert(raffle.getLengthOfPlayers() == 0); // Despues de elegir un ganador se reestablecen los jugadores, para que haya una rifa nueva.
+        assert(previousTimestamp < raffle.getLastTimestamp()); // El tiempo debería ser actualizado.
+        assert(raffle.getRecentWinner().balance == STARTING_USER_BALANCE + prize - entranceFee); //El balance del ganador deberia ser mas despues de ganar la rifa.
     }
 }
