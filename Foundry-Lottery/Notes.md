@@ -1,6 +1,3 @@
-    /*//////////////////////////////////////////////////////////////
-                                EVENTS
-    //////////////////////////////////////////////////////////////*/
 
 # Lesson 9: 🤩 https://github.com/catherinee24/Foundry-Course-Patrick 
 6:34:10 
@@ -110,3 +107,6 @@ error Raffle__UpKeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint25
 ## Pasando la Private Key a vm.startBroadcast()
 **vm.envUint("PRIVATE_KEY")** usamos este cheatcode de Foundry para guardar la private key (FALSA).
 !NUCA USES TU PRIVATE KEY REAL, ESTO ES SOLO UN EJEMPLO¡
+
+## Integration test
+

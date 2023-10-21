@@ -282,7 +282,7 @@ contract RaffleTest is StdCheats, Test {
         uint256 endingTimeStamp = raffle.getLastTimeStamp();
         uint256 prize = raffleEntranceFee * (additionalEntrances + 1);
 
-        assert(recentWinner == expectedWinner);
+        assert(recentWinner == expectedWinner); 
         assert(uint256(raffleState) == 0);
         assert(winnerBalance == startingBalance + prize);
         assert(endingTimeStamp > startingTimeStamp);
