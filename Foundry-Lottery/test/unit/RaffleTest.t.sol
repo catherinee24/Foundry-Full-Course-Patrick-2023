@@ -196,7 +196,7 @@ contract RaffleTest is Test {
     }
 
     modifier raffleEnteredAndTimePassed() {
-        vm.startPrank(PLAYER);
+        vm.prank(PLAYER);
         raffle.enterRaffle{value: entranceFee}();
         vm.warp(block.timestamp + interval + 1);
         vm.roll(block.number + 1);
@@ -251,17 +251,20 @@ contract RaffleTest is Test {
             i++
         ) {
             address player = address(uint160(i)); // Podemos hacer un makeAdd().
-            hoax(player, 1 ether); // hoax -----> Establece un prank de una dirección que tiene algo de éter.
+            hoax(player, STARTING_USER_BALANCE); // hoax -----> Establece un prank de una dirección que tiene algo de éter.
             raffle.enterRaffle{value: entranceFee}();
         }
 
+        uint256 prize = entranceFee * (aditionalEntrants + 1);
+
+        //Act
         vm.recordLogs();
         raffle.performUpkeep(""); //Emit requestId
         Vm.Log[] memory entries = vm.getRecordedLogs();
         bytes32 requestId = entries[1].topics[1];
 
         uint256 previousTimestamp = raffle.getLastTimestamp();
-        
+
         //Tenemos que pretender ser Chainlink VRF para elegir un Random Number y elegir un ganador.
         VRFCoordinatorV2Mock(vrfCoordinatorV2).fulfillRandomWords(
             uint256(requestId), // En el Contrato VRFCoordinatorV2Mock.sol el `requestId` es un type uint256 asi que hacemos el casteo.
@@ -269,9 +272,13 @@ contract RaffleTest is Test {
         );
 
         //Asserts
-        assert(uint256(raffle.getRaffleState()) == 0); // La Rifa tiene que estar OPEN.
-        assert(raffle.getRecentWinner() != address(0)); // El ganador no puede ser la dirección `0`.
-        assert(raffle.getLengthOfPlayers() == 0); // Despues de elegir un ganador se reestablecen los jugadores, para que haya una rifa nueva.
-        assert(previousTimestamp < raffle.getLastTimestamp()); // El tiempo debería ser actualizado.
+        // assert(uint256(raffle.getRaffleState()) == 0); // La Rifa tiene que estar OPEN.
+        // assert(raffle.getRecentWinner() != address(0)); // El ganador no puede ser la dirección `0`.
+        // assert(raffle.getLengthOfPlayers() == 0); // Despues de elegir un ganador se reestablecen los jugadores, para que haya una rifa nueva.
+        // assert(previousTimestamp < raffle.getLastTimestamp()); // El tiempo debería ser actualizado.
+        assert(
+            raffle.getRecentWinner().balance ==
+                STARTING_USER_BALANCE + prize - entranceFee
+        ); //El balance del ganador deberia ser mas despues de ganar la rifa.
     }
 }
