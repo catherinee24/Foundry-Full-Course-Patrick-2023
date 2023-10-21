@@ -1,4 +1,6 @@
 # Lesson 9: 🤩 https://github.com/catherinee24/Foundry-Course-Patrick
+## Mira el contrato deployado en Sepolia Etherscan --> 0x0EBF272ed1c4223d66a29a12D2Df8cC969938EC6 
+
 
 6:34:10
 Foudry course: FOUNDRY-LOTTERY
@@ -132,4 +134,7 @@ error Raffle__UpKeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint25
 **vm.envUint("PRIVATE_KEY")** usamos este cheatcode de Foundry para guardar la private key (FALSA).
 !NUCA USES TU PRIVATE KEY REAL, ESTO ES SOLO UN EJEMPLO¡
 
-## Integration test
+## Comando para deployar un contrato en la testnet de sepolia
+```bash	
+$ forge script script/DeployRaffle.s.sol --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY --broadcast --verify --etherscan-api-key $ETHERSCAN_API_KEY
+```
