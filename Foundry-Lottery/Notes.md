@@ -7,7 +7,7 @@ Foudry course: FOUNDRY-LOTTERY
 
 ## Contrato Inteligente de Sorteo con Aleatoriedad Comprobable. (Proveably Random Raffle Smart Contract)
 
-### Que queremos hacer ? What we want it to do?
+### Que queremos hacer ? What we want it to do??
 
 1. Los usuarios pueden entrar pagando un Ticket
    1. El fee de los Tickets van a ir al ganador durante el sorteo.
