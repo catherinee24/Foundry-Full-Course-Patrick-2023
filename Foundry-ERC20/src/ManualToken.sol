@@ -3,19 +3,32 @@
 pragma solidity 0.8.19;
 
 contract ManualToken {
-    function name() public pure returns(string memory) {
+    /*//////////////////////////////////////////////////////////////
+                            CUSTOM ERRORS
+    //////////////////////////////////////////////////////////////*/
+    error ManualToken__INSUFFICIENT_BALANCE();
+    mapping(address => uint256) private s_balances;
+
+    function name() public pure returns (string memory) {
         return "Maverick Token";
     }
 
-    function totalSupply() public pure returns(uint256) {
+    function totalSupply() public pure returns (uint256) {
         return 100 ether;
     }
 
-    function decimals() public pure returns(uint8) {
+    function decimals() public pure returns (uint8) {
         return 18;
     }
 
-    function balanceOf(address _owner) public view returns(uint256) {
-        return _owner.balance;
+    function balanceOf(address _owner) public view returns (uint256) {
+        return s_balances[_owner];
+    }
+
+    function tranfer(address _to, uint256 _amount) public {
+        uint256 previousBalances = balanceOf(msg.sender) + balanceOf(_to);
+        s_balances[msg.sender] -= _amount;
+        s_balances[_to] += _amount;
+        require(balanceOf(msg.sender) + balanceOf(_to) == previousBalances);
     }
 }
