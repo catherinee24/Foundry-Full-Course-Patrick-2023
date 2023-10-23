@@ -141,4 +141,5 @@ $ forge script script/DeployRaffle.s.sol --rpc-url $SEPOLIA_RPC_URL --private-ke
 ```bash	
 $ forge test --debug $FUNCTION
 ```
+# TERMINAMOS THIS LESSON ¡YEAHHH! 🫡
 
