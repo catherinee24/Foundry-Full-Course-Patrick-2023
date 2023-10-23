@@ -1,5 +1,6 @@
 # Lesson 10: Foundry ERC20s https://github.com/catherinee24/Foundry-Course-Patrick 🤩
 
+Foudry course: FOUNDRY-ERC20
 ## Qué es ERCs y un EIPs???
 * EIPs ------> **(Ethereum Improvement Proposals)** Es una estructura documental que permite estandarizar el desarrollo de mejoras dentro de Ethereum, permitiendo que cualquier persona pueda presentar sus propuestas y mejorar así el desarrollo de esta blockchain. 
 
