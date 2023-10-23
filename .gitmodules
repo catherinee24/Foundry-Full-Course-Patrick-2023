@@ -22,3 +22,6 @@
 [submodule "Foundry-ERC20/lib/forge-std"]
 	path = Foundry-ERC20/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
+[submodule "Foundry-ERC20/lib/openzeppelin-contracts"]
+	path = Foundry-ERC20/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
