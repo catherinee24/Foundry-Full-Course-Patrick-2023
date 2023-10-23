@@ -136,3 +136,9 @@ error Raffle__UpKeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint25
 ```bash	
 $ forge script script/DeployRaffle.s.sol --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY --broadcast --verify --etherscan-api-key $ETHERSCAN_API_KEY
 ```
+
+## Comando para debugear 
+```bash	
+$ forge test --debug $FUNCTION
+```
+
