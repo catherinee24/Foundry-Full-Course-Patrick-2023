@@ -15,7 +15,7 @@ contract OurTokenTest is Test {
     address public gabi = makeAddr("gabi");
 
     uint256 public constant STARTING_BALANCE = 100 ether;
-    
+
     function setUp() public {
         deployer = new DeployOurToken();
         token = deployer.run();
@@ -27,5 +27,21 @@ contract OurTokenTest is Test {
 
     function testCatheBalance() public {
         assertEq(STARTING_BALANCE, token.balanceOf(cathe));
+    }
+
+    function testAllowancesWorks() public {
+        uint256 initialAllowance = 1000;
+        uint256 transferAmount = 500;
+
+        //Cathe le aprueva a Gabi gastar token a su nombre.
+        vm.prank(cathe);
+        token.approve(gabi, initialAllowance);
+
+        //Gabi gasta la mitad de los tokens de cathe.
+        vm.prank(gabi);
+        token.transferFrom(cathe, gabi, transferAmount);
+
+        assertEq(token.balanceOf(gabi), transferAmount);
+        assertEq(token.balanceOf(cathe), STARTING_BALANCE - tranferAmount);
     }
 }

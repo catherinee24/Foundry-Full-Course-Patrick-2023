@@ -7,6 +7,7 @@ contract ManualToken {
                             CUSTOM ERRORS
     //////////////////////////////////////////////////////////////*/
     error ManualToken__INSUFFICIENT_BALANCE();
+
     mapping(address => uint256) private s_balances;
 
     function name() public pure returns (string memory) {
