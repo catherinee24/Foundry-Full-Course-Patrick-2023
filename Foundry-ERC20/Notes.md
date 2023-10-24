@@ -24,3 +24,5 @@ $ forge install OpenZeppelin/openzeppelin-contracts --no-commit
 ```bash
 $ forge script script/DeployRaffle.s.sol --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY --broadcast --verify --etherscan-api-key $ETHERSCAN_API_KEY
 ```
+
+## Finished Lesson I´m proud of Myself 😊
