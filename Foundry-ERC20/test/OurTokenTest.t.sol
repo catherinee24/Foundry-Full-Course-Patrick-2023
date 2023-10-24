@@ -42,6 +42,6 @@ contract OurTokenTest is Test {
         token.transferFrom(cathe, gabi, transferAmount);
 
         assertEq(token.balanceOf(gabi), transferAmount);
-        assertEq(token.balanceOf(cathe), STARTING_BALANCE - tranferAmount);
+        assertEq(token.balanceOf(cathe), STARTING_BALANCE - transferAmount);
     }
 }
