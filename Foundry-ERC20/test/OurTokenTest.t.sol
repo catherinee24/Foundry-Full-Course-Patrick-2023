@@ -21,7 +21,11 @@ contract OurTokenTest is Test {
         token = deployer.run();
 
         //El que deploya es el Owner
-        vm.prank(address(deployer));
+        vm.prank(msg.sender);
         token.transfer(cathe, STARTING_BALANCE);
+    }
+
+    function testCatheBalance() public {
+        assertEq(STARTING_BALANCE, token.balanceOf(cathe));
     }
 }
