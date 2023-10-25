@@ -19,9 +19,7 @@ contract OurBasicNFTToken is ERC721 {
         s_tokenCounter++;
     }
 
-    function tokenURI(
-        uint256 _tokenId
-    ) public view override returns (string memory) {
+    function tokenURI(uint256 _tokenId) public view override returns (string memory) {
         return s_tokenIdToUri[_tokenId];
     }
 }
