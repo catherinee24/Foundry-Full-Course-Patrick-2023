@@ -9,3 +9,15 @@ La principal diferencia entre estos dos estandares de tokens es que el ERC-20 es
 
 ## Ethereum documentation 
 https://eips.ethereum.org/EIPS/eip-721
+
+## ¿Qué es IPFS? 🤔
+El proyecto **InterPlanetary File System (IPFS)** o **Sistema de Archivos Interplanetario (IPFS)** es un curioso proyecto con un objetivo bastante claro: **crear una red de computadoras de alcance global que permita el almacenamiento de información de forma completamente descentralizada, con una alta escalabilidad, y por supuesto, con una gran resistencia a la censura de cualquier tipo.**
+
+**IPFS** o **InterPlanetary File System**, es un sistema de archivo descentralizado que busca garantizar la seguridad, privacidad y resistencia a la censura de tus datos.
+
+## Hosting en IPFS
+* **Descargamos IPFS** ----> Para eso podemos ir a su pagina web y seguir los pasos de descargas.
+* En la seccion del menú le damos a la seccion de **"Archivos"** y en la parte superior izquierda clicamos el botón **"Import"**, **importamos un archivo que no nos importe que sea publico** 🫡. 
+* Cuando aparezca el **archivo** subido en **IPFS**, clicamos los **3 puntitos(...)** que salen en la parte inquierda del **archivo** y le damos **Copiar CID**.
+* Luego no vamos al **browser** (Google) o (Brave) o el que mas te guste, y escribimos **ipfs://QmNgQwuEuztsWKwYoCpbxNaQhAee31kARPmB6z85Evd3GK**
+* QmNgQwuEuztsWKwYoCpbxNaQhAee31kARPmB6z85Evd3GK <-------- CID unico de tu archivo.
