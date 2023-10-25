@@ -2,9 +2,6 @@
 
 ## Contract Address del Token que creamos 🫡
 0x8161547892A4ee217b89f25dbB560A1A89D26369
-7:25:40 
-
-Foudry course: FOUNDRY-ERC20
 ## Qué es ERCs y un EIPs???
 * EIPs ------> **(Ethereum Improvement Proposals)** Es una estructura documental que permite estandarizar el desarrollo de mejoras dentro de Ethereum, permitiendo que cualquier persona pueda presentar sus propuestas y mejorar así el desarrollo de esta blockchain. 
 
