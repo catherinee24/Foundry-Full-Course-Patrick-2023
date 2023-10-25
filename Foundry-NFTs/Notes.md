@@ -21,3 +21,48 @@ El proyecto **InterPlanetary File System (IPFS)** o **Sistema de Archivos Interp
 * Cuando aparezca el **archivo** subido en **IPFS**, clicamos los **3 puntitos(...)** que salen en la parte inquierda del **archivo** y le damos **Copiar CID**.
 * Luego no vamos al **browser** (Google) o (Brave) o el que mas te guste, y escribimos **ipfs://QmNgQwuEuztsWKwYoCpbxNaQhAee31kARPmB6z85Evd3GK**
 * QmNgQwuEuztsWKwYoCpbxNaQhAee31kARPmB6z85Evd3GK <-------- CID unico de tu archivo.
+
+## Usamos Chisel en el test 
+Escribimos **chisel** en nuestra terminal y luego Este es nuestro Output. 🤌
+```bash
+$ chisel
+Welcome to Chisel! Type `!help` to show available commands.
+➜ string memory cat = "cat";
+➜ string memory dog = "dog";
+➜ cat
+Type: string
+├ UTF-8: cat
+├ Hex (Memory):
+├─ Length ([0x00:0x20]): 0x0000000000000000000000000000000000000000000000000000000000000003
+├─ Contents ([0x20:..]): 0x6361740000000000000000000000000000000000000000000000000000000000
+├ Hex (Tuple Encoded):
+├─ Pointer ([0x00:0x20]): 0x0000000000000000000000000000000000000000000000000000000000000020
+├─ Length ([0x20:0x40]): 0x0000000000000000000000000000000000000000000000000000000000000003
+└─ Contents ([0x40:..]): 0x6361740000000000000000000000000000000000000000000000000000000000
+➜ bytes memory encodedCat = abi.encodePacked(cat);
+➜ encodedCat
+Type: dynamic bytes
+├ Hex (Memory):
+├─ Length ([0x00:0x20]): 0x0000000000000000000000000000000000000000000000000000000000000003
+├─ Contents ([0x20:..]): 0x6361740000000000000000000000000000000000000000000000000000000000
+├ Hex (Tuple Encoded):
+├─ Pointer ([0x00:0x20]): 0x0000000000000000000000000000000000000000000000000000000000000020
+├─ Length ([0x20:0x40]): 0x0000000000000000000000000000000000000000000000000000000000000003
+└─ Contents ([0x40:..]): 0x6361740000000000000000000000000000000000000000000000000000000000
+➜ bytes32 catHas = keccak256(encodedCat);
+➜ cathas
+Compiler errors:
+Error (7576): Undeclared identifier. Did you mean "catHas"?
+  --> ReplContract.sol:18:1:
+   |
+18 | cathas;
+   | ^^^^^^
+
+➜ catHas
+Type: bytes32
+└ Data: 0x52763589e772702fa7977a28b3cfb6ca534f0208a2b2d55f7558af664eac478a
+➜
+```
+Sorry 🙄 quise escribir **catHash** :)
+
+- En la **consola** se muestra como podemos **convertir un string a hash** usado **abi.encodePacked() y keccak256**.
