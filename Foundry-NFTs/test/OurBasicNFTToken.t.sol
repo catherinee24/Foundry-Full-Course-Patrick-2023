@@ -29,6 +29,7 @@ contract OurBasicNFTTokenTest is Test {
      */
     function testNameIsCorrect() public view {
         string memory expectedName = "MavericksDoggies";
-        string memory actualName = mftToken.name();
+        string memory actualName = nftToken.name();
+        assert(keccak256(abi.encodePacked(expectedName)) == keccak256(abi.encodePacked(actualName)));
     }
 }
