@@ -31,3 +31,6 @@
 [submodule "Foundry-NFTs/lib/openzeppelin-contracts"]
 	path = Foundry-NFTs/lib/openzeppelin-contracts
 	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "Foundry-NFTs/lib/foundry-devops"]
+	path = Foundry-NFTs/lib/foundry-devops
+	url = https://github.com/Cyfrin/foundry-devops

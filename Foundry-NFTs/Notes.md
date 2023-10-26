@@ -77,3 +77,10 @@ Sorry 🙄 quise escribir **catHash** :)
 ```
 
 - En la **consola** se muestra como podemos **convertir un string a hash** usado **abi.encodePacked() y keccak256**.
+
+## Archivo Interactions
+Una vez mas hicimos uso de Fonudry DevOps de Cyfrin!!
+**Para instalar ⤵️**
+```bash
+$ forge install Cyfrin/foundry-devops --no-commit
+```
