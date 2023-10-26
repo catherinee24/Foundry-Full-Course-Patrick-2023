@@ -10,8 +10,9 @@ contract OurBasicNFTTokenTest is Test {
     OurBasicNFTToken public nftToken;
     DeployOurBasicNFTToken public deployer;
 
-    address public cathe = makeAddr("Cathe");
-    address public gabi = makeAddr("Gabi");
+    address public USER = makeAddr("Cathe");
+    string public constant PUG = "ipfs://bafybeig37ioir76s7mg5oobetncojcm3c3hxasyd4rvid4jqhy4gkaheg4/?filename=0-PUG.json";
+
 
     uint256 public constant STARTING_BALANCE = 100 ether;
 
@@ -31,5 +32,13 @@ contract OurBasicNFTTokenTest is Test {
         string memory expectedName = "MavericksDoggies";
         string memory actualName = nftToken.name();
         assert(keccak256(abi.encodePacked(expectedName)) == keccak256(abi.encodePacked(actualName)));
+    }
+
+    function testCanMintAndHaveABalance() public {
+        vm.prank(USER);
+        nftToken.mint(PUG);
+
+        assert(nftToken.balanceOf(USER) == 1);
+        assert(keccak256(abi.encodePacked(PUG))==keccak256(abi.encodePacked(nftToken.tokenURI(0))));
     }
 }
