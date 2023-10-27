@@ -2,6 +2,9 @@
 8:22:53
 Foudry course: FOUNDRY-NFTs
 
+## Address de nuestro Basic Nft 🫡
+0xE24A237Bc855010dB2161Ef63fBb26CB073Ff956
+
 ## ¿Qué es un NFT? ERC-721 Estandard 🤔
 
 Las siglas de **NFT** significan **Non -Fungible Token**, un token no fungible. No fungible significa que algo es único y no se puede reemplazar.Cada **NFT** contiene una **firma digital** que hace que cada ejemplar sea único. Las **NFT** son activos digitales y pueden ser **fotos, videos, archivos de audio u otro formato digital.** Los ejemplos de **NFT** incluyen **ilustraciones, cómics, coleccionables deportivos, cartas coleccionables, juegos y más.**
@@ -83,4 +86,8 @@ Una vez mas hicimos uso de Fonudry DevOps de Cyfrin!!
 **Para instalar ⤵️**
 ```bash
 $ forge install Cyfrin/foundry-devops --no-commit
+```
+### Comando para Deployar el contrato en Testnet 
+```bash
+$ forge script script/DeployRaffle.s.sol --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY --broadcast --verify --etherscan-api-key $ETHERSCAN_API_KEY
 ```
