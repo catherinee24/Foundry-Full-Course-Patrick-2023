@@ -1,5 +1,5 @@
 # Lesson 11: Foundry NFTs https://github.com/catherinee24/Foundry-Course-Patrick 🤩
-8:22:53
+8:46:46
 Foudry course: FOUNDRY-NFTs
 
 ## Address de nuestro Basic Nft 🫡
