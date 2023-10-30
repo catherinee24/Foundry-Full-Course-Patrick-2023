@@ -11,8 +11,8 @@ contract OurBasicNFTTokenTest is Test {
     DeployOurBasicNFTToken public deployer;
 
     address public USER = makeAddr("Cathe");
-    string public constant PUG = "ipfs://bafybeig37ioir76s7mg5oobetncojcm3c3hxasyd4rvid4jqhy4gkaheg4/?filename=0-PUG.json";
-
+    string public constant PUG =
+        "ipfs://bafybeig37ioir76s7mg5oobetncojcm3c3hxasyd4rvid4jqhy4gkaheg4/?filename=0-PUG.json";
 
     uint256 public constant STARTING_BALANCE = 100 ether;
 
@@ -39,6 +39,6 @@ contract OurBasicNFTTokenTest is Test {
         nftToken.mint(PUG);
 
         assert(nftToken.balanceOf(USER) == 1);
-        assert(keccak256(abi.encodePacked(PUG))==keccak256(abi.encodePacked(nftToken.tokenURI(0))));
+        assert(keccak256(abi.encodePacked(PUG)) == keccak256(abi.encodePacked(nftToken.tokenURI(0))));
     }
 }

@@ -91,3 +91,13 @@ $ forge install Cyfrin/foundry-devops --no-commit
 ```bash
 $ forge script script/DeployRaffle.s.sol --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY --broadcast --verify --etherscan-api-key $ETHERSCAN_API_KEY
 ```
+## Base64 de Openzeppelin para encondear.
+https://docs.openzeppelin.com/contracts/4.x/utilities
+
+## Base64
+**Base64** util allows you to transform **bytes32** data into its **Base64** string representation.
+
+This is especially useful for building URL-safe tokenURIs for both ERC721 or ERC1155. This library provides a clever way to serve URL-safe Data URI compliant strings to serve on-chain data structures.
+```bash
+import {Base64} from "@openzeppelin/contracts/utils/base64.sol";
+```
