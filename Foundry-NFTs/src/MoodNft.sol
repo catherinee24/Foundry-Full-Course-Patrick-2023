@@ -16,6 +16,7 @@ contract MoodNft is ERC721 {
     }
 
     mapping(uint256 => Mood) private s_tokenIdToMood;
+
     constructor(
         string memory _sadSvgImageURI,
         string memory _happySvgImageURI
@@ -27,13 +28,20 @@ contract MoodNft is ERC721 {
 
     function mintNft() public {
         _safeMint(msg.sender, s_tokenCounter);
-        s_tokenIdToMood[s_tokenCounter]= Mood.HAPPY;
+        s_tokenIdToMood[s_tokenCounter] = Mood.HAPPY;
         s_tokenCounter++;
     }
 
     function tokenURI(
         uint256 _tokenId
     ) public view override returns (string memory) {
+        string memory imageURI;
+        if (s_tokenIdToMood[_tokenId] == Mood.HAPPY) {
+            imageURI = s_happySvgImageURI;
+        } else {
+            imageURI = s_sadSvgImageURI;
+        }
+
         //Este va a ser el Metadata de nuestro Token.
         string memory tokenMetadata = string.concat(
             '{"name": "',
