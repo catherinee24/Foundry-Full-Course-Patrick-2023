@@ -3,8 +3,8 @@
 pragma solidity ^0.8.19;
 
 import { Test } from "forge-std/Test.sol";
-import { OurBasicNFTToken } from "../src/OurBasicNFTToken.sol";
-import { DeployOurBasicNFTToken } from "../script/DeployOurBasicNFTToken.s.sol";
+import { OurBasicNFTToken } from "../../src/OurBasicNFTToken.sol";
+import { DeployOurBasicNFTToken } from "../../script/DeployOurBasicNFTToken.s.sol";
 
 contract OurBasicNFTTokenTest is Test {
     OurBasicNFTToken public nftToken;
