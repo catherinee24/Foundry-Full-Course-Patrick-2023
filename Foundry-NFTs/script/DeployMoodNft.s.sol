@@ -11,8 +11,8 @@ contract DeployMoodNft is Script {
      * @dev  readFile: CheatCode from Foundry
      */
     function run() external returns (MoodNft) {
-        string memory sadSvg = vm.readFile("../img/sad.svg");
-        string memory happySvg = vm.readFile("../img/happy.svg");
+        string memory sadSvg = vm.readFile("./img/sad.svg");
+        string memory happySvg = vm.readFile("./img/happy.svg");
         console.log(sadSvg);
     }
 
