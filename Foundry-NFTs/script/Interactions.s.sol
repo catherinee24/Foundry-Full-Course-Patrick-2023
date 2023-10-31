@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.19;
 
-import {Script} from "forge-std/Script.sol";
-import {OurBasicNFTToken} from "../src/OurBasicNFTToken.sol";
-import {DevOpsTools} from "../lib/foundry-devops/src/DevOpsTools.sol";
+import { Script } from "forge-std/Script.sol";
+import { OurBasicNFTToken } from "../src/OurBasicNFTToken.sol";
+import { DevOpsTools } from "../lib/foundry-devops/src/DevOpsTools.sol";
 
 contract MintBasicNft is Script {
     string public constant PUG =
