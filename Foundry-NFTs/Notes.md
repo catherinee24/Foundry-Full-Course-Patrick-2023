@@ -107,4 +107,7 @@ import {Base64} from "@openzeppelin/contracts/utils/base64.sol";
 ```
 
 ## Learn Solidity, Blockchain Development, & Smart Contracts | Powered By AI - Full Course (7 - 11)
-- **Minuto** -----> **9:17:34** : Hace un **Test** del **DeployMood** para ver si la funcion **svgToImageURI()** funcionaba corretamente.  
+- **Minuto** -----> **9:17:34** : Hace un **Test** del **DeployMood** para ver si la funcion **svgToImageURI()** funcionaba corretamente. 
+
+## Foundry readFile Cheatcode
+https://book.getfoundry.sh/cheatcodes/fs?highlight=readFile#signature
