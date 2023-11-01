@@ -16,9 +16,10 @@ La **EVM** o **Ethereum Virtual Machine**, en una computadora que maneja **SMART
 ### Campo de una transacción que crea un Smart Contract.
 - **Nonce**: Recuento de transacciones para una cuenta.
 - **Gas Price**: Precio por unidad de gas (en wei).
-- **To**: Dirección a la que se envía la transacción.
+- **Gas Limit**: Maximo gas que la tx puede usar.
+- **To**: Empty.
 - **Value**: Cantidad de wei a enviar.
-- **Data**: Lo que se le envia a la direccion **To**. 
+- **Data**: Contract init code & Contract bytecode. 
 - **v,r,s**: Componentes de la firma de una transacción.
 
 ### abi.encode() and abi.encodePacked()
