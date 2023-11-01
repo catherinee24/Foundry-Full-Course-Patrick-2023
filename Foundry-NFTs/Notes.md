@@ -2,6 +2,9 @@
 ## Highlights del curso 😂
 - 9:09:55 <----- Youtube minute.
 
+## Minuto de MINTEAR EL MOODNFT
+- 9:30:25 <----- Youtube minute.
+
 
 9:29:44 
 Foudry course: FOUNDRY-NFTs
@@ -111,3 +114,8 @@ import {Base64} from "@openzeppelin/contracts/utils/base64.sol";
 
 ## Foundry readFile Cheatcode
 https://book.getfoundry.sh/cheatcodes/fs?highlight=readFile#signature
+
+## Comando para correr el Test en la Testnet.
+```bash	
+$ forge test --fork-url $SEPOLIA_RPC_URL
+```
