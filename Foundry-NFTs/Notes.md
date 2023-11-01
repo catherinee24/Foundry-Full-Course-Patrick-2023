@@ -3,7 +3,7 @@
 - 9:09:55 <----- Youtube minute.
 
 
-8:57:41
+9:29:44 
 Foudry course: FOUNDRY-NFTs
 
 ## Address de nuestro Basic Nft 🫡
