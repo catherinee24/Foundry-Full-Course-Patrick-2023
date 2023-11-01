@@ -119,3 +119,8 @@ https://book.getfoundry.sh/cheatcodes/fs?highlight=readFile#signature
 ```bash	
 $ forge test --fork-url $SEPOLIA_RPC_URL
 ```
+
+## COMANDO PARA MINTEAR Y HACER CAMBIOS DE MOOD CON CAST Y ANVIL
+```bash
+$ cast send 0x90193C961A926261B756D1E5bb255e67ff9498A1 "mintNft()" --private-key $PRIVATE_KEY --rpc-url $RPC_URL
+```
