@@ -104,4 +104,8 @@ contract Encoding {
 - **Solidity** tiene algunas **"Low-Level" Keywords** llamadas: **Staticcall** & **call**.
 
 ### Call 
-- Es como llamamos a las funciones para cambiar el estado de la blockchain. 
+- Es como llamamos a las funciones para **cambiar el estado de la blockchain**. 
+>✨Nota: Learn Solidity, Blockchain Development, & Smart Contracts | Powered By AI - Full Course (7 - 11): Minuto 10:10:57 Explicacion del call en codigo.
+
+## Staticcall
+Esto es como a **"Low-Level"** hacemos nuestra llamada de funcion "**view**" o "**pure**". **No cambia el estado de la blockchain, solo nos da el valor retornado**.
