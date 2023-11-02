@@ -1,5 +1,5 @@
 ## Advanced Section: Encoding, Opcodes and Calls. ✨
-9:55:06
+10:14:18
 ### EVM Overview
 La **EVM** o **Ethereum Virtual Machine**, en una computadora que maneja **SMART CONTRACTS DEPLOYMENTS** y ejecucion.
                                         Contract.abi
@@ -111,6 +111,11 @@ contract Encoding {
 Esto es como a **"Low-Level"** hacemos nuestra llamada de funcion "**view**" o "**pure**". **No cambia el estado de la blockchain, solo nos da el valor retornado**.
 
 ### Ejemplos:
+- **Recuerda esto!!!**
+- En nuestras **{}** pudimos pasar campos específicos de una transacción, como el valor.
+- En nuestros **()** pudimos pasar datos para llamar a una función específica, ¡pero no había ninguna función que quisiéramos llamar! Por eso está así ----> **("")**.
+- Solo enviamos **ETH**, ¡así que no necesitamos llamar a una función!
+- Si deseamos llamar a una función o enviar datos, ¡lo haríamos en estos paréntesis!
 ```solidity
     function withdraw(address _recentWinner) public {
         (bool success, ) = _recentWinner.call{value: address(this).balance}("");
