@@ -90,3 +90,18 @@ contract Encoding {
 ```
 > ✨ Note: Copia y pega el codigo en Remix, compila y deploya, y ve los outputs de cada funcion !!
 ## Introducion a Encodear llamadas de funciones directamente.
+### Transactions - Function call
+- **Nonce**: Recuento de transacciones para una cuenta.
+- **Gas Price**: Precio por unidad de gas (en wei).
+- **Gas Limit**: Maximo gas que la tx puede usar.
+- **To**: Empty.
+- **Value**: Cantidad de wei a enviar.
+- **Data**: Lo que se envia al **To** address.
+- **v,r,s**: Componentes de la firma de una transacción.
+
+## how do we send transactions with just the data field populated? How do we populate de data field? 
+## ¿Cómo enviamos transacciones con solo el campo de datos completado? ¿Cómo poblamos el campo de datos?
+- **Solidity** tiene algunas **"Low-Level" Keywords** llamadas: **Staticcall** & **call**.
+
+### Call 
+- Es como llamamos a las funciones para cambiar el estado de la blockchain. 
