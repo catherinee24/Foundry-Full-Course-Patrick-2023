@@ -30,7 +30,7 @@ La **EVM** o **Ethereum Virtual Machine**, en una computadora que maneja **SMART
 - Con **abi.encodePacked()** : Podemos **combinar** o **concatenar** **Strings**. **abi.encodePacked()** retorna un **bytes object**. El ejemplo lo podemos encontrar en el archivo **Encoding:combineStrings()**.
 - En la **version 0.8.12 +** de solidity se puede usar: **string.concat(stringA, stringB)**.
 
-## Ejemplos aplicados en el enviroment de Remix 
+## Ejemplos: 
 ```solidity
 //SPDX-License-Identifier: MIT
 
@@ -109,3 +109,11 @@ contract Encoding {
 
 ## Staticcall
 Esto es como a **"Low-Level"** hacemos nuestra llamada de funcion "**view**" o "**pure**". **No cambia el estado de la blockchain, solo nos da el valor retornado**.
+
+### Ejemplos:
+```solidity
+    function withdraw(address _recentWinner) public {
+        (bool success, ) = _recentWinner.call{value: address(this).balance}("");
+        require(success, "Tranfer Failed"); 
+    }
+```
