@@ -23,14 +23,14 @@ La **EVM** o **Ethereum Virtual Machine**, en una computadora que maneja **SMART
 - **Data**: Contract init code & Contract bytecode. 
 - **v,r,s**: Componentes de la firma de una transacción.
 
-### abi.encode() and abi.encodePacked()
+### abi.encode() - abi.encodePacked() - abi.decode()
 9:45:26 <----- **Youtube minutes of the lesson**.
 
 #### abi.encodePacked()
 - Con **abi.encodePacked()** : Podemos **combinar** o **concatenar** **Strings**. **abi.encodePacked()** retorna un **bytes object**. El ejemplo lo podemos encontrar en el archivo **Encoding:combineStrings()**.
 - En la **version 0.8.12 +** de solidity se puede usar: **string.concat(stringA, stringB)**.
 
-## Ejemplos aplicados en el eviroment de Remix 
+## Ejemplos aplicados en el enviroment de Remix 
 ```solidity
 //SPDX-License-Identifier: MIT
 
@@ -88,3 +88,5 @@ contract Encoding {
 }
 
 ```
+> ✨ Note: Copia y pega el codigo en Remix, compila y deploya, y ve los outputs de cada funcion !!
+## Introducion a Encodear llamadas de funciones directamente.
