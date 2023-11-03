@@ -1,15 +1,16 @@
 # Lesson 11: Foundry NFTs https://github.com/catherinee24/Foundry-Course-Patrick 🤩
+
 ## Highlights del curso 😂
+
 - 9:09:55 <----- Youtube minute.
 
 ## Minuto de MINTEAR EL MOODNFT
+
 - 9:30:25 <----- Youtube minute.
-
-
-9:29:44 
-Foudry course: FOUNDRY-NFTs
+  Foudry course: FOUNDRY-NFTs
 
 ## Address de nuestro Basic Nft 🫡
+
 0xE24A237Bc855010dB2161Ef63fBb26CB073Ff956
 
 ## ¿Qué es un NFT? ERC-721 Estandard 🤔
@@ -89,38 +90,50 @@ Sorry 🙄 quise escribir **catHash** :)
 - En la **consola** se muestra como podemos **convertir un string a hash** usado **abi.encodePacked() y keccak256**.
 
 ## Archivo Interactions
+
 Una vez mas hicimos uso de Fonudry DevOps de Cyfrin!!
 **Para instalar ⤵️**
+
 ```bash
 $ forge install Cyfrin/foundry-devops --no-commit
 ```
-### Comando para Deployar el contrato en Testnet 
+
+### Comando para Deployar el contrato en Testnet
+
 ```bash
 $ forge script script/DeployRaffle.s.sol --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY --broadcast --verify --etherscan-api-key $ETHERSCAN_API_KEY
 ```
+
 ## Base64 de Openzeppelin para encondear.
+
 https://docs.openzeppelin.com/contracts/4.x/utilities
 
 ## Base64
+
 **Base64** util allows you to transform **bytes32** data into its **Base64** string representation.
 
 This is especially useful for building URL-safe tokenURIs for both ERC721 or ERC1155. This library provides a clever way to serve URL-safe Data URI compliant strings to serve on-chain data structures.
+
 ```bash
 import {Base64} from "@openzeppelin/contracts/utils/base64.sol";
 ```
 
 ## Learn Solidity, Blockchain Development, & Smart Contracts | Powered By AI - Full Course (7 - 11)
-- **Minuto** -----> **9:17:34** : Hace un **Test** del **DeployMood** para ver si la funcion **svgToImageURI()** funcionaba corretamente. 
+
+- **Minuto** -----> **9:17:34** : Hace un **Test** del **DeployMood** para ver si la funcion **svgToImageURI()** funcionaba corretamente.
 
 ## Foundry readFile Cheatcode
+
 https://book.getfoundry.sh/cheatcodes/fs?highlight=readFile#signature
 
 ## Comando para correr el Test en la Testnet.
-```bash	
+
+```bash
 $ forge test --fork-url $SEPOLIA_RPC_URL
 ```
 
 ## COMANDO PARA MINTEAR Y HACER CAMBIOS DE MOOD CON CAST Y ANVIL
+
 ```bash
 $ cast send 0x90193C961A926261B756D1E5bb255e67ff9498A1 "mintNft()" --private-key $PRIVATE_KEY --rpc-url $RPC_URL
 ```
