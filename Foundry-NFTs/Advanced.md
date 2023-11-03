@@ -31,63 +31,8 @@ La **EVM** o **Ethereum Virtual Machine**, en una computadora que maneja **SMART
 - En la **version 0.8.12 +** de solidity se puede usar: **string.concat(stringA, stringB)**.
 
 ## Ejemplos: 
-```solidity
-//SPDX-License-Identifier: MIT
+- 📁Carpeta ------> Solidity Advanced -------> 🗂️Archivo : Encoding.sol
 
-pragma solidity ^0.8.7;
-
-contract Encoding {
-    function concatStrings() public pure returns(string memory){
-        return string(abi.encodePacked("Hey Mom!! ", "You look so pretty today!!"));
-    }
-
-    function encodeNumber() public pure returns(bytes memory){
-        bytes memory number = abi.encode(1);
-        return number;
-    }
-
-    function encodeString() public pure returns(bytes memory){
-        bytes memory str = abi.encode("Hey buddy!!");
-        return str;
-    }
-
-    function encodeStringPacked() public pure returns(bytes memory){
-        bytes memory str= abi.encodePacked("Hey buddy!!");
-        return str;
-    }
-
-    function encodeStringBystes() public pure returns(bytes memory){
-        bytes memory str= bytes("Hey buddy!!");
-        return str;
-    }
-
-    function decodeString() public pure returns(string memory){
-        string memory someString= abi.decode(encodeString(), (string));
-        return someString;
-    }
-
-    function multiEncode() public pure returns(bytes memory){
-        bytes memory str = abi.encode("hey ur amazing!", "And beautiful!");
-        return str;
-    }
-
-    function multiDecode() public pure returns(string memory, string memory){
-        (string memory firstString, string memory secondString) = abi.decode(multiEncode(), (string, string));
-        return (firstString,secondString);
-    }
-
-    function multiEncodePacked() public pure returns(bytes memory){
-        bytes memory firtsString = abi.encodePacked("hey ur amazing!", "And bautiful");
-        return firtsString;
-    }
-
-    function multiStringCastPacked() public pure returns(string memory){
-        string memory firstString = string(multiEncodePacked());
-        return firstString;
-    }
-}
-
-```
 > ✨ Note: Copia y pega el codigo en Remix, compila y deploya, y ve los outputs de cada funcion !!
 ## Introducion a Encodear llamadas de funciones directamente.
 ### Transactions - Function call
