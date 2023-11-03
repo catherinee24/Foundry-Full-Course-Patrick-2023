@@ -7,7 +7,6 @@
 ## Minuto de MINTEAR EL MOODNFT
 
 - 9:30:25 <----- Youtube minute.
-  Foudry course: FOUNDRY-NFTs
 
 ## Address de nuestro Basic Nft 🫡
 
