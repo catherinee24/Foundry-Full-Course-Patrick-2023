@@ -1,5 +1,6 @@
 # Lesson 12: Foundry DeFi | Stablecoin (The PINNACLE PROJECT!! GET HERE!) https://github.com/catherinee24/Foundry-Course-Patrick 🤩
 
+16:49 
 Foundry course: FOUNDRY-DEFI-STABLECOIN
 
 ## ¿Qué es una Satblecoin? ✨
@@ -12,6 +13,8 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
     1. Reserva de valor.
     2. Unidad de cuenta. **--->** Es una medida para saber que tan valioso es algo. **(Ejemplo en Dolar)**
     3. Medio de intercambio.
+
+- **Categorias y Propiedades de una Stablecoin**: 
 
 - Algunos ejemplos de **stablecoins** populares incluyen **USDC, USDT (Tether), DAI**. Estas criptomonedas están respaldadas por activos en custodia y, en teoría, cada unidad de la **stablecoin** debería valer lo mismo que el activo de respaldo, lo que proporciona estabilidad en su valor.
 
