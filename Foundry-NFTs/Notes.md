@@ -2,11 +2,11 @@
 
 ## Highlights del curso 😂
 
-- 9:09:55 <----- Youtube minute.
+- 9:09:55 <----- Youtube Minute.
 
 ## Minuto de MINTEAR EL MOODNFT
 
-- 9:30:25 <----- Youtube minute.
+- 9:30:25 <----- Youtube Minute.
 
 ## Address de nuestro Basic Nft 🫡
 
