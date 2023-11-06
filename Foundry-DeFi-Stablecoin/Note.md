@@ -24,7 +24,7 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 
 ## ¿Qué es una Satblecoin? ✨
 
-- Una **stablecoin** es una criptomoneda diseñada para mantener su valor estable en lugar de experimentar grandes fluctuaciones de precio, como lo hacen algunas otras criptomonedas como el **Bitcoin** o el **Ethereum**. Estas monedas digitales están respaldadas por activos en la vida real, como dinero fiduciario **(como el dólar estadounidense o el euro)**, materias primas **(como el oro)**, o incluso otras **criptomonedas**.
+- Una **stablecoin** es un **(Cripto activo no volátil)**.
 
     El objetivo principal de una **stablecoin** es proporcionar una forma de transacción digital que no esté sujeta a la volatilidad extrema que a menudo se encuentra en otras criptomonedas. Esto hace que las stablecoins sean útiles para realizar pagos, transferencias de dinero y contratos inteligentes sin preocuparse por cambios drásticos en su valor en cortos períodos de tiempo.
 
