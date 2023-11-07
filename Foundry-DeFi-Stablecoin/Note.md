@@ -1,6 +1,6 @@
 # Lesson 12: Foundry DeFi | Stablecoin (The PINNACLE PROJECT!! GET HERE!) https://github.com/catherinee24/Foundry-Course-Patrick 🤩
 
-16:49 
+16:49 Ñ
 Foundry course: FOUNDRY-DEFI-STABLECOIN
 
 ## ¿Qué es una Satblecoin? ✨
