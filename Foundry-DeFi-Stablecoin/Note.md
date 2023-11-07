@@ -1,31 +1,37 @@
 # Lesson 12: Foundry DeFi | Stablecoin (The PINNACLE PROJECT!! GET HERE!) https://github.com/catherinee24/Foundry-Course-Patrick 🤩
 
-16:49 
+40:40
 Foundry course: FOUNDRY-DEFI-STABLECOIN
+
+🤯 **Mind blowing right away** 🤯
 
 ## ¿Qué es una Satblecoin? ✨
 
 - Una **stablecoin** es un **(Cripto activo no volátil)**. Una stablecoin es un activo criptográfico cuyo poder adquisitivo se mantiene relativamente constante.
 
-- **¿Por qué nos importa?**: Porque el dinero es importante.
+- **¿Por qué nos importa?**:
+  Porque el dinero es importante.
 
   - 3 Funciones del dinero:
     1. Reserva de valor.
     2. Unidad de cuenta. **--->** Es una medida para saber que tan valioso es algo. **(Ejemplo en Dolar)**
     3. Medio de intercambio.
 
-- Diferentes **Categorias y Propiedades de las Stablecoins**: 
-  1. Estabilidad relativa: Pegged/ Anchored / Floating. **USDC, USDT (Tether), DAI** 
-  2. Método de estabilidad: Governed **USDC, USDT (Tether), TUSD**/ Algorithmic.**DAI, FRAX, UST** 
-        - Las **stablecoins algoritmicas** usan una ecuación matematica transparente o establece el codigo para mint(crear tokens) y burb(quemar tokens). 
-        - Las **stablecoins governadas** mintean y queman tokens a través de la intervensión humana.
-  3. Tipo Colateral: Endogenous / Exogenous. **USDC, DAI**
-        - **Colateral exógeno**: colateral que se origina desde **fuera** del protocolo.
-        - **Colateral endógeno**: colateral que se origina desde **dentro** del protocolo.
+- Diferentes **Categorias y Propiedades de las Stablecoins**:
 
-- ¿Si la stablecoin falla? También fallará el colateral subyacente?
-    - ✅YES: **Endógeno/ Endogenous** ---> **UST**: Si falla la stablecoin falla Luna, el protocolo. 
+  1. Estabilidad relativa: Pegged/ Anchored / Floating. **USDC, USDT (Tether), DAI**
+  2. Método de estabilidad: Governed **USDC, USDT (Tether), TUSD**/ Algorithmic.**DAI, FRAX, UST**
+     - Las **stablecoins algoritmicas** usan una ecuación matematica transparente o establece el codigo para mint(crear tokens) y burb(quemar tokens).
+     - Las **stablecoins governadas** mintean y queman tokens a través de la intervensión humana.
+  3. Tipo Colateral: Endogenous / Exogenous. **USDC, DAI**
+     - **Colateral exógeno**: colateral que se origina desde **fuera** del protocolo.
+     - **Colateral endógeno**: colateral que se origina desde **dentro** del protocolo.
+
+  - ¿Si la stablecoin falla? También fallará el colateral subyacente?
+    - ✅YES: **Endógeno/ Endogenous** ---> **UST**: Si falla la stablecoin falla Luna, el protocolo.
     - ❎NO: **Exógeno/ Exogenous** ---> **USDC** : Si falla la stablecoin, no falla el dolar.
+
+- **¿Qué hacen realmente las stablecoins?**:
 
 ## ¿Qué es DeFi? ✨
 
