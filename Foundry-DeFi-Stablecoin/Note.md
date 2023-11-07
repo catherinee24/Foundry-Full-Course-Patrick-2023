@@ -7,7 +7,7 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 
 ## ¿Qué es una Satblecoin? ✨
 
-- Una **stablecoin** es un **(Cripto activo no volátil)**. Una stablecoin es un activo criptográfico cuyo poder adquisitivo se mantiene relativamente constante.
+- Una **stablecoin** es un **(Cripto activo no volátil)** cuyo poder adquisitivo se mantiene relativamente constante.
 
 - **¿Por qué nos importa?**:
   Porque el dinero es importante.
