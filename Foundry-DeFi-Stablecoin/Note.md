@@ -1,6 +1,6 @@
 # Lesson 12: Foundry DeFi | Stablecoin (The PINNACLE PROJECT!! GET HERE!) https://github.com/catherinee24/Foundry-Course-Patrick 🤩
 
-16:49 Ñ
+16:49 
 Foundry course: FOUNDRY-DEFI-STABLECOIN
 
 ## ¿Qué es una Satblecoin? ✨
@@ -14,7 +14,14 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
     2. Unidad de cuenta. **--->** Es una medida para saber que tan valioso es algo. **(Ejemplo en Dolar)**
     3. Medio de intercambio.
 
-- **Categorias y Propiedades de una Stablecoin**: 
+- Diferentes **Categorias y Propiedades de las Stablecoins**: 
+  1. Estabilidad relativa: Pegged/ Anchored / Floating. **USDC, USDT (Tether), DAI** 
+  2. Método de estabilidad: Governed **USDC, USDT (Tether), TUSD**/ Algorithmic.**DAI, FRAX, UST** 
+        - Las **stablecoins algoritmicas** usan una ecuación matematica transparente o establece el codigo para mint(crear tokens) y burb(quemar tokens). 
+        - Las **stablecoins governadas** mintean y queman tokens a través de la intervensión humana.
+  3. Tipo Colateral: Endogenous / Exogenous. **USDC, DAI**
+        - **Colateral exógeno**: colateral que se origina desde fuera del protocolo.
+        - **Colateral endógeno**: colateral que se origina desde dentro del protocolo.
 
 - Algunos ejemplos de **stablecoins** populares incluyen **USDC, USDT (Tether), DAI**. Estas criptomonedas están respaldadas por activos en custodia y, en teoría, cada unidad de la **stablecoin** debería valer lo mismo que el activo de respaldo, lo que proporciona estabilidad en su valor.
 
