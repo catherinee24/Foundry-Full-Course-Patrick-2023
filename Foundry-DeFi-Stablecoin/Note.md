@@ -14,7 +14,7 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 
   - 3 Funciones del dinero:
     1. Reserva de valor.
-    2. Unidad de cuenta. **--->** Es una medida para saber que tan valioso es algo. **(Ejemplo en Dolar)**
+    2. Unidad de cuenta. **--->** Es una medida para saber que tan valioso es algo. **(Ejemplo el Dolar)**
     3. Medio de intercambio.
 
 - Diferentes **Categorias y Propiedades de las Stablecoins**:
@@ -30,8 +30,6 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
   - ¿Si la stablecoin falla? También fallará el colateral subyacente?
     - ✅YES: **Endógeno/ Endogenous** ---> **UST**: Si falla la stablecoin falla Luna, el protocolo.
     - ❎NO: **Exógeno/ Exogenous** ---> **USDC** : Si falla la stablecoin, no falla el dolar.
-
-- **¿Qué hacen realmente las stablecoins?**:
 
 ## ¿Qué es DeFi? ✨
 
