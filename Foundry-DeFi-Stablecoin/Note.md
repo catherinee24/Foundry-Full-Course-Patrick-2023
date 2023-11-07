@@ -20,10 +20,12 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
         - Las **stablecoins algoritmicas** usan una ecuación matematica transparente o establece el codigo para mint(crear tokens) y burb(quemar tokens). 
         - Las **stablecoins governadas** mintean y queman tokens a través de la intervensión humana.
   3. Tipo Colateral: Endogenous / Exogenous. **USDC, DAI**
-        - **Colateral exógeno**: colateral que se origina desde fuera del protocolo.
-        - **Colateral endógeno**: colateral que se origina desde dentro del protocolo.
+        - **Colateral exógeno**: colateral que se origina desde **fuera** del protocolo.
+        - **Colateral endógeno**: colateral que se origina desde **dentro** del protocolo.
 
-- Algunos ejemplos de **stablecoins** populares incluyen **USDC, USDT (Tether), DAI**. Estas criptomonedas están respaldadas por activos en custodia y, en teoría, cada unidad de la **stablecoin** debería valer lo mismo que el activo de respaldo, lo que proporciona estabilidad en su valor.
+- ¿Si la stablecoin falla? También fallará el colateral subyacente?
+    - ✅YES: **Endógeno/ Endogenous** ---> **UST**: Si falla la stablecoin falla Luna, el protocolo. 
+    - ❎NO: **Exógeno/ Exogenous** ---> **USDC** : Si falla la stablecoin, no falla el dolar.
 
 ## ¿Qué es DeFi? ✨
 
