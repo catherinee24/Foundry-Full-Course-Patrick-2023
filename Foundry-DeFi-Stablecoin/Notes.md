@@ -1,5 +1,8 @@
 # Lesson 12: Foundry DeFi | Stablecoin (The PINNACLE PROJECT!! GET HERE!) https://github.com/catherinee24/Foundry-Course-Patrick 🤩
 
+40:40
+Foundry course: FOUNDRY-DEFI-STABLECOIN
+
 ## Diseño de nuestra Stablecoin!! ✨
 1. (Relative stability) Anchored or Pegged -----> $1.00 USD 
     - Haremos codigo para asegurarnos de que nuestra stablecoin siempre valga $1.00. 
