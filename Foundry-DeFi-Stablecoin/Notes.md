@@ -1,6 +1,6 @@
 # Lesson 12: Foundry DeFi | Stablecoin (The PINNACLE PROJECT!! GET HERE!) https://github.com/catherinee24/Foundry-Course-Patrick 🤩
 
-45:47
+49:48
 Foundry course: FOUNDRY-DEFI-STABLECOIN
 
 ## Arquitectura de nuestra Stablecoin!! ✨
@@ -25,3 +25,7 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 
 - Este contrato será el Token.🪙
 - Este contrato no tendrá la logica principal, la lógica estará en otro contrato.
+- La función **ERC20Burnable:burn()** de openzeppelin nos ayudará a mantener la estabilidad de nuestra stablecoin.
+- El contrato **ERC20Burnable** hereda de **ERC20** por eso lo importamos.
+- Como queremos que nuestro token este controlado **100%** por **CSCEngine** contract, Haremos el contrato **DecentralizedStableCoin.sol** Ownable.
+- Usamos el contrato **ownable** by **OZ**. Lo que significa que tendremos un **onlyOwner** **modifier**.
