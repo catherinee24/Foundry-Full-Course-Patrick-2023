@@ -20,7 +20,7 @@ contract DecentralizedStableCoin is ERC20Burnable, Ownable {
     error DecentralizedStableCoin__NotAddressZero();
     error DecentralizedStableCoin__AmountMustBeGreaterThanZero();
 
-    constructor() ERC20("CatellaUSD", "CSC") { }
+    constructor() ERC20("CatellaUSD", "CSC") Ownable(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266) { }
 
     /**
      * @notice Funcion burn(): Diseñada para permitir que el propietario del contrato (CSCEnginee) queme una cierta cantidad de tokens, siempre y cuando cumpla con las verificaciones de límite y tenga suficientes tokens en su saldo.
