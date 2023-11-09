@@ -19,8 +19,14 @@ contract DecentralizedStableCoin is ERC20Burnable, Ownable {
     constructor() ERC20("CatellaUSD", "CSC") { }
 
     /**
-     * @notice La cantidad a quemar debe ser mayor a cero.
-     * @notice El balance de la persona que llama debe ser mayor a la cantidad que quiere quemar.
+     * @notice Funcion burn(): Diseñada para permitir que el propietario del contrato (CSCEnginee) queme una cierta
+     * cantidad de tokens, siempre y cuando cumpla con las verificaciones de límite y tenga suficientes tokens en su
+     * saldo.
+     * @dev if() statement 1: Verifica si la cantidad que se quiere quemar es menor o igual a cero. Si es así, revierte la transacción
+     * con un mensaje de error indicando que la cantidad debe ser mayor que cero.
+     * @dev if() statement 2: Verifica si la cantidad que se quiere quemar es mayor que el saldo disponible en la cuenta del
+     * propietario. Si es así, revierte la transacción con un mensaje de error indicando que la cantidad a quemar
+     * excede el saldo.
      * @param _amount Cantidad de tokens que se quieren quemar.
      */
     function burn(uint256 _amount) public override onlyOwner {
@@ -29,4 +35,12 @@ contract DecentralizedStableCoin is ERC20Burnable, Ownable {
         if (balance < _amount) revert DecentralizedStableCoin_BurnAmountExeedsBalance();
         super.burn(_amount);
     }
+
+    /**
+     * @notice El balance de la persona que llama debe ser mayor a la cantidad que quiere quemar.
+     * @param _to Dirección a la cual se van a enviar las nuevas unidades de Token creados.
+     * @param _amount Cantidad de nuevas unidades de Tokens que se van a crear y enviar a la dirección especificada en
+     * "_to".
+     */
+    function mint(address _to, uint256 _amount) external onlyOwner returns (bool) { }
 }
