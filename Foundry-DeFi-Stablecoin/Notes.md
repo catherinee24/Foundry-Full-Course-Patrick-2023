@@ -1,6 +1,6 @@
 # Lesson 12: Foundry DeFi | Stablecoin (The PINNACLE PROJECT!! GET HERE!) https://github.com/catherinee24/Foundry-Course-Patrick 🤩
 
-40:40
+45:47 
 Foundry course: FOUNDRY-DEFI-STABLECOIN
 
 ## Arquitectura de nuestra Stablecoin!! ✨
@@ -18,4 +18,6 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
     - Colateral que se orgina desde fuera del protocolo.
     - Usaremos **wBTC** & **wETH** como colateral.
 
+## Contrato DecentralizedStableCoin.sol
+- Este contrato será el Token.🪙
 
