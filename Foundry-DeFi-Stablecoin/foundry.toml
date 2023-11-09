@@ -8,6 +8,7 @@ libs = ["lib"]
 remappings = ['@openzeppelin/contracts=lib/openzeppelin-contracts/contracts']
 
 [fmt]
+
   bracket_spacing = true
   int_types = "long"
   line_length = 120
