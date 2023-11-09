@@ -37,5 +37,4 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
  }
 ```
    - La palabra clave **super** en este caso apunta a **ERC20Burnable**.
-
-
+- Tambien hacemos el **super** porque estamos **sobreescribiendo (override)** la funcion **burn()**.

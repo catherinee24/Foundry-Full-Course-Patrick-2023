@@ -14,7 +14,9 @@ import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 
 contract DecentralizedStableCoin is ERC20Burnable, Ownable {
     error DecentralizedStableCoin__MustBeMoreThanZero();
-    error DecentralizedStableCoin_BurnAmountExeedsBalance();
+    error DecentralizedStableCoin__BurnAmountExeedsBalance();
+    error DecentralizedStableCoin__NotAddressZero();
+    error DecentralizedStableCoin__AmountMustBeGreaterThanZero();
 
     constructor() ERC20("CatellaUSD", "CSC") { }
 
@@ -32,7 +34,7 @@ contract DecentralizedStableCoin is ERC20Burnable, Ownable {
     function burn(uint256 _amount) public override onlyOwner {
         uint256 balance = balanceOf(msg.sender);
         if (_amount <= 0) revert DecentralizedStableCoin__MustBeMoreThanZero();
-        if (balance < _amount) revert DecentralizedStableCoin_BurnAmountExeedsBalance();
+        if (balance < _amount) revert DecentralizedStableCoin__BurnAmountExeedsBalance();
         super.burn(_amount);
     }
 
@@ -42,5 +44,10 @@ contract DecentralizedStableCoin is ERC20Burnable, Ownable {
      * @param _amount Cantidad de nuevas unidades de Tokens que se van a crear y enviar a la dirección especificada en
      * "_to".
      */
-    function mint(address _to, uint256 _amount) external onlyOwner returns (bool) { }
+    function mint(address _to, uint256 _amount) external onlyOwner returns (bool) {
+        if(_to == address(0)) revert DecentralizedStableCoin__NotAddressZero();
+        if(_amount <= 0) revert DecentralizedStableCoin__AmountMustBeGreaterThanZero();
+        _mint(_to, _amount);
+        return true;
+    }
 }
