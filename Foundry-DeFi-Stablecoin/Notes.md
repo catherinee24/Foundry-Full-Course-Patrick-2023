@@ -29,3 +29,11 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 - El contrato **ERC20Burnable** hereda de **ERC20** por eso lo importamos.
 - Como queremos que nuestro token este controlado **100%** por **CSCEngine** contract, Haremos el contrato **DecentralizedStableCoin.sol** Ownable.
 - Usamos el contrato **ownable** by **OZ**. Lo que significa que tendremos un **onlyOwner** **modifier**.
+- La keyword **super** significa que use la funcion que queramos llamar de la clase padre. En este caso el contrato **ERC20Burnable.sol** de OZ.
+   - Ejemplo:
+```solidity
+ contract DecentralizedStableCoin is ERC20Burnable, Ownable {
+   super.burn(_amount);
+ }
+```
+   - La palabra clave **super** en este caso apunta a **ERC20Burnable**.
