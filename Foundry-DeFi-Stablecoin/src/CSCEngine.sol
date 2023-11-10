@@ -144,11 +144,12 @@ contract CSCEngine is ReentrancyGuard {
 
     /**
      * @return Retorna que tan cerca de la liquidación está un usuario.
-     * @notice Si un usuario se va a bajo de 1, entonces pueden ser liquidados.
+     * @notice Si un usuario se va a bajo de 1, entonces pueden se liquidado.
      */
     function _healthFactor(address _user) private view returns (uint256) {
         (uint256 totalCscMinted, uint256 collateralValueInUSD) = _getAccountInformation(_user);
         uint256 collateralAdjustedForThreshold = (collateralValueInUSD * LIQUIDATION_THRESHOLD) / LIQUIDATION_PRECISION;
+        return(collateralAdjustedForThreshold * PRECISION) / totalCscMinted;
     }
 
     /**
