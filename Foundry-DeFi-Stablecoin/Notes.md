@@ -43,3 +43,9 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 - Antes de empezar a codear nuestra logica principal, debemos preguntarnos.. 
 - **¿Cúal es la función principal que nuestro contrato debe tener?**
   1. Muchos desarrolladores empienzan por crear **Interfaces**, especificando las funciones que quieren que tenga el proyecto a desarrollar.
+- Creamos funciones para que:
+  1. Las personas puedan depositar su collateral y mintear CSC (La stablecoin).
+  2. Las personas puedan redimir el collateral para CSC.
+  3. Las personas puedan quemar Csc.
+  4. Las personas pueden ser liquidadas si el valor del collateral (wBTC - wETH) llega a ser menor que CSC, para salvar el protocolo. 
+  5. Podamos saber que tan health(Saludables) estan las personas con la posión que tienen abierta en el protocolo.
