@@ -5,7 +5,7 @@ pragma solidity ^0.8.18;
 import { DecentralizedStableCoin } from "../src/DecentralizedStableCoin.sol";
 import { ReentrancyGuard } from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import { AggregatorV3Interface } from "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 /// @title CSCEngine (Catella StableCoin Engine)
 /// @author Catherine Maverick from catellatech.
@@ -35,6 +35,8 @@ contract CSCEngine is ReentrancyGuard {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
     uint256 private constant ADDITIONAL_FEED_PRECISION = 1e10;
     uint256 private constant PRECISION = 1e18;
+    uint256 private constant LIQUIDATION_THRESHOLD = 50; // 200% Overcollateralized
+    uint256 private constant LIQUIDATION_PRECISION = 100;
 
     mapping(address token => address priceFeed) private s_priceFeeds;
     mapping(address user => mapping(address token => uint256 amount)) private s_collateralDeposited;
@@ -121,7 +123,7 @@ contract CSCEngine is ReentrancyGuard {
     function liquidate() external { }
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                                PRIVATE & INTERNAL FUNCTIONS
+                                            PRIVATE & INTERNAL FUNCTIONS
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
     /**
@@ -137,7 +139,7 @@ contract CSCEngine is ReentrancyGuard {
         returns (uint256 totalCscMinted, uint256 collateralValueInUSD)
     {
         totalCscMinted = s_CSCMinted[_user];
-        collateralValueInUSD = getAccountCollateralValue(_user);
+        collateralValueInUSD = getAccountCollateralValueInUSD(_user);
     }
 
     /**
@@ -145,7 +147,8 @@ contract CSCEngine is ReentrancyGuard {
      * @notice Si un usuario se va a bajo de 1, entonces pueden ser liquidados.
      */
     function _healthFactor(address _user) private view returns (uint256) {
-        (uint256 totalCscMinted, uint256 CollateralValueInUSD) = _getAccountInformation(_user);
+        (uint256 totalCscMinted, uint256 collateralValueInUSD) = _getAccountInformation(_user);
+        uint256 collateralAdjustedForThreshold = (collateralValueInUSD * LIQUIDATION_THRESHOLD) / LIQUIDATION_PRECISION;
     }
 
     /**
@@ -159,11 +162,12 @@ contract CSCEngine is ReentrancyGuard {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
     /**
-     * @notice Para obtener el valor tenemos que hacer un loop a través de cada collateral token, obtener el valor que se ha depositado y mapearlo al precio para obtener el valor de USD.
+     * @notice Para obtener el valor tenemos que hacer un loop a través de cada collateral token, obtener el valor que
+     * se ha depositado y mapearlo al precio para obtener el valor de USD.
      * @param _user
      */
-    function getAccountCollateralValue(address _user) public view returns (uint256 totalCollateralValueInUSD) { 
-        for(uint256 i = 0; i < s_collateralTokens.length; i++) {
+    function getAccountCollateralValueInUSD(address _user) public view returns (uint256 totalCollateralValueInUSD) {
+        for (uint256 i = 0; i < s_collateralTokens.length; i++) {
             address token = s_collateralTokens[i];
             uint256 amount = s_collateralDeposited[_user][token];
             totalCollateralValueInUSD += getUsdValue(token, amount);
@@ -175,11 +179,11 @@ contract CSCEngine is ReentrancyGuard {
      * @notice 1 ETH = $1000
      * @notice El valor retornado por el CL será 1000 * 1e8
      */
-    function getUsdValue(address _token, uint256 _amount ) public view returns (uint256) {
+    function getUsdValue(address _token, uint256 _amount) public view returns (uint256) {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(s_priceFeeds[_token]);
-        (,int256 price,,,) = priceFeed.latestRoundData();
+        (, int256 price,,,) = priceFeed.latestRoundData();
         return ((uint256(price) * ADDITIONAL_FEED_PRECISION) * _amount) / PRECISION;
     }
-    
+
     function getHealthFactor() external view { }
 }
