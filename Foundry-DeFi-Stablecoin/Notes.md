@@ -74,3 +74,8 @@ function mintCsc() external {}
 ```
 - Hacemos la funcion **mintCsc()** para que los usuarios puedan mintear la stablecoin seguan la cantidad de collateral que depositaron. Para poder mintear CSC tenemos que: 
    1. Checkear que el **valor del collateral** sea **mayor que** el **valor de CSC (Catella StableCoin)**.
+   2. Necesitamos mantener trackeado la cantidad de CSC que el usuario está minteando. para ello creamos un mapping.
+   3. Checkeamos que la funcion revierta si el usuario quiere mintar más CSC que el collateral que está depositando. ($150 CSC, $100 ETH). Para esto creamos una funcion interna. 
+      - revertIfHealthFactorIsBroken(msg.sender)
+         - En esta funcion checkeamos el **health factor(Se tiene que tener suficiente collateral).**  
+   > ✨NOTE: El ETH(collateral) siempre tiene que ser mayor a CSC.

@@ -34,6 +34,7 @@ contract CSCEngine is ReentrancyGuard {
     //////////////////////////////////////////////////////////////*/
     mapping(address token => address priceFeed) private s_priceFeeds;
     mapping(address user => mapping(address token => uint256 amount)) private s_collateralDeposited;
+    mapping(address user => uint256 amountCscMinted) private s_CSCMinted;
 
     DecentralizedStableCoin private immutable i_cscToken;
 
@@ -100,11 +101,26 @@ contract CSCEngine is ReentrancyGuard {
     function redeemCollateral() external { }
 
     /**
+     * @notice Sigue el patrón CEI
+     * @notice Se debe tener más valor del collateral que el minimo threshold.
      * @param _amountCscToMint Cantida de CSC (Catella StableCoin) que el usuario quiere mintear.
      *  
     */
-    function mintCsc(uint256 _amountCscToMint) external { }
+    function mintCsc(uint256 _amountCscToMint) external moreThanZero(_amountCscToMint) nonReentrant() {
+        s_CSCMinted[msg.sender] += _amountCscToMint;
+        revertIfHealthFactorIsBroken(msg.sender);
+     }
     function burnCsc() external { }
     function liquidate() external { }
     function getHealthFactor() external view { }
+
+    /*//////////////////////////////////////////////////////////////
+                    PRIVATE & INTERNAL FUNCTIONS
+    //////////////////////////////////////////////////////////////*/
+
+    /**
+     * 
+     * @param _user Direccion del usuario.
+     */
+    function revertIfHealthFactorIsBroken(address _user) internal view {}
 }
