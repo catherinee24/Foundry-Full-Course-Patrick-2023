@@ -1,4 +1,4 @@
-// SPDX-License-Indentifier: MIT
+// SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.18;
 
@@ -17,8 +17,39 @@ pragma solidity ^0.8.18;
 /// @notice This contract is very loosely based on the MakerDAO DSS (DAI) system.
 
 contract CSCEngine {
+    /*//////////////////////////////////////////////////////////////
+                                ERRORS
+    //////////////////////////////////////////////////////////////*/
+    error CSCEngine__NeedsMoreThanZero();
+
+    /*//////////////////////////////////////////////////////////////
+                                MODIFIERS
+    //////////////////////////////////////////////////////////////*/
+    modifier moreThanZero(uint256 amount){
+        if(amount == 0 ) revert CSCEngine__NeedsMoreThanZero();
+        _;
+    }
+
+    /*//////////////////////////////////////////////////////////////
+                                FUNCTIONS
+    //////////////////////////////////////////////////////////////*/
+    constructor(){}
+
+    /*//////////////////////////////////////////////////////////////
+                         EXTERNAL FUNCTIONS
+    //////////////////////////////////////////////////////////////*/
     function depositCollateralAndMintCsc() external { }
-    function depositCollateral() external { }
+
+    /**
+      @param _tokenCollateralAddress Dirección del token que el usuario depositará como collateral (WBTC/WETH)
+      @param _amountCollateral Cantidad de tokens collateral que el usuario depositará.
+    */
+    function depositCollateral(address _tokenCollateralAddress, uint256 _amountCollateral ) external moreThanZero(_amountCollateral) { }
+    
+    
+    
+    
+    
     function redeemCollateralForCsc() external { }
     function redeemCollateral() external { }
     function mintCsc() external { }

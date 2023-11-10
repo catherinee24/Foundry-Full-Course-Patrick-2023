@@ -9,7 +9,7 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 
    - Haremos codigo para asegurarnos de que nuestra stablecoin siempre valga $1.00.
    - Usaremos **Chainlink** Price feed.
-   - Establecemos una función para intercambiar **BTC** & **ETH** ----> $$$ Cuantos dólares sean.
+   - Estableceremos una función para intercambiar **BTC** & **ETH** ----> $$$ Cuantos dólares sean.
 
 2. Stability mechanism (Minting): -----> Algorithmic Decentralized.
 
@@ -53,4 +53,10 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 - "**threshold**" indica un punto específico que debes alcanzar para desbloquear ciertas oportunidades, funciones o beneficios dentro del ecosistema financiero descentralizado.
 
 - Digamos que el threshold es de 150% si un usuario llega a ese % será liquidado.
+
+## Depositar collateral ✨
+- Hacemos la funcion depositar porque es lo que los usuarios harian principalmente. Depositar su collateral.
+   1. Establecemos los parametros, como: la direccion del collateral a depositar y la cantidad de collateral a depositar.
+   2. Hicimos un modifier para asegurarnos de que la cantidad de collateral a depositar sea mayor a 0.
+   3. Hacimos un modifier para establecer los dos tipos de collateral que se aceptarán (WBT/WETH).
 
