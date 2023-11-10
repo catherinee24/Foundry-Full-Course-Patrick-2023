@@ -1,0 +1,4 @@
+{
+  "solidity.telemetry": false,
+  "solidity-language-server.trace.server.verbosity": "verbose"
+}

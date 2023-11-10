@@ -3,6 +3,7 @@
 pragma solidity ^0.8.18;
 
 import { DecentralizedStableCoin } from "../src/DecentralizedStableCoin.sol";
+import { ReentrancyGuard } from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 /// @title CSCEngine (Catella StableCoin Engine)
 /// @author Catherine Maverick from catellatech.
@@ -18,7 +19,7 @@ import { DecentralizedStableCoin } from "../src/DecentralizedStableCoin.sol";
 /// as depositing and withdrawing collateral.
 /// @notice This contract is very loosely based on the MakerDAO DSS (DAI) system.
 
-contract CSCEngine {
+contract CSCEngine is ReentrancyGuard {
     /*//////////////////////////////////////////////////////////////
                                 ERRORS
     //////////////////////////////////////////////////////////////*/
@@ -30,6 +31,7 @@ contract CSCEngine {
                          STATE VARIABLES
     //////////////////////////////////////////////////////////////*/
     mapping(address token => address priceFeed) private s_priceFeeds;
+    mapping(address user => mapping(address token => uint256 amount)) private s_collateralDeposited;
 
     DecentralizedStableCoin private immutable i_cscToken;
 
@@ -41,8 +43,8 @@ contract CSCEngine {
         _;
     }
 
-    modifier isAllowedToken(address token){
-        if(s_priceFeeds[token] == 0) revert CSCEngine__TokenNotAllowed();
+    modifier isAllowedToken(address token) {
+        if (s_priceFeeds[token] == address(0)) revert CSCEngine__TokenNotAllowed();
         _;
     }
 
@@ -68,15 +70,19 @@ contract CSCEngine {
 
     /**
      * @param _tokenCollateralAddress Dirección del token que el usuario depositará como collateral (WBTC/WETH)
-     *   @param _amountCollateral Cantidad de tokens collateral que el usuario depositará.
+     * @param _amountCollateral Cantidad de tokens collateral que el usuario depositará.
      */
     function depositCollateral(
         address _tokenCollateralAddress,
         uint256 _amountCollateral
     )
         external
-        moreThanZero(_amountCollateral) isAllowedToken(_tokenCollateralAddress)
-    { }
+        moreThanZero(_amountCollateral)
+        isAllowedToken(_tokenCollateralAddress)
+        nonReentrant
+    {
+        s_collateralDeposited[msg.sender][_tokenCollateralAddress] += _amountCollateral;
+    }
 
     function redeemCollateralForCsc() external { }
     function redeemCollateral() external { }
