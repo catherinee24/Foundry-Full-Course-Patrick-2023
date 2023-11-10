@@ -104,23 +104,38 @@ contract CSCEngine is ReentrancyGuard {
      * @notice Sigue el patrón CEI
      * @notice Se debe tener más valor del collateral que el minimo threshold.
      * @param _amountCscToMint Cantida de CSC (Catella StableCoin) que el usuario quiere mintear.
-     *  
-    */
-    function mintCsc(uint256 _amountCscToMint) external moreThanZero(_amountCscToMint) nonReentrant() {
+     *
+     */
+    function mintCsc(uint256 _amountCscToMint) external moreThanZero(_amountCscToMint) nonReentrant {
         s_CSCMinted[msg.sender] += _amountCscToMint;
-        revertIfHealthFactorIsBroken(msg.sender);
-     }
+        _revertIfHealthFactorIsBroken(msg.sender);
+    }
+
     function burnCsc() external { }
     function liquidate() external { }
     function getHealthFactor() external view { }
 
     /*//////////////////////////////////////////////////////////////
-                    PRIVATE & INTERNAL FUNCTIONS
+                PRIVATE & INTERNAL VIEW FUNCTIONS
     //////////////////////////////////////////////////////////////*/
 
+    function _getAccountInformation(address _user)
+        internal
+        view
+        returns (uint256 totalCscMinted, uint256 collateralValueInUSD)
+    { }
+
     /**
-     * 
+     * @return Retorna que tan cerca de la liquidación está un usuario.
+     * @notice Si un usuario se va a bajo de 1, entonces pueden ser liquidados.
+     */
+    function _healthFactor(address _user) private view returns (uint256) {
+        (uint256 totalCscMinted, uint256 CollateralValueInUSD) = _getAccountInformation(_user);
+    }
+
+    /**
+     *
      * @param _user Direccion del usuario.
      */
-    function revertIfHealthFactorIsBroken(address _user) internal view {}
+    function _revertIfHealthFactorIsBroken(address _user) internal view { }
 }

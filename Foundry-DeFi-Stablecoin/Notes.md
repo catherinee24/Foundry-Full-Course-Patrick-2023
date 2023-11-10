@@ -76,6 +76,11 @@ function mintCsc() external {}
    1. Checkear que el **valor del collateral** sea **mayor que** el **valor de CSC (Catella StableCoin)**.
    2. Necesitamos mantener trackeado la cantidad de CSC que el usuario está minteando. para ello creamos un mapping.
    3. Checkeamos que la funcion revierta si el usuario quiere mintar más CSC que el collateral que está depositando. ($150 CSC, $100 ETH). Para esto creamos una funcion interna. 
-      - revertIfHealthFactorIsBroken(msg.sender)
+      - **_revertIfHealthFactorIsBroken(msg.sender)**
          - En esta funcion checkeamos el **health factor(Se tiene que tener suficiente collateral).**  
+         - Revierte si no se tiene un buen health factor.
+         - Para usar esta funcion tenemos que crear otra llamada:
+            - **_healthFactor(address _user)** 
+              - Para resolver esta funcion necesitamos el **total minteado de CSC.**
+              - **VALOR total del collateral**.
    > ✨NOTE: El ETH(collateral) siempre tiene que ser mayor a CSC.
