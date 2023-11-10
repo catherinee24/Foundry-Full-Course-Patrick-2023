@@ -76,6 +76,7 @@ contract CSCEngine is ReentrancyGuard {
     function depositCollateralAndMintCsc() external { }
 
     /**
+     * @notice Esta función está diseñada para permitir a los usuarios depositar un activo como collateral.
      * @notice Sigue el patrón CEI (Check-Effect-Interation)
      * @param _tokenCollateralAddress Dirección del token que el usuario depositará como collateral (WBTC/WETH)
      * @param _amountCollateral Cantidad de tokens collateral que el usuario depositará.
@@ -97,7 +98,12 @@ contract CSCEngine is ReentrancyGuard {
 
     function redeemCollateralForCsc() external { }
     function redeemCollateral() external { }
-    function mintCsc() external { }
+
+    /**
+     * @param _amountCscToMint Cantida de CSC (Catella StableCoin) que el usuario quiere mintear.
+     *  
+    */
+    function mintCsc(uint256 _amountCscToMint) external { }
     function burnCsc() external { }
     function liquidate() external { }
     function getHealthFactor() external view { }

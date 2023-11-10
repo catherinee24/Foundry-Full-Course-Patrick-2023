@@ -67,3 +67,10 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
    5. Algo que necesitamos hacer es tener una manera de Trackear cuanto collateral alguien está realmente depositando. Para eso creamos un mapping que trackee la cantidad de collatetal depositado.
    6. Cada vez que actualizamos un estado, como los mappings deberiamos de emmitir un evento.
    7. Importamos **IERC20** de **OZ** para poder hacer uso de sus funciones, como, **tranferFrom()**.
+
+## Mitear CSC Obteniendo el valor de nuestro collateral✨
+```solidity
+function mintCsc() external {}
+```
+- Hacemos la funcion **mintCsc()** para que los usuarios puedan mintear la stablecoin seguan la cantidad de collateral que depositaron. Para poder mintear CSC tenemos que: 
+   1. Checkear que el **valor del collateral** sea **mayor que** el **valor de CSC (Catella StableCoin)**.
