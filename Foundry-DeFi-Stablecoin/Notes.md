@@ -39,5 +39,7 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
    - La palabra clave **super** en este caso apunta a **ERC20Burnable**.
 - Tambien hacemos el **super** porque estamos **sobreescribiendo (override)** la funcion **burn()**.
 
-## Contrato CSCEngine.sol ✨
-- 
+## Contrato CSCEngine.sol Core contract del sistema CSC (Catellatech StableCoin)✨
+- Antes de empezar a codear nuestra logica principal, debemos preguntarnos.. 
+- **¿Cúal es la función principal que nuestro contrato debe tener?**
+  1. Muchos desarrolladores empienzan por crear **Interfaces**, especificando las funciones que quieren que tenga el proyecto a desarrollar.
