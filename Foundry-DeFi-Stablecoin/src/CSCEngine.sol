@@ -3,6 +3,7 @@
 pragma solidity ^0.8.18;
 
 import { DecentralizedStableCoin } from "../src/DecentralizedStableCoin.sol";
+
 /// @title CSCEngine (Catella StableCoin Engine)
 /// @author Catherine Maverick from catellatech.
 /// The system is designed to be as minimal as possible, and have the token mantain 1 Token == $1 peg.
@@ -23,6 +24,7 @@ contract CSCEngine {
     //////////////////////////////////////////////////////////////*/
     error CSCEngine__NeedsMoreThanZero();
     error CSCEngine__TokenAddressesAndPriceFeedAddressesMustBeSameLength();
+    error CSCEngine__TokenNotAllowed();
 
     /*//////////////////////////////////////////////////////////////
                          STATE VARIABLES
@@ -36,6 +38,11 @@ contract CSCEngine {
     //////////////////////////////////////////////////////////////*/
     modifier moreThanZero(uint256 amount) {
         if (amount == 0) revert CSCEngine__NeedsMoreThanZero();
+        _;
+    }
+
+    modifier isAllowedToken(address token){
+        if(s_priceFeeds[token] == 0) revert CSCEngine__TokenNotAllowed();
         _;
     }
 
@@ -68,7 +75,7 @@ contract CSCEngine {
         uint256 _amountCollateral
     )
         external
-        moreThanZero(_amountCollateral)
+        moreThanZero(_amountCollateral) isAllowedToken(_tokenCollateralAddress)
     { }
 
     function redeemCollateralForCsc() external { }
