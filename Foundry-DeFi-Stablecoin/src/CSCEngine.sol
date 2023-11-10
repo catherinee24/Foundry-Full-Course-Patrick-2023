@@ -21,6 +21,7 @@ contract CSCEngine {
                                 ERRORS
     //////////////////////////////////////////////////////////////*/
     error CSCEngine__NeedsMoreThanZero();
+    error CSCEngine__TokenAddressesAndPriceFeedAddressesMustBeSameLength();
 
     /*//////////////////////////////////////////////////////////////
                          STATE VARIABLES
@@ -30,15 +31,23 @@ contract CSCEngine {
     /*//////////////////////////////////////////////////////////////
                                 MODIFIERS
     //////////////////////////////////////////////////////////////*/
-    modifier moreThanZero(uint256 amount){
-        if(amount == 0 ) revert CSCEngine__NeedsMoreThanZero();
+    modifier moreThanZero(uint256 amount) {
+        if (amount == 0) revert CSCEngine__NeedsMoreThanZero();
         _;
     }
 
     /*//////////////////////////////////////////////////////////////
                                 FUNCTIONS
     //////////////////////////////////////////////////////////////*/
-    constructor(){}
+    constructor(address[] memory tokenAddresses, address[] memory priceFeedAddresses, address cscAddress) {
+        if (tokenAddresses.length != priceFeedAddresses.length) {
+            revert CSCEngine__TokenAddressesAndPriceFeedAddressesMustBeSameLength();
+        }
+
+        for (uint256 i = 0; i < tokenAddresses.length; i++) {
+            s_priceFeeds[tokenAddresses[i]] = priceFeedAddresses[i];
+        }
+    }
 
     /*//////////////////////////////////////////////////////////////
                          EXTERNAL FUNCTIONS
@@ -46,15 +55,17 @@ contract CSCEngine {
     function depositCollateralAndMintCsc() external { }
 
     /**
-      @param _tokenCollateralAddress Dirección del token que el usuario depositará como collateral (WBTC/WETH)
-      @param _amountCollateral Cantidad de tokens collateral que el usuario depositará.
-    */
-    function depositCollateral(address _tokenCollateralAddress, uint256 _amountCollateral ) external moreThanZero(_amountCollateral) { }
-    
-    
-    
-    
-    
+     * @param _tokenCollateralAddress Dirección del token que el usuario depositará como collateral (WBTC/WETH)
+     *   @param _amountCollateral Cantidad de tokens collateral que el usuario depositará.
+     */
+    function depositCollateral(
+        address _tokenCollateralAddress,
+        uint256 _amountCollateral
+    )
+        external
+        moreThanZero(_amountCollateral)
+    { }
+
     function redeemCollateralForCsc() external { }
     function redeemCollateral() external { }
     function mintCsc() external { }
