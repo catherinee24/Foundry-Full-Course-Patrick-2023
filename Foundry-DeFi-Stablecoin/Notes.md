@@ -59,4 +59,5 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
    1. Establecemos los parametros, como: la direccion del collateral a depositar y la cantidad de collateral a depositar.
    2. Hicimos un modifier para asegurarnos de que la cantidad de collateral a depositar sea mayor a 0.
    3. Hacimos un modifier para establecer los dos tipos de collateral que se aceptarán (WBT/WETH).
+  
 
