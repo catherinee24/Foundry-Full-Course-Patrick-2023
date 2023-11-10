@@ -66,4 +66,4 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
    > ✨ NOTE: Cda vez que estamos trabando con un contrato externo en este caso (los contratos de los tokens collaterales) deberiamos considerar usar el modifier no reentrant en nuestras funciones, para protegernos de posibles vectores de ataque en el proyecto como ---> Reentrancy attack .
    5. Algo que necesitamos hacer es tener una manera de Trackear cuanto collateral alguien está realmente depositando. Para eso creamos un mapping que trackee la cantidad de collatetal depositado.
    6. Cada vez que actualizamos un estado, como los mappings deberiamos de emmitir un evento.
-
+   7. Importamos **IERC20** de **OZ** para poder hacer uso de sus funciones, como, **tranferFrom()**.

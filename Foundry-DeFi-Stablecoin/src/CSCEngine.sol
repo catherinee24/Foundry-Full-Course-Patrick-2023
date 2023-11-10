@@ -4,6 +4,7 @@ pragma solidity ^0.8.18;
 
 import { DecentralizedStableCoin } from "../src/DecentralizedStableCoin.sol";
 import { ReentrancyGuard } from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 /// @title CSCEngine (Catella StableCoin Engine)
 /// @author Catherine Maverick from catellatech.
@@ -26,6 +27,7 @@ contract CSCEngine is ReentrancyGuard {
     error CSCEngine__NeedsMoreThanZero();
     error CSCEngine__TokenAddressesAndPriceFeedAddressesMustBeSameLength();
     error CSCEngine__TokenNotAllowed();
+    error CSCEngine__TransferFaild();
 
     /*//////////////////////////////////////////////////////////////
                          STATE VARIABLES
@@ -74,6 +76,7 @@ contract CSCEngine is ReentrancyGuard {
     function depositCollateralAndMintCsc() external { }
 
     /**
+     * @notice Sigue el patrón CEI (Check-Effect-Interation)
      * @param _tokenCollateralAddress Dirección del token que el usuario depositará como collateral (WBTC/WETH)
      * @param _amountCollateral Cantidad de tokens collateral que el usuario depositará.
      */
@@ -88,6 +91,8 @@ contract CSCEngine is ReentrancyGuard {
     {
         s_collateralDeposited[msg.sender][_tokenCollateralAddress] += _amountCollateral;
         emit CollateralDeposited(msg.sender, _tokenCollateralAddress, _amountCollateral);
+        bool success = IERC20(_tokenCollateralAddress).transferFrom(msg.sender, address(this), _amountCollateral);
+        if (!success) revert CSCEngine__TransferFaild();
     }
 
     function redeemCollateralForCsc() external { }
