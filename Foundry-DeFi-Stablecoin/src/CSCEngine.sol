@@ -5,6 +5,7 @@ pragma solidity ^0.8.18;
 import { DecentralizedStableCoin } from "../src/DecentralizedStableCoin.sol";
 import { ReentrancyGuard } from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 /// @title CSCEngine (Catella StableCoin Engine)
 /// @author Catherine Maverick from catellatech.
@@ -32,9 +33,13 @@ contract CSCEngine is ReentrancyGuard {
     /*//////////////////////////////////////////////////////////////
                          STATE VARIABLES
     //////////////////////////////////////////////////////////////*/
+    uint256 private constant ADDITIONAL_FEED_PRECISION = 1e10;
+    uint256 private constant PRECISION = 1e18;
+
     mapping(address token => address priceFeed) private s_priceFeeds;
     mapping(address user => mapping(address token => uint256 amount)) private s_collateralDeposited;
     mapping(address user => uint256 amountCscMinted) private s_CSCMinted;
+    address[] s_collateralTokens;
 
     DecentralizedStableCoin private immutable i_cscToken;
 
@@ -66,6 +71,7 @@ contract CSCEngine is ReentrancyGuard {
 
         for (uint256 i = 0; i < tokenAddresses.length; i++) {
             s_priceFeeds[tokenAddresses[i]] = priceFeedAddresses[i];
+            s_collateralTokens.push(tokenAddresses[i]);
         }
 
         i_cscToken = DecentralizedStableCoin(cscAddress);
@@ -113,17 +119,26 @@ contract CSCEngine is ReentrancyGuard {
 
     function burnCsc() external { }
     function liquidate() external { }
-    function getHealthFactor() external view { }
 
     /*//////////////////////////////////////////////////////////////
                 PRIVATE & INTERNAL VIEW FUNCTIONS
     //////////////////////////////////////////////////////////////*/
 
+    /**
+     * @notice Internal function para obtener informacion de una cuenta.
+     * @param _user Direccion del usuario.
+     * @return totalCscMinted
+     * @return collateralValueInUSD
+     */
+
     function _getAccountInformation(address _user)
         internal
         view
         returns (uint256 totalCscMinted, uint256 collateralValueInUSD)
-    { }
+    {
+        totalCscMinted = s_CSCMinted[_user];
+        collateralValueInUSD = getAccountCollateralValue(_user);
+    }
 
     /**
      * @return Retorna que tan cerca de la liquidación está un usuario.
@@ -138,4 +153,33 @@ contract CSCEngine is ReentrancyGuard {
      * @param _user Direccion del usuario.
      */
     function _revertIfHealthFactorIsBroken(address _user) internal view { }
+
+    /*//////////////////////////////////////////////////////////////
+                PUBLIC & EXTERNAL VIEW FUNCTIONS
+    //////////////////////////////////////////////////////////////*/
+
+    /**
+     * @notice Para obtener el valor tenemos que hacer un loop a través de cada collateral token, obtener el valor que se ha depositado y mapearlo al precio para obtener el valor de USD.
+     * @param _user
+     */
+    function getAccountCollateralValue(address _user) public view returns (uint256 totalCollateralValueInUSD) { 
+        for(uint256 i = 0; i < s_collateralTokens.length; i++) {
+            address token = s_collateralTokens[i];
+            uint256 amount = s_collateralDeposited[_user][token];
+            totalCollateralValueInUSD += getUsdValue(token, amount);
+        }
+        return totalCollateralValueInUSD;
+    }
+
+    /**
+     * @notice 1 ETH = $1000
+     * @notice El valor retornado por el CL será 1000 * 1e8
+     */
+    function getUsdValue(address _token, uint256 _amount ) public view returns (uint256) {
+        AggregatorV3Interface priceFeed = AggregatorV3Interface(s_priceFeeds[_token]);
+        (,int256 price,,,) = priceFeed.latestRoundData();
+        return ((uint256(price) * ADDITIONAL_FEED_PRECISION) * _amount) / PRECISION;
+    }
+    
+    function getHealthFactor() external view { }
 }

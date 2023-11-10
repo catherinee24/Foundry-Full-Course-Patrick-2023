@@ -5,7 +5,7 @@ libs = ["lib"]
 # ffi = true
 # fs_permissions = [{ access = "read", path = "./img/"}]
 
-remappings = ['@openzeppelin/contracts=lib/openzeppelin-contracts/contracts']
+remappings = ['@chainlink/contracts/=lib/chainlink-brownie-contracts/contracts/', '@openzeppelin/contracts=lib/openzeppelin-contracts/contracts']
 
 [fmt]
 
