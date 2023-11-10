@@ -49,3 +49,8 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
   3. Las personas puedan quemar Csc.
   4. Las personas pueden ser liquidadas si el valor del collateral (wBTC - wETH) llega a ser menor que CSC, para salvar el protocolo. 
   5. Podamos saber que tan health(Saludables) estan las personas con la posión que tienen abierta en el protocolo.
+### Threshold
+- "**threshold**" indica un punto específico que debes alcanzar para desbloquear ciertas oportunidades, funciones o beneficios dentro del ecosistema financiero descentralizado.
+
+- Digamos que el threshold es de 150% si un usuario llega a ese % será liquidado.
+
