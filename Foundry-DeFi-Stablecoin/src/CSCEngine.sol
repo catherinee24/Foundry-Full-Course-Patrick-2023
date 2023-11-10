@@ -2,6 +2,7 @@
 
 pragma solidity ^0.8.18;
 
+import { DecentralizedStableCoin } from "../src/DecentralizedStableCoin.sol";
 /// @title CSCEngine (Catella StableCoin Engine)
 /// @author Catherine Maverick from catellatech.
 /// The system is designed to be as minimal as possible, and have the token mantain 1 Token == $1 peg.
@@ -28,6 +29,8 @@ contract CSCEngine {
     //////////////////////////////////////////////////////////////*/
     mapping(address token => address priceFeed) private s_priceFeeds;
 
+    DecentralizedStableCoin private immutable i_cscToken;
+
     /*//////////////////////////////////////////////////////////////
                                 MODIFIERS
     //////////////////////////////////////////////////////////////*/
@@ -47,6 +50,8 @@ contract CSCEngine {
         for (uint256 i = 0; i < tokenAddresses.length; i++) {
             s_priceFeeds[tokenAddresses[i]] = priceFeedAddresses[i];
         }
+
+        i_cscToken = DecentralizedStableCoin(cscAddress);
     }
 
     /*//////////////////////////////////////////////////////////////
