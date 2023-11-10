@@ -36,6 +36,11 @@ contract CSCEngine is ReentrancyGuard {
     DecentralizedStableCoin private immutable i_cscToken;
 
     /*//////////////////////////////////////////////////////////////
+                                EVENTS
+    //////////////////////////////////////////////////////////////*/
+    event CollateralDeposited(address indexed user, address indexed collateralToken, uint256 indexed amount);
+
+    /*//////////////////////////////////////////////////////////////
                                 MODIFIERS
     //////////////////////////////////////////////////////////////*/
     modifier moreThanZero(uint256 amount) {
@@ -82,6 +87,7 @@ contract CSCEngine is ReentrancyGuard {
         nonReentrant
     {
         s_collateralDeposited[msg.sender][_tokenCollateralAddress] += _amountCollateral;
+        emit CollateralDeposited(msg.sender, _tokenCollateralAddress, _amountCollateral);
     }
 
     function redeemCollateralForCsc() external { }
