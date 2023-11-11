@@ -7,6 +7,14 @@ import { CSCEngine } from "../src/CSCEngine.sol";
 import { DecentralizedStableCoin } from "../src/DecentralizedStableCoin.sol";
 import { HelperConfig } from "../script/HelperConfig.s.sol";
 
+/**
+ * @title DeployCSCEngine 
+ * /// @author Catherine Maverick from CatellaTech.
+ * /// @notice Automatiza el proceso de despliegue de dos contratos (DecentralizedStableCoin, CSCEngine)
+ * /// @dev Usa la información obtenida del contrato HelperConfig y la configuración activa de tokens y feeds de
+ * precios en la red.
+ */
+
 contract DeployCSCEngine is Script {
     address[] public tokenAdresses;
     address[] public priceFeedAddresses;
