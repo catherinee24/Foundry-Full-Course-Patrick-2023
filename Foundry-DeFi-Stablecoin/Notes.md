@@ -95,7 +95,7 @@ function mintCsc() external {}
 
 ## Testing mientras desarrollamos (Deploy Script) ✨
 
-- Para deployar el contrato **CSCEngine**, hicimos un **archivo Script HelperConfig**, para poder obterner las **Addresses** que pide el constuctor del **CSCEngine.sol**
+1. Para deployar el contrato **CSCEngine**, hicimos un **archivo Script HelperConfig**, para poder obterner las **Addresses** que pide el constuctor del **CSCEngine.sol**
   - **constructor(address[] memory tokenAddresses, address[] memory priceFeedAddresses, address cscAddress){}**
 
 ### Helper config Script 
@@ -114,3 +114,5 @@ function mintCsc() external {}
    - **MOCKS IS FOR TESTING PURPOSE**
    - Utilizamos el **MockV3Aggregator** de **Chainlink** para el **price feed**.
    - Utilizamos el **ERC20Mock** de **openzeppelin** para los **token ERC20. (wBTC/wETH)**.
+
+2. Como nuestro contrato **DecentrilizedStableCoin.sol** es **OWNABLE**, pero necesitamos que sea propiedad de **CSCEngine.sol**, tenemos que usar la funcion **Ownable:tranferOwnership()** para tranferir el ownership al contrato **CSCEngine.sol**.
