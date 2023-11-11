@@ -187,7 +187,7 @@ contract CSCEngine is ReentrancyGuard {
      * @notice Para obtener el valor tenemos que hacer un loop a través de cada (collateral token), obtener el valor
      * que se ha depositado y mapearlo al precio para obtener el valor de USD.
      * @param _user La dirección del usuario para el que se está calculando el valor del colateral en USD.
-     * @return Retorna el valor total del colateral del usuario en dólares estadounidenses.
+     * @return totalCollateralValueInUSD Retorna el valor total del colateral del usuario en dólares estadounidenses.
      */
     function getAccountCollateralValueInUSD(address _user) public view returns (uint256 totalCollateralValueInUSD) {
         for (uint256 i = 0; i < s_collateralTokens.length; i++) {
