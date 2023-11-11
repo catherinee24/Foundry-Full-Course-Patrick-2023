@@ -4,6 +4,8 @@ pragma solidity ^0.8.18;
 import { Script } from "forge-std/Script.sol";
 import { CSCEngine } from "../src/CSCEngine.sol";
 import { DecentralizedStableCoin } from "../src/DecentralizedStableCoin.sol";
+import {MockV3Aggregator} from "../test/mocks/MockV3Aggregator.sol";
+import {ERC20Mock} from "@openzeppelin/contracts/mocks/token/ERC20Mock.sol";
 
 contract HelperConfig is Script {
     struct NetworkConfig {
@@ -26,5 +28,13 @@ contract HelperConfig is Script {
             wbtc: 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063,
             deployerKey: vm.envUint("PRIVATE_KEY")
         });
+    }
+
+    function getOrCreateAnvilEthConfig() public returns(NetworkConfig memory){
+        if(activeNetworkConfig.wethUsdPriceFeed != address(0)){
+            return activeNetworkConfig;
+        }
+        
+         
     }
 }

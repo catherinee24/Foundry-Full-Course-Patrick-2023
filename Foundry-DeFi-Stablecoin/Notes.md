@@ -110,3 +110,7 @@ function mintCsc() external {}
     }
 ```
 - Usamos el cheatcode de **Foundry vm.envUint** `deployerKey: vm.envUint("PRIVATE_KEY")`.
+- Necesitamos **Mocks** para probar de manera "**falsa**" (ANVIL) el funcionamiento del proyecto.
+   - **MOCKS IS FOR TESTING PURPOSE**
+   - Utilizamos el **MockV3Aggregator** de **Chainlink** para el **price feed**.
+   - Utilizamos el **ERC20Mock** de **openzeppelin** para los **token ERC20. (wBTC/wETH)**.
