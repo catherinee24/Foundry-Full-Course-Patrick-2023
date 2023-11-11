@@ -97,3 +97,16 @@ function mintCsc() external {}
 
 - Para deployar el contrato **CSCEngine**, hicimos un **archivo Script HelperConfig**, para poder obterner las **Addresses** que pide el constuctor del **CSCEngine.sol**
   - **constructor(address[] memory tokenAddresses, address[] memory priceFeedAddresses, address cscAddress){}**
+
+### Helper config Script 
+- Creamos un **struct** llamado **NetworkConfig** y definimos los campos que necesitamos para deployar el contrato **CSCEngine**.
+```solidity
+    struct NetworkConfig {
+        address wethUsdPriceFeed;
+        address wbtcUsdPriceFeed;
+        address weth;
+        address wbtc;
+        uint256 deployerKey;
+    }
+```
+- Usamos el cheatcode de **Foundry vm.envUint** `deployerKey: vm.envUint("PRIVATE_KEY")`.

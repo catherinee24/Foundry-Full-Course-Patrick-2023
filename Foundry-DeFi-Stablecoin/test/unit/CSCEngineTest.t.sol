@@ -2,6 +2,6 @@
 
 pragma solidity ^0.8.18;
 
-import {Test} from "forge-std/Test.sol";
+import { Test } from "forge-std/Test.sol";
 
-contract CSCEngineTest is Test {}
+contract CSCEngineTest is Test { }
