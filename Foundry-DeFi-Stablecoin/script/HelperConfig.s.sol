@@ -7,15 +7,13 @@ import { DecentralizedStableCoin } from "../src/DecentralizedStableCoin.sol";
 import { MockV3Aggregator } from "../test/mocks/MockV3Aggregator.sol";
 import { ERC20Mock } from "@openzeppelin/contracts/mocks/token/ERC20Mock.sol";
 
-//este contrato inteligente HelperConfig facilita la gestión de configuraciones de red para diferentes entornos,
-// ofreciendo la posibilidad de obtener configuraciones predefinidas o crearlas dinámicamente para entornos de
-// desarrollo específicos.
-//*
-/// @title HelperConfig
-/// @author Catherine Maverick from CatellaTech
-/// @notice Facilita la gestión de configuraciones de red para diferentes entornos, ofreciendo la posibilidad de
-/// obtener configuraciones predefinidas o crearlas dinámicamente para entornos de desarrollo específicos.
-/// @dev Se utiliza MockV3Aggregator(Chainlink) y ERC20Mock(Openzeppelin).
+/**
+ * /// @title HelperConfig
+ * /// @author Catherine Maverick from CatellaTech.
+ * /// @notice Facilita la gestión de configuraciones de red para diferentes entornos, ofreciendo la posibilidad de
+ * obtener configuraciones predefinidas o crearlas dinámicamente para entornos de desarrollo específicos.
+ * ///@dev Se utiliza MockV3Aggregator(Chainlink) y ERC20Mock(Openzeppelin).
+ */
 
 contract HelperConfig is Script {
     NetworkConfig public activeNetworkConfig;
