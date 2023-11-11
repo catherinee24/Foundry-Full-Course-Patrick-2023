@@ -20,9 +20,11 @@ contract DeployCSCEngine is Script {
         tokenAdresses = [weth, wbtc];
         priceFeedAddresses = [ethUsdPriceFeed, wbtcUsdPriceFeed];
 
-        vm.startBroadcast();
+        vm.startBroadcast(deployerKey);
         DecentralizedStableCoin csc = new DecentralizedStableCoin();
-        CSCEngine cscEngine = new CSCEngine(tokenAdresses, priceFeedAddresses, csc);
+        CSCEngine cscEngine = new CSCEngine(tokenAdresses, priceFeedAddresses, address(csc));
+        csc.transferOwnership(address(cscEngine));
         vm.stopBroadcast();
+        return (csc, cscEngine);
     }
 }
