@@ -66,7 +66,7 @@ contract HelperConfig is Script {
      * Anvil para Ethereum. Si la configuración ya está definida, simplemente la devuelve. Si no está definida, crea
      * nuevos contratos de prueba para los feeds de precios y tokens y devuelve esta nueva configuración para su uso
      * posterior.
-     */ñ
+     */
     function getOrCreateAnvilEthConfig() public returns (NetworkConfig memory) {
         if (activeNetworkConfig.wethUsdPriceFeed != address(0)) {
             return activeNetworkConfig;
