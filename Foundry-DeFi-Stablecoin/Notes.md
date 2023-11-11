@@ -84,3 +84,7 @@ function mintCsc() external {}
               - Para resolver esta funcion necesitamos el **total minteado de CSC.**
               - **VALOR total del collateral**.
    > ✨NOTE: El ETH(collateral) siempre tiene que ser mayor a CSC.
+   4. Hicimos varias **funciones internas view** para usarlas en las funciones **externas**, como:
+      - **function _getAccountInformation(address _user){}**
+      - **function _healthFactor(address _user) private view returns (uint256) {}**
+      - **function _revertIfHealthFactorIsBroken(address _user) internal view {}**
