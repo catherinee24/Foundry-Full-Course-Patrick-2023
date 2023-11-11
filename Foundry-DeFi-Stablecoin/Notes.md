@@ -1,6 +1,6 @@
 # Lesson 12: Foundry DeFi | Stablecoin (The PINNACLE PROJECT!! GET HERE!) https://github.com/catherinee24/Foundry-Course-Patrick 🤩
 
-1:47:25
+2:02:23 
 Foundry course: FOUNDRY-DEFI-STABLECOIN
 
 ## Arquitectura de nuestra Stablecoin!! ✨
@@ -116,3 +116,5 @@ function mintCsc() external {}
    - Utilizamos el **ERC20Mock** de **openzeppelin** para los **token ERC20. (wBTC/wETH)**.
 
 2. Como nuestro contrato **DecentrilizedStableCoin.sol** es **OWNABLE**, pero necesitamos que sea propiedad de **CSCEngine.sol**, tenemos que usar la funcion **Ownable:tranferOwnership()** para tranferir el ownership al contrato **CSCEngine.sol**.
+
+## Testing mientras se desarrolla (Testing)✨
