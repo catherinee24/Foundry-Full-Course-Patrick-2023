@@ -9,12 +9,15 @@ import { CSCEngine } from "../../src/DecentralizedStableCoin.sol";
 
 contract CSCEngineTest is Test {
     DeployCSCEngine deployer;
-    DecentralizedStableCoin csc;
+    DecentralizedStableCoin cscStableCoin;
     CSCEngine cscEngine;
 
     function setUp() public {
         deployer = new DeployCSCEngine();
-        csc = new DecentralizedStableCoin();
-        cscEngine = deployer.run();
+        (cscStableCoin, cscEngine) = deployer.run();
     }
+
+    /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                    PRICE FEED
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 }

@@ -117,4 +117,6 @@ function mintCsc() external {}
 
 2. Como nuestro contrato **DecentrilizedStableCoin.sol** es **OWNABLE**, pero necesitamos que sea propiedad de **CSCEngine.sol**, tenemos que usar la funcion **Ownable:tranferOwnership()** para tranferir el ownership al contrato **CSCEngine.sol**.
 
-## Testing mientras se desarrolla (Testing)✨
+## Chainlink Price Feed ✨
+- Un price feed de Chainlink es como un servicio que proporciona información en tiempo real sobre los precios de activos digitales, como Bitcoin o Ethereum, en relación con monedas fiduciarias como el dólar estadounidense. Imagina que es como un marcador en un juego que muestra constantemente el precio actual de estas criptomonedas.
+- BTC/USD , ETH/USD
