@@ -25,15 +25,9 @@ contract CSCEngineTest is Test {
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                     PRICE TESTS
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
-
-    //     function getUsdValue(address _token, uint256 _amount) public view returns (uint256) {
-    //     AggregatorV3Interface priceFeed = AggregatorV3Interface(s_priceFeeds[_token]);
-    //     (, int256 price,,,) = priceFeed.latestRoundData();
-    //     return ((uint256(price) * ADDITIONAL_FEED_PRECISION) * _amount) / PRECISION;
-    // }
     function testGetUsdValue() public {
         uint256 ethAmount = 15 ether;
-        //15e18*2000/ETH = 30,000e18
+        //15ETH*2000ETH = 30,000ETH
         uint256 expectedUsd = 30_000 ether;
         uint256 actualUsd = cscEngine.getUsdValue(weth, ethAmount);
         assertEq(expectedUsd, actualUsd);

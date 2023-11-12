@@ -1,4 +1,5 @@
 Foundry course: FOUNDRY-DEFI-STABLECOIN
+2:09:05
 
 ## Testing mientras se desarrolla (Testing)✨
 1. Hacemos el **SetUp** de nuestro contrato **CSCEngineTest**. Importamos lo que necesitaremos.
