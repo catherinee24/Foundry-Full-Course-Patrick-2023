@@ -3,7 +3,7 @@
 2:02:23 
 Foundry course: FOUNDRY-DEFI-STABLECOIN
 
-## Arquitectura de nuestra Stablecoin!! ✨
+## Arquitectura de nuestra Stablecoin!!✨
 
 1. (Relative stability): Anchored or Pegged -----> $1.00 USD
 

@@ -26,7 +26,7 @@ contract DeployCSCEngine is Script {
             helperConfig.activeNetworkConfig();
 
         tokenAdresses = [weth, wbtc];
-        priceFeedAddresses = [ethUsdPriceFeed, wbtcUsdPriceFeed];
+        priceFeedAddresses = [wethUsdPriceFeed, wbtcUsdPriceFeed];
 
         vm.startBroadcast(deployerKey);
         DecentralizedStableCoin csc = new DecentralizedStableCoin();
