@@ -1,8 +1,5 @@
 # Lesson 12: Foundry DeFi | Stablecoin (The PINNACLE PROJECT!! GET HERE!) https://github.com/catherinee24/Foundry-Course-Patrick 🤩
 
-2:02:23 
-Foundry course: FOUNDRY-DEFI-STABLECOIN
-
 ## Arquitectura de nuestra Stablecoin!!✨
 
 1. (Relative stability): Anchored or Pegged -----> $1.00 USD
@@ -85,9 +82,9 @@ function mintCsc() external {}
   1.  Checkear que el **valor del collateral** sea **mayor que** el **valor de CSC (Catella StableCoin)**.
   2.  Necesitamos mantener trackeado la cantidad de CSC que el usuario está minteando. para ello creamos un mapping.
   3.  Checkeamos que la funcion revierta si el usuario quiere mintar más CSC que el collateral que está depositando. ($150 CSC, $100 ETH). Para esto creamos una funcion interna.
-      - **\_revertIfHealthFactorIsBroken(msg.sender)** - En esta funcion checkeamos el **health factor(Se tiene que tener suficiente collateral).**  
-         - Revierte si no se tiene un buen health factor. - Para usar esta funcion tenemos que crear otra llamada: - **\_healthFactor(address \_user)** - Para resolver esta funcion necesitamos el **total minteado de CSC.** - **VALOR total del collateral**.
-        > ✨NOTE: El ETH(collateral) siempre tiene que ser mayor a CSC.
+      - **\_revertIfHealthFactorIsBroken(msg.sender)** - En esta funcion checkeamos el **health factor(Se tiene que tener suficiente collateral).**
+        - Revierte si no se tiene un buen health factor. - Para usar esta funcion tenemos que crear otra llamada: - **\_healthFactor(address \_user)** - Para resolver esta funcion necesitamos el **total minteado de CSC.** - **VALOR total del collateral**.
+          > ✨NOTE: El ETH(collateral) siempre tiene que ser mayor a CSC.
   4.  Hicimos varias **funciones internas view** para usarlas en las funciones **externas**, como:
       - **function \_getAccountInformation(address \_user){}**
       - **function \_healthFactor(address \_user) private view returns (uint256) {}**
@@ -96,10 +93,13 @@ function mintCsc() external {}
 ## Testing mientras desarrollamos (Deploy Script) ✨
 
 1. Para deployar el contrato **CSCEngine**, hicimos un **archivo Script HelperConfig**, para poder obterner las **Addresses** que pide el constuctor del **CSCEngine.sol**
-  - **constructor(address[] memory tokenAddresses, address[] memory priceFeedAddresses, address cscAddress){}**
 
-### Helper config Script 
+- **constructor(address[] memory tokenAddresses, address[] memory priceFeedAddresses, address cscAddress){}**
+
+### Helper config Script
+
 - Creamos un **struct** llamado **NetworkConfig** y definimos los campos que necesitamos para deployar el contrato **CSCEngine**.
+
 ```solidity
     struct NetworkConfig {
         address wethUsdPriceFeed;
@@ -109,14 +109,16 @@ function mintCsc() external {}
         uint256 deployerKey;
     }
 ```
+
 - Usamos el cheatcode de **Foundry vm.envUint** `deployerKey: vm.envUint("PRIVATE_KEY")`.
 - Necesitamos **Mocks** para probar de manera "**falsa**" (ANVIL) el funcionamiento del proyecto.
-   - **MOCKS IS FOR TESTING PURPOSE**
-   - Utilizamos el **MockV3Aggregator** de **Chainlink** para el **price feed**.
-   - Utilizamos el **ERC20Mock** de **openzeppelin** para los **token ERC20. (wBTC/wETH)**.
+  - **MOCKS IS FOR TESTING PURPOSE**
+  - Utilizamos el **MockV3Aggregator** de **Chainlink** para el **price feed**.
+  - Utilizamos el **ERC20Mock** de **openzeppelin** para los **token ERC20. (wBTC/wETH)**.
 
 2. Como nuestro contrato **DecentrilizedStableCoin.sol** es **OWNABLE**, pero necesitamos que sea propiedad de **CSCEngine.sol**, tenemos que usar la funcion **Ownable:tranferOwnership()** para tranferir el ownership al contrato **CSCEngine.sol**.
 
 ## Chainlink Price Feed ✨
+
 - Un price feed de Chainlink es como un servicio que proporciona información en tiempo real sobre los precios de activos digitales, como Bitcoin o Ethereum, en relación con monedas fiduciarias como el dólar estadounidense. Imagina que es como un marcador en un juego que muestra constantemente el precio actual de estas criptomonedas.
 - BTC/USD , ETH/USD
