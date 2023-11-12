@@ -19,7 +19,7 @@ contract DeployCSCEngine is Script {
     address[] public tokenAdresses;
     address[] public priceFeedAddresses;
 
-    function run() external returns (DecentralizedStableCoin, CSCEngine) {
+    function run() external returns (DecentralizedStableCoin, CSCEngine, HelperConfig) {
         HelperConfig helperConfig = new HelperConfig();
 
         (address wethUsdPriceFeed, address wbtcUsdPriceFeed, address weth, address wbtc, uint256 deployerKey) =
@@ -33,6 +33,6 @@ contract DeployCSCEngine is Script {
         CSCEngine cscEngine = new CSCEngine(tokenAdresses, priceFeedAddresses, address(csc));
         csc.transferOwnership(address(cscEngine));
         vm.stopBroadcast();
-        return (csc, cscEngine);
+        return (csc, cscEngine, helperConfig);
     }
 }
