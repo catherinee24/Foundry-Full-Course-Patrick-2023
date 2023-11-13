@@ -25,7 +25,7 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 
 > ✨Curious✨: "agnóstico" significa ser independiente o compatible con múltiples plataformas, sistemas o entornos sin estar restringido a uno en particular.
 
-## DepositCollateralAndMintCSC ✨
+## DepositCollateralAndMintCSC function ✨
 - Vamos a combinar las funciones **CSCEngine:depositCollatera()** y **CSCEngine:mintCSC()** dentro de una sola funcion **CSCEngine:depositCollateralAndMintCSC()**
 - El propósito de esta funcion es mintear CSC StableCoin.
 - Como la función **depositCollateral()** estaba **external**, la hicimos **publica** para poderla usar dentro del contrato.
@@ -46,3 +46,10 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
   - Probablemente No, porque si estamos quemando **CSC** estamos quemando **deuda**, es casi poco probable (unlikely) que se rompa el **health factor**. 
   - Pero lo agregaremos por ahora.
 - Hacemos la función **publica** por que la vamos a combinar con otra función ---> **redeemCollateralForCSC()** y la necesitamos llamar dentro del contrato.
+> ✨NOTE✨ MÁS ADELANTE VAMOS A REFACTORIZAR MUCHAS DE ESTAS FUNCIONES!!!!!!!!!!!!!!!!!!!!!! 
+
+## Liqudate (SETUP) ✨
+- La función **liquidate()** es una de la más importante para el funcionamiento correcto del proyecto. ‼️‼️‼️
+>✨Recuerda✨: El protocolo nunca puede estar undercolateralizado, al contrario siempre debe estar sobrecolateralizado. Es decir tener más collateral.
+- Si nos acercamos a una **subgarantía (Undercollateralization)**, necesitamos que alguien **liquíde posiciones**.
+- Si alguien está casi **undercollateralizado**, **te pagaremos para que lo liquídez**.
