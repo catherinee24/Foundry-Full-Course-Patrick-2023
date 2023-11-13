@@ -38,4 +38,7 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 - usamos el **nonReentrant modifier** porque vamos a estar moviendo Tokens. 
 - Para poder redimir el collateral:
   1. El factor de salud (Health Factor) debe ser 1 DESPUÉS de retirar el colateral. 
- 
+
+## burnCSC function ✨
+- Actualizamos el **mapping s_CSCMinted** reduciendo la cantidad de csc stableCoin que se quieren quemar. 
+- hacemos la interacción para que el usuario deposite **"por ahora"** los **csc stableCoin** al contrato **CSCEngine**.

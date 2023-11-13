@@ -28,7 +28,7 @@ contract CSCEngine is ReentrancyGuard {
     error CSCEngine__NeedsMoreThanZero();
     error CSCEngine__TokenAddressesAndPriceFeedAddressesMustBeSameLength();
     error CSCEngine__TokenNotAllowed();
-    error CSCEngine__TransferFaild();
+    error CSCEngine__TransferFailed();
     error CSCEngine__BreaksHealthFactor(uint256 healthFactor);
     error CSCEngine__MintFaild();
 
@@ -131,7 +131,7 @@ contract CSCEngine is ReentrancyGuard {
         s_collateralDeposited[msg.sender][_tokenCollateralAddress] += _amountCollateral;
         emit CollateralDeposited(msg.sender, _tokenCollateralAddress, _amountCollateral);
         bool success = IERC20(_tokenCollateralAddress).transferFrom(msg.sender, address(this), _amountCollateral);
-        if (!success) revert CSCEngine__TransferFaild();
+        if (!success) revert CSCEngine__TransferFailed();
     }
 
     function redeemCollateralForCsc() external { }
@@ -153,7 +153,7 @@ contract CSCEngine is ReentrancyGuard {
         s_collateralDeposited[msg.sender][_tokeCollateralAddress] -= _amountCollateral;
         emit CollateralRedeemed(msg.sender, _tokeCollateralAddress, _amountCollateral);
         bool success = IERC20(_tokeCollateralAddress).transfer(msg.sender, _amountCollateral);
-        if (!success) revert CSCEngine__TransferFaild();
+        if (!success) revert CSCEngine__TransferFailed();
         _revertIfHealthFactorIsBroken(msg.sender);
     }
 
@@ -174,7 +174,13 @@ contract CSCEngine is ReentrancyGuard {
         if (!minted) revert CSCEngine__MintFaild();
     }
 
-    function burnCsc() external { }
+    function burnCsc(uint256 _amount) external moreThanZero(_amount) {
+        //Removemos la deuda.
+        s_CSCMinted[msg.sender] -= _amount;
+        bool success = i_cscToken.transferFrom(msg.sender, address(this), _amount);
+        if (!success) revert CSCEngine__TransferFailed();
+    }
+
     function liquidate() external { }
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
