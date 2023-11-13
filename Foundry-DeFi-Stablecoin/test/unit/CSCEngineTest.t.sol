@@ -18,15 +18,20 @@ contract CSCEngineTest is Test {
     address weth;
 
     address public USER = makeAddr("user");
-    uint256 public constant AMOUNT_COLLATERAL = 10 ether ;
+    uint256 public constant AMOUNT_COLLATERAL = 10 ether;
+    uint256 public constant STARTING_ERC20_BALANCE = 10 ether;
+
     function setUp() public {
         deployer = new DeployCSCEngine();
         (cscStableCoin, cscEngine, helperConfig) = deployer.run();
         (wethUsdPriceFeed,, weth,,) = helperConfig.activeNetworkConfig();
+
+        //Le minteamos el token weth al USER.
+        ERC20Mock(weth).mint(USER, STARTING_ERC20_BALANCE);
     }
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                                    PRICE TESTS
+                                                PRICE FEED TESTS
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
     function testGetUsdValue() public {
         uint256 ethAmount = 15 ether;
