@@ -12,5 +12,9 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
       1. **function depositCollateral() external {}**
       2. Hacemos una **funcion de test** que revierta si el **usuario quiere depositar el valor de cero (0) como collateral.**
       3. Tenemos que **prankear a un usuario** y Utilizar el **ERC20Mock** de **Openzeppelin**.
+      4. aprovamos que el contrato acepte el deposito del collateral del usuario.
+      5. hacemos un **expectRevert** con el **custom error** que hicimos en el contrato **CSCEngine.sol** **CSCEngine__NeedsMoreThanZero**.
+      6. hacemos la llamada a la funcion **depositCollateral** y depositamos **"0" amount de collateral (weth).**
+      7. Paramos el Prank.
 
     
