@@ -56,6 +56,7 @@ contract CSCEngine is ReentrancyGuard {
                                                     EVENTS 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
     event CollateralDeposited(address indexed user, address indexed collateralToken, uint256 indexed amount);
+    event CollateralRedeemed(address indexed user, address indexed collateralToken, uint256 indexed amount);
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                     MODIFIERS 
@@ -134,7 +135,27 @@ contract CSCEngine is ReentrancyGuard {
     }
 
     function redeemCollateralForCsc() external { }
-    function redeemCollateral() external { }
+
+    /**
+     * @notice Función diseñada para permitir a los usuarios retirar o canjear una cantidad específica de colateral
+     * de su posición en el sistema.
+     * @param _tokeCollateralAddress Dirección del token que el usuario retirará como collateral (WBTC/WETH)
+     * @param _amountCollateral Cantidad de tokens collateral que el usuario retirará.
+     */
+    function redeemCollateral(
+        address _tokeCollateralAddress,
+        uint256 _amountCollateral
+    )
+        external
+        moreThanZero(_amountCollateral)
+        nonReentrant
+    {
+        s_collateralDeposited[msg.sender][_tokeCollateralAddress] -= _amountCollateral;
+        emit CollateralRedeemed(msg.sender, _tokeCollateralAddress, _amountCollateral);
+        bool success = IERC20(_tokeCollateralAddress).transfer(msg.sender, _amountCollateral);
+        if (!success) revert CSCEngine__TransferFaild();
+        _revertIfHealthFactorIsBroken(msg.sender);
+    }
 
     /**
      * @notice Esta función permite a los usuarios crear nuevos tokens CSC, siempre y cuando la cantidad sea mayor que

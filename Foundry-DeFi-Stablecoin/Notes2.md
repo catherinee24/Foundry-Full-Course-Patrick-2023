@@ -32,3 +32,10 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 - Igualmente hicimos con la función **mintCsc() ------> public now**.
 
 ## redeemCollateral function ✨
+- Ok ya que tenemos una manera de **depositar** el dinero en el protocolo, tenemos que tener una manera de **retirarlo**. 
+- Pare eso desarrollaremos la función **redeemCollateral()**
+- usamos el **modifier moreThanZero(amoun)** por que no queremos que haya ninguna transaccion con 0 value.
+- usamos el **nonReentrant modifier** porque vamos a estar moviendo Tokens. 
+- Para poder redimir el collateral:
+  1. El factor de salud (Health Factor) debe ser 1 DESPUÉS de retirar el colateral. 
+ 
