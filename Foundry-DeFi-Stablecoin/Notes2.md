@@ -1,3 +1,4 @@
+# Continuación de Notes.md ✨
 Foundry course: FOUNDRY-DEFI-STABLECOIN
 2:09:05
 
@@ -23,3 +24,11 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 > ✨NOTE✨: Hicimos en la consola $ forge test --fork-url $SEPOLIA_RPC_URL y falló porque no podemos solo Mintear weth y en la funcion getUsdValue estamos hardcodeando el expectedUsd, y por supuesto el precio en SEPOLIA es el precio actual. Así que probablemente debemos actualizar nuestro TEST y hacerlo más agnóstico.
 
 > ✨Curious✨: "agnóstico" significa ser independiente o compatible con múltiples plataformas, sistemas o entornos sin estar restringido a uno en particular.
+
+## DepositCollateralAndMintCSC ✨
+- Vamos a combinar las funciones **CSCEngine:depositCollatera()** y **CSCEngine:mintCSC()** dentro de una sola funcion **CSCEngine:depositCollateralAndMintCSC()**
+- El propósito de esta funcion es mintear CSC StableCoin.
+- Como la función **depositCollateral()** estaba **external**, la hicimos **publica** para poderla usar dentro del contrato.
+- Igualmente hicimos con la función **mintCsc() ------> public now**.
+
+## redeemCollateral function ✨

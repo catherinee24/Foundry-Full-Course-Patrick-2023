@@ -89,7 +89,28 @@ contract CSCEngine is ReentrancyGuard {
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                 EXTERNAL FUNCTIONS 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
-    function depositCollateralAndMintCsc() external { }
+
+    /**
+     * @notice Función diseñada para simplificar y combinar dos acciones relacionadas en una única transacción. en
+     * este caso depositCollateral() & mintCsc().
+     * @notice Al combinar ambas acciones en una sola función, el objetivo es simplificar el proceso para los usuarios
+     * o contratos que deseen realizar estas dos acciones juntas. Esto puede mejorar la eficiencia y reducir el número
+     * de transacciones necesarias para lograr el mismo resultado, siempre y cuando ambas acciones estén relacionadas y
+     * deban ocurrir al mismo tiempo.
+     * @param _tokenCollateralAddress Dirección del token que el usuario depositará como collateral (WBTC/WETH)
+     * @param _amountCollateral Cantidad de tokens collateral que el usuario depositará.
+     * @param _amountCscToMint La cantidad de tokens CSC que se van a crear o "emitir".
+     */
+    function depositCollateralAndMintCsc(
+        address _tokenCollateralAddress,
+        uint256 _amountCollateral,
+        uint256 _amountCscToMint
+    )
+        external
+    {
+        depositCollateral(_tokenCollateralAddress, _amountCollateral);
+        mintCsc(_amountCscToMint);
+    }
 
     /**
      * @notice Esta función está diseñada para permitir a los usuarios depositar un activo como collateral.
@@ -101,7 +122,7 @@ contract CSCEngine is ReentrancyGuard {
         address _tokenCollateralAddress,
         uint256 _amountCollateral
     )
-        external
+        public
         moreThanZero(_amountCollateral)
         isAllowedToken(_tokenCollateralAddress)
         nonReentrant
@@ -125,7 +146,7 @@ contract CSCEngine is ReentrancyGuard {
      * @param _amountCscToMint La cantidad de tokens CSC que se van a crear o "emitir".
      *
      */
-    function mintCsc(uint256 _amountCscToMint) external moreThanZero(_amountCscToMint) nonReentrant {
+    function mintCsc(uint256 _amountCscToMint) public moreThanZero(_amountCscToMint) nonReentrant {
         s_CSCMinted[msg.sender] += _amountCscToMint;
         _revertIfHealthFactorIsBroken(msg.sender);
         bool minted = i_cscToken.mint(msg.sender, _amountCscToMint);
