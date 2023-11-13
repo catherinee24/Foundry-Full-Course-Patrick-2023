@@ -8,7 +8,9 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
       1.  **function getUsdValue(address _token, uint256 _amount) public view returns (uint256) {}**
       2.  La funcion nos pide la direccion del token y la cantida, asi que para obtenerlo nos ayudamos de nuestro **HelperConfig.sol**
 3. **Deposit collateral test** 
-    - 
+    - Queremos verificar que los usuarios puedan depositar su colleteral en el protocolo sin problema.
       1. **function depositCollateral() external {}**
+      2. Hacemos una **funcion de test** que revierta si el **usuario quiere depositar el valor de cero (0) como collateral.**
+      3. Tenemos que **prankear a un usuario** y Utilizar el **ERC20Mock** de **Openzeppelin**.
 
     
