@@ -41,6 +41,7 @@ contract CSCEngine is ReentrancyGuard {
     uint256 private constant LIQUIDATION_THRESHOLD = 50; // 200% Overcollateralized
     uint256 private constant LIQUIDATION_PRECISION = 100;
     uint256 private constant MIN_HEALTH_FACTOR = 1e18;
+    uint256 private constant LIQUIDATION_BONUS = 10; //10% bonus
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                 STATE VARIABLES 
@@ -233,6 +234,9 @@ contract CSCEngine is ReentrancyGuard {
         uint256 startingUserHealthFactor = _healthFactor(_user);
         if (startingUserHealthFactor >= MIN_HEALTH_FACTOR) revert CSCEngine__HealthFactorOk();
         uint256 tokenAmountFromDebtCovered = getTokenAmountFromUsd(_tokenCollateral, _debtToCover);
+        //0.05 * 0.1 = 0.005. Obteniendo 0.055 ETH
+        uint2556 bonusCollateral = (tokenAmountFromDebtCovered * LIQUIDATION_BONUS) / LIQUIDATION_PRECISION;
+        uint256 totalCollateralToRedeem = tokenAmountFromDebtCovered + bonusCollateral;
     }
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -282,9 +286,24 @@ contract CSCEngine is ReentrancyGuard {
     }
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                        PUBLIC & EXTERNAL VIEW FUNCTIONS
+                                     PUBLIC & EXTERNAL VIEW PURE FUNCTIONS
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
-    function getTokenAmountFromUsd(address _tokenCollateral, uint256 _usdAmounInWai) public view returns (uint256) { }
+
+    /**
+     * @notice Esta funcion tiene como objetivo calcular la cantidad de tokens ERC20 equivalentes que se pueden adquirir
+     * utilizando una cantidad determinada de dólares estadounidenses en wei (unidad más pequeña de ether).
+     * @param _tokenCollateral Es la dirección del token ERC20 utilizado como colateral cuyo precio en dólares se
+     * utilizará para calcular la cantidad equivalente de tokens.
+     * @param _usdAmounInWai  Es la cantidad de dólares estadounidenses expresados en wei, la unidad más pequeña de
+     * ether, que se desea convertir en su equivalente en tokens del token de colateral especificado.
+     */
+    function getTokenAmountFromUsd(address _tokenCollateral, uint256 _usdAmounInWai) public view returns (uint256) {
+        AggregatorV3Interface priceFeed = AggregatorV3Interface(s_priceFeeds[_token]);
+        (, int256 price,,,) = priceFeed.latestRoundData();
+        //(10e18 * 1e18) / ($2000e8 * 1e10)
+        //0.005000000000000000
+        return ((_usdAmounInWai * PRECISION) / (uint256(price) * ADDITIONAL_FEED_PRECISION));
+    }
 
     /**
      * @notice Esta función tiene la finalidad de calcular el valor total en dólares estadounidenses (USD) de todo el

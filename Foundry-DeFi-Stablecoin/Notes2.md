@@ -66,3 +66,8 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 > 👩‍💻BAD USER👩‍💻: $140 ETH, $100 CSC
 > debtToCover: $100 
 > $100 of CSC == ??? ETH 
+  6. Hacemos una funcion getter que calcule el valor de un token segun la cantidad de dolares. Para que asi el liquidador sepa cuanto collateral se va a llevar.
+  7. Incentivamos al liquidador con 10% de bonus por liquidar a un bad user. 🤑 
+> 👽 Deberíamos implementar una función para liquidar en caso de que el protocolo esté insolvente y transferir cantidades adicionales a un tesoro.
+
+## liquidate() function refactorización ✨
