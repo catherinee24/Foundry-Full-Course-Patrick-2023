@@ -60,3 +60,9 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
      - la cantidad de deuda que el liquidador pagará.
   2. usamos los modifiers moreThanZero(deuda a pagar) y nonReentrant ya que vamos a mover tokens. 
   3. Esta función tambien sigue el patrón CEI.
+  4. Hacemos una variable dentro de la funcion que guarde el health factor inicial del usuario.
+  5. chequeamos que el health factor inicial del usuario sea mayor o igual al Minimo health factor que es 1e18.
+- En esta funcion queremos quemar los CSC StableCoin (deuda) de los usuarios y tomar su collateral (weth o wbtc).
+> 👩‍💻BAD USER👩‍💻: $140 ETH, $100 CSC
+> debtToCover: $100 
+> $100 of CSC == ??? ETH 

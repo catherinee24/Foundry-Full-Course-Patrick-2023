@@ -31,6 +31,7 @@ contract CSCEngine is ReentrancyGuard {
     error CSCEngine__TransferFailed();
     error CSCEngine__BreaksHealthFactor(uint256 healthFactor);
     error CSCEngine__MintFaild();
+    error CSCEngine__HealthFactorOk();
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                 CONSTANT VARIABLES 
@@ -39,7 +40,7 @@ contract CSCEngine is ReentrancyGuard {
     uint256 private constant PRECISION = 1e18;
     uint256 private constant LIQUIDATION_THRESHOLD = 50; // 200% Overcollateralized
     uint256 private constant LIQUIDATION_PRECISION = 100;
-    uint256 private constant MIN_HEALTH_FACTOR = 1;
+    uint256 private constant MIN_HEALTH_FACTOR = 1e18;
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                 STATE VARIABLES 
@@ -228,7 +229,11 @@ contract CSCEngine is ReentrancyGuard {
         external
         moreThanZero(_debtToCover)
         nonReentrant
-    { }
+    {
+        uint256 startingUserHealthFactor = _healthFactor(_user);
+        if (startingUserHealthFactor >= MIN_HEALTH_FACTOR) revert CSCEngine__HealthFactorOk();
+        uint256 tokenAmountFromDebtCovered = getTokenAmountFromUsd(_tokenCollateral, _debtToCover);
+    }
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                             PRIVATE & INTERNAL FUNCTIONS
@@ -279,6 +284,7 @@ contract CSCEngine is ReentrancyGuard {
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                         PUBLIC & EXTERNAL VIEW FUNCTIONS
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+    function getTokenAmountFromUsd(address _tokenCollateral, uint256 _usdAmounInWai) public view returns (uint256) { }
 
     /**
      * @notice Esta función tiene la finalidad de calcular el valor total en dólares estadounidenses (USD) de todo el
