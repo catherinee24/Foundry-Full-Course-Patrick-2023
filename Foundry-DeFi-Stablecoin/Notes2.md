@@ -42,3 +42,7 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 ## burnCSC function ✨
 - Actualizamos el **mapping s_CSCMinted** reduciendo la cantidad de csc stableCoin que se quieren quemar. 
 - hacemos la interacción para que el usuario deposite **"por ahora"** los **csc stableCoin** al contrato **CSCEngine**.
+- ¿Necesitamos chequear el breaks health factor en esta función?
+  - Probablemente No, porque si estamos quemando **CSC** estamos quemando **deuda**, es casi poco probable (unlikely) que se rompa el **health factor**. 
+  - Pero lo agregaremos por ahora.
+- Hacemos la función **publica** por que la vamos a combinar con otra función ---> **redeemCollateralForCSC()** y la necesitamos llamar dentro del contrato.

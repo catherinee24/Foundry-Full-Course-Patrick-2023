@@ -174,11 +174,17 @@ contract CSCEngine is ReentrancyGuard {
         if (!minted) revert CSCEngine__MintFaild();
     }
 
+    /**
+     * @notice Función destinada a permitir que los usuarios "quemen" o reduzcan la cantidad de CSC(StableCoin) que
+     * poseen, lo que implica una disminución de la deuda.
+     * @param _amount Cantidad de tokens a quemar.
+     */
     function burnCsc(uint256 _amount) external moreThanZero(_amount) {
         //Removemos la deuda.
         s_CSCMinted[msg.sender] -= _amount;
         bool success = i_cscToken.transferFrom(msg.sender, address(this), _amount);
         if (!success) revert CSCEngine__TransferFailed();
+        _revertIfHealthFactorIsBroken(msg.sender); // No creo que esta linea sea necesaria.
     }
 
     function liquidate() external { }
