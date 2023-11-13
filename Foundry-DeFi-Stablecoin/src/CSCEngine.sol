@@ -205,7 +205,30 @@ contract CSCEngine is ReentrancyGuard {
         _revertIfHealthFactorIsBroken(msg.sender); // No creo que esta linea sea necesaria.
     }
 
-    function liquidate() external { }
+    /**
+     * @notice Liquida parcialmente los activos de un usuario.
+     * @notice Recibirás una bonificación por la liquidación al adquirir los fondos de los usuarios que han
+     * quebrantado su factor de salud.
+     * @notice Esta función asume que el protocolo estará aproximadamente undercollateralized en un 200% para que
+     * funcione.
+     * @notice Un bug conocido podria ser si el protocolo estuviera 100% o menos collateralized. Entonces no podriamos
+     * incentivar a los liquidadores.
+     * @notice Sigue el patrón CEI: CHECK-EFFECTS-INTERACTIONS.
+     * @param _tokenCollateral   La dirección del activo ERC20 usado como colateral a liquidar del usuario.
+     * @param _user El usuario que ha roto el health factor. Su _healthFactor() deberia ser por debajo de
+     * MIN_HEALTH_FACTOR. Usuario que será liquidado.
+     * @param _debtToCover La cantidad de CSC que deseas quemar para mejorar el factor de salud del usuario.
+     *
+     */
+    function liquidate(
+        address _tokenCollateral,
+        address _user,
+        uint256 _debtToCover
+    )
+        external
+        moreThanZero(_debtToCover)
+        nonReentrant
+    { }
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                             PRIVATE & INTERNAL FUNCTIONS

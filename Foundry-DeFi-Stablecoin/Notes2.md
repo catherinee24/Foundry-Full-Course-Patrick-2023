@@ -53,3 +53,10 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 >✨Recuerda✨: El protocolo nunca puede estar undercolateralizado, al contrario siempre debe estar sobrecolateralizado. Es decir tener más collateral.
 - Si nos acercamos a una **subgarantía (Undercollateralization)**, necesitamos que alguien **liquíde posiciones**.
 - Si alguien está casi **undercollateralizado**, **te pagaremos para que lo liquídez**.
+- **Pasos que seguimos para hacer la función:**
+  1. Pasamos los parametros correspondientes para el funcionamiento de la función como: 
+     - la direccion del token
+     - la direccion del usuario que vamos a liiquidar  
+     - la cantidad de deuda que el liquidador pagará.
+  2. usamos los modifiers moreThanZero(deuda a pagar) y nonReentrant ya que vamos a mover tokens. 
+  3. Esta función tambien sigue el patrón CEI.
