@@ -134,7 +134,25 @@ contract CSCEngine is ReentrancyGuard {
         if (!success) revert CSCEngine__TransferFailed();
     }
 
-    function redeemCollateralForCsc() external { }
+    /**
+     * @notice Esta función tiene la intención de facilitar la acción combinada de quemar una cantidad específica de
+     * la criptomoneda estable (CSC) y, posteriormente, canjear una cantidad correspondiente de colateral. Todo en una
+     * sola transacción.
+     * @notice La funcion redeemCollateral() ya checkea si el health factor se rompe o no.
+     * @param _tokenCollateralAddress Dirección del token que el usuario redimirá como collateral (WBTC/WETH)
+     * @param _amountCollateral Cantidad de tokens collateral que el usuario redimirá.
+     * @param _amountCscToBurn Cantidad de tokens CSC que se quemarán.
+     */
+    function redeemCollateralForCsc(
+        address _tokenCollateralAddress,
+        uint256 _amountCollateral,
+        uint256 _amountCscToBurn
+    )
+        external
+    {
+        burnCsc(_amountCscToBurn);
+        redeemCollateral(_tokenCollateralAddress, _amountCollateral);
+    }
 
     /**
      * @notice Función diseñada para permitir a los usuarios retirar o canjear una cantidad específica de colateral
@@ -146,7 +164,7 @@ contract CSCEngine is ReentrancyGuard {
         address _tokeCollateralAddress,
         uint256 _amountCollateral
     )
-        external
+        public
         moreThanZero(_amountCollateral)
         nonReentrant
     {
