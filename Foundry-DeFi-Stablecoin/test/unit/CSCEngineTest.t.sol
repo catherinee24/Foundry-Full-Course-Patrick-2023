@@ -93,5 +93,23 @@ contract CSCEngineTest is Test {
         vm.stopPrank();
     }
 
-    function testCanDepositCollateralAndGetAccountInfo() public { }
+    //Creamos un modifier ya que vamos a estar haciendo mucho deposit. De esta manera evitamos repetrir codigo a lo
+    // largo del test. 🤯
+    modifier depositCollateral() {
+        vm.startPrank(USER);
+        ERC20Mock(weth).approve(address(cscEngine), AMOUNT_COLLATERAL);
+        cscEngine.depositCollateral(weth, AMOUNT_COLLATERAL);
+        vm.stopPrank();
+        _;
+    }
+
+    function testCanDepositCollateralAndGetAccountInfo() public depositCollateral {
+        (uint256 totalCscMinted, uint256 collateralValueInUSD) = cscEngine.getAccountInformation(USER);
+
+        //Vamos a asefurarnos de que los valores de `totalCscMinted` y `collateralValueInUSD`. 
+        uint256 expectedTotalCscMinted = 0;
+        uint256 expectedDepositAmount = cscEngine.getTokenAmountFromUsd(weth, collateralValueInUSD);
+        assertEq(totalCscMinted, expectedTotalCscMinted);
+        assertEq(AMOUNT_COLLATERAL, expectedDepositAmount);
+    }
 }
