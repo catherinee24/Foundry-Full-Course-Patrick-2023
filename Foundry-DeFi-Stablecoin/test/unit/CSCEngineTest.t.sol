@@ -103,13 +103,20 @@ contract CSCEngineTest is Test {
         _;
     }
 
+    /**
+     * @notice Este test, llamado `testCanDepositCollateralAndGetAccountInfo`, tiene como objetivo verificar que el
+     * proceso de depositar colateral y obtener información de la cuenta en el contrato `cscEngine` funcione
+     * correctamente.
+     */
     function testCanDepositCollateralAndGetAccountInfo() public depositCollateral {
         (uint256 totalCscMinted, uint256 collateralValueInUSD) = cscEngine.getAccountInformation(USER);
 
-        //Vamos a asefurarnos de que los valores de `totalCscMinted` y `collateralValueInUSD`. 
+        //Vamos a asegurarnos de que los valores de `totalCscMinted` y `collateralValueInUSD` sean correctos.
         uint256 expectedTotalCscMinted = 0;
         uint256 expectedDepositAmount = cscEngine.getTokenAmountFromUsd(weth, collateralValueInUSD);
         assertEq(totalCscMinted, expectedTotalCscMinted);
         assertEq(AMOUNT_COLLATERAL, expectedDepositAmount);
     }
+
+    
 }
