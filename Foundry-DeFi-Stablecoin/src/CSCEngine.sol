@@ -77,7 +77,7 @@ contract CSCEngine is ReentrancyGuard {
     }
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                                FUNCTIONS 
+                                                CONSTRUCTOR 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
     constructor(address[] memory tokenAddresses, address[] memory priceFeedAddresses, address cscAddress) {
         if (tokenAddresses.length != priceFeedAddresses.length) {
@@ -156,7 +156,7 @@ contract CSCEngine is ReentrancyGuard {
         external
     {
         _burnCSC(msg.sender, msg.sender, _amountCscToBurn);
-        _redeemCollateral(msg.sender, msg.sender,_tokenCollateralAddress, _amountCollateral);
+        _redeemCollateral(msg.sender, msg.sender, _tokenCollateralAddress, _amountCollateral);
     }
 
     /**

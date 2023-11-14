@@ -16,6 +16,8 @@ contract CSCEngineTest is Test {
     HelperConfig helperConfig;
     address wethUsdPriceFeed;
     address weth;
+    address wbtcUsdPriceFeed;
+    address wbtc;
 
     address public USER = makeAddr("user");
     uint256 public constant AMOUNT_COLLATERAL = 10 ether;
@@ -24,10 +26,30 @@ contract CSCEngineTest is Test {
     function setUp() public {
         deployer = new DeployCSCEngine();
         (cscStableCoin, cscEngine, helperConfig) = deployer.run();
-        (wethUsdPriceFeed,, weth,,) = helperConfig.activeNetworkConfig();
+        (wethUsdPriceFeed, wbtcUsdPriceFeed, weth, wbtc,) = helperConfig.activeNetworkConfig();
 
         //Le minteamos el token weth al USER.
         ERC20Mock(weth).mint(USER, STARTING_ERC20_BALANCE);
+    }
+
+    /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                CONSTRUCTOR TESTS
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+    /**
+     * @notice Este test asegura que el constructor del contrato `CSCEngine` revierta la transacción si las listas de direcciones
+     * de tokens y direcciones de feeds de precios no tienen la misma longitud, lo cual es un requisito según la lógica
+     * del contrato.
+     */
+    address[] public tokenAddresses;
+    address[] public priceFeedAddresses;
+
+    function testRevertsIfTokenLengthDoesNotMatchPriceFeeds() public {
+        tokenAddresses.push(weth);
+        priceFeedAddresses.push(wethUsdPriceFeed);
+        priceFeedAddresses.push(wbtcUsdPriceFeed);
+
+        vm.expectRevert(CSCEngine.CSCEngine__TokenAddressesAndPriceFeedAddressesMustBeSameLength.selector);
+        new CSCEngine(tokenAddresses, priceFeedAddresses, address(cscStableCoin));
     }
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
