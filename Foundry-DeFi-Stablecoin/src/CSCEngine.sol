@@ -242,6 +242,19 @@ contract CSCEngine is ReentrancyGuard {
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                             PRIVATE & INTERNAL FUNCTIONS
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+    /**
+     * @notice Esta función, está diseñada para facilitar la redención o retiro de una cantidad específica de
+     * colateral entre dos direcciones de usuarios.
+     * @param _tokenCollateralAddress Es la dirección del token de colateral que se va a redimir. Indica qué tipo de
+     * colateral se está retirando.
+     * @param _amountCollateral Es la cantidad de colateral que se va a redimir. Representa la cantidad específica de
+     * tokens de colateral que el usuario desea retirar.
+     * @param _from  Es la dirección del usuario desde la cual se está retirando el colateral. Indica la cuenta de la
+     * cual se reduce la cantidad de colateral depositado. (Liquídado)
+     * @param _to Es la dirección del usuario que está recibiendo el colateral redimido. Indica la cuenta a la cual se
+     * transferirá la cantidad de colateral retirado. (Liquídador)
+     */
     function _redeemCollateral(
         address _tokenCollateralAddress,
         uint256 _amountCollateral,

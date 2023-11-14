@@ -97,3 +97,5 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
         if (!success) revert CSCEngine__TransferFailed();
 ```
 - Ahora usamos esta funcion privada en la funcion regular **redeemCollateral()**. 
+
+## _burnCSC private function ✨
