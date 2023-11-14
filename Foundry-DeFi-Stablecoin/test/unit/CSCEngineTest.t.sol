@@ -36,7 +36,8 @@ contract CSCEngineTest is Test {
                                                 CONSTRUCTOR TESTS
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
     /**
-     * @notice Este test asegura que el constructor del contrato `CSCEngine` revierta la transacción si las listas de direcciones
+     * @notice Este test asegura que el constructor del contrato `CSCEngine` revierta la transacción si las listas de
+     * direcciones
      * de tokens y direcciones de feeds de precios no tienen la misma longitud, lo cual es un requisito según la lógica
      * del contrato.
      */
@@ -63,6 +64,15 @@ contract CSCEngineTest is Test {
         assertEq(expectedUsd, actualUsd);
     }
 
+    // En esta función haremos lo opuesto a testGetUsdValue().
+    function testGetTokenAmountFromUsd() public {
+        uint256 usdAmount = 100 ether;
+        //2000 ETH / $100 = 0.05
+        uint256 expectedWeth = 0.05 ether;
+        uint256 actualWeth = cscEngine.getTokenAmountFromUsd(weth, usdAmount);
+        assertEq(expectedWeth, actualWeth);
+    }
+
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                             DEPOSIT COLLATERAL TESTS
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -74,4 +84,14 @@ contract CSCEngineTest is Test {
         cscEngine.depositCollateral(weth, 0);
         vm.stopPrank();
     }
+
+    function testRevertsWithUnapprovedCollateral() public {
+        ERC20Mock ranToken = new ERC20Mock();
+        vm.startPrank(USER);
+        vm.expectRevert(CSCEngine.CSCEngine__TokenNotAllowed.selector);
+        cscEngine.depositCollateral(address(ranToken), AMOUNT_COLLATERAL);
+        vm.stopPrank();
+    }
+
+    function testCanDepositCollateralAndGetAccountInfo() public { }
 }

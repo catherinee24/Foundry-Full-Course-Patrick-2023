@@ -300,7 +300,7 @@ contract CSCEngine is ReentrancyGuard {
      */
 
     function _getAccountInformation(address _user)
-        internal
+        private
         view
         returns (uint256 totalCscMinted, uint256 collateralValueInUSD)
     {
@@ -388,5 +388,7 @@ contract CSCEngine is ReentrancyGuard {
         return ((uint256(price) * ADDITIONAL_FEED_PRECISION) * _amount) / PRECISION;
     }
 
-    function getHealthFactor() external view { }
+    function getAccountInformation(address _user) external view returns (uint256 totalCscMinted, uint256 collateralValueInUSD) {
+        (totalCscMinted, collateralValueInUSD) = _getAccountInformation(_user);
+    }
 }
