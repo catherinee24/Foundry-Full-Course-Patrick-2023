@@ -58,7 +58,9 @@ contract CSCEngine is ReentrancyGuard {
                                                     EVENTS 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
     event CollateralDeposited(address indexed user, address indexed collateralToken, uint256 indexed amount);
-    event CollateralRedeemed(address indexed user, address indexed collateralToken, uint256 indexed amount);
+    event CollateralRedeemed(
+        address indexed redeemedFrom, address indexed redeemedTo, address indexed collateralToken, uint256 amount
+    );
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                     MODIFIERS 
@@ -170,10 +172,7 @@ contract CSCEngine is ReentrancyGuard {
         moreThanZero(_amountCollateral)
         nonReentrant
     {
-        s_collateralDeposited[msg.sender][_tokeCollateralAddress] -= _amountCollateral;
-        emit CollateralRedeemed(msg.sender, _tokeCollateralAddress, _amountCollateral);
-        bool success = IERC20(_tokeCollateralAddress).transfer(msg.sender, _amountCollateral);
-        if (!success) revert CSCEngine__TransferFailed();
+        _redeemCollateral(msg.sender, msg.sender, _tokeCollateralAddress, _amountCollateral);
         _revertIfHealthFactorIsBroken(msg.sender);
     }
 
@@ -237,11 +236,25 @@ contract CSCEngine is ReentrancyGuard {
         //0.05 * 0.1 = 0.005. Obteniendo 0.055 ETH
         uint2556 bonusCollateral = (tokenAmountFromDebtCovered * LIQUIDATION_BONUS) / LIQUIDATION_PRECISION;
         uint256 totalCollateralToRedeem = tokenAmountFromDebtCovered + bonusCollateral;
+        _redeemCollateral(_user, msg.sender, _tokenCollateral, totalCollateralToRedeem);
     }
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                             PRIVATE & INTERNAL FUNCTIONS
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+    function _redeemCollateral(
+        address _tokenCollateralAddress,
+        uint256 _amountCollateral,
+        address _from,
+        address _to
+    )
+        private
+    {
+        s_collateralDeposited[_from][_tokeCollateralAddress] -= _amountCollateral;
+        emit CollateralRedeemed(_from, _to, _tokenCollateralAddress, _amountCollateral);
+        bool success = IERC20(_tokeCollateralAddress).transfer(_to, _amountCollateral);
+        if (!success) revert CSCEngine__TransferFailed();
+    }
 
     /**
      * @notice Internal function para obtener informacion de una cuenta.

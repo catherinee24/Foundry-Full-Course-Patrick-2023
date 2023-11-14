@@ -69,5 +69,31 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
   6. Hacemos una funcion getter que calcule el valor de un token segun la cantidad de dolares. Para que asi el liquidador sepa cuanto collateral se va a llevar.
   7. Incentivamos al liquidador con 10% de bonus por liquidar a un bad user. 🤑 
 > 👽 Deberíamos implementar una función para liquidar en caso de que el protocolo esté insolvente y transferir cantidades adicionales a un tesoro.
+- Usamos la función de **_redeemCollateral()**
+- Quemamos **CSC Stablecoin**.
 
-## liquidate() function refactorización ✨
+## redeemCollateral() function refactorización ✨
+- Hicimos cambios en la función de **redeemCollateral()** 
+- Nuestra función es publica ahora mismo y podemos ver que toma como parametro **_tokeCollateralAddress** y **_amountCollateral** y está hardcodeado el **msg.sender** ---->  **s_collateralDeposited[msg.sender][_tokeCollateralAddress] -= _amountCollateral;**
+- Vamos a crear una funcion interna con parte de la logica de **redeemCollateral()**.
+
+## _redeemCollateral() private function ✨
+- La funcion toma como parametro la 
+  1. dirección del token collateral
+  2. cantidad del token collateral
+  3. dirección del from (address del liquidado)
+  4. dirección del to. (address del liquidador)
+- De esta manera alguien puede liquidar al **address _from** y tomar la recompesa desde el **address _to**
+- Refactorizamos el **mapping** agregandole el **_from** en vez de **hardcodearlo a msg.sender**.
+```diff
+-        s_collateralDeposited[msg.sender][_tokeCollateralAddress] -= _amountCollateral;
+-        emit CollateralRedeemed(msg.sender, _tokeCollateralAddress, _amountCollateral);
+-        bool success = IERC20(_tokeCollateralAddress).transfer(msg.sender, _amountCollateral);
+        if (!success) revert CSCEngine__TransferFailed();
+
++        s_collateralDeposited[_from][_tokeCollateralAddress] -= _amountCollateral;
++        emit CollateralRedeemed(_from,_to, _tokenCollateralAddress, _amountCollateral);
++        bool success = IERC20(_tokeCollateralAddress).transfer(_to, _amountCollateral);
+        if (!success) revert CSCEngine__TransferFailed();
+```
+- Ahora usamos esta funcion privada en la funcion regular **redeemCollateral()**. 
