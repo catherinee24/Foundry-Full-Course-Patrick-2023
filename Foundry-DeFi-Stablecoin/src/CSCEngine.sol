@@ -156,7 +156,7 @@ contract CSCEngine is ReentrancyGuard {
         external
     {
         _burnCSC(msg.sender, msg.sender, _amountCscToBurn);
-        redeemCollateral(_tokenCollateralAddress, _amountCollateral);
+        _redeemCollateral(msg.sender, msg.sender,_tokenCollateralAddress, _amountCollateral);
     }
 
     /**
