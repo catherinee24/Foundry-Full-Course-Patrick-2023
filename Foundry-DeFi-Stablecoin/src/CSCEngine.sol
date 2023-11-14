@@ -32,6 +32,7 @@ contract CSCEngine is ReentrancyGuard {
     error CSCEngine__BreaksHealthFactor(uint256 healthFactor);
     error CSCEngine__MintFaild();
     error CSCEngine__HealthFactorOk();
+    error CSCEngine__HealthFactorNotImproved();
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                 CONSTANT VARIABLES 
@@ -154,7 +155,7 @@ contract CSCEngine is ReentrancyGuard {
     )
         external
     {
-        burnCsc(_amountCscToBurn);
+        _burnCSC(msg.sender, msg.sender, _amountCscToBurn);
         redeemCollateral(_tokenCollateralAddress, _amountCollateral);
     }
 
@@ -232,9 +233,14 @@ contract CSCEngine is ReentrancyGuard {
         if (startingUserHealthFactor >= MIN_HEALTH_FACTOR) revert CSCEngine__HealthFactorOk();
         uint256 tokenAmountFromDebtCovered = getTokenAmountFromUsd(_tokenCollateral, _debtToCover);
         //0.05 * 0.1 = 0.005. Obteniendo 0.055 ETH
-        uint2556 bonusCollateral = (tokenAmountFromDebtCovered * LIQUIDATION_BONUS) / LIQUIDATION_PRECISION;
+        uint256 bonusCollateral = (tokenAmountFromDebtCovered * LIQUIDATION_BONUS) / LIQUIDATION_PRECISION;
         uint256 totalCollateralToRedeem = tokenAmountFromDebtCovered + bonusCollateral;
         _redeemCollateral(_user, msg.sender, _tokenCollateral, totalCollateralToRedeem);
+        _burnCSC(_user, msg.sender, _debtToCover);
+
+        uint256 endingUserHealthFactor = _healthFactor(_user);
+        if (endingUserHealthFactor <= startingUserHealthFactor) revert CSCEngine__HealthFactorNotImproved();
+        _revertIfHealthFactorIsBroken(msg.sender);
     }
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -252,9 +258,9 @@ contract CSCEngine is ReentrancyGuard {
      * @dev Low-level internal function, no la llame, a menos que la funcion que llama, esté checkeando el rompimiento
      * del health factor.
      */
-    function _burnCSC(uint256 _amountCscToBurn, address _onBelhafOf, address _cscFrom) private {
+    function _burnCSC(address _onBelhafOf, address _cscFrom, uint256 _amountCscToBurn) private {
         //Removemos la deuda.
-        s_CSCMinted[_onBelhafOf] -= _amount;
+        s_CSCMinted[_onBelhafOf] -= _amountCscToBurn;
         bool success = i_cscToken.transferFrom(_cscFrom, address(this), _amountCscToBurn);
         if (!success) revert CSCEngine__TransferFailed();
         i_cscToken.burn(_amountCscToBurn);
@@ -273,16 +279,16 @@ contract CSCEngine is ReentrancyGuard {
      * transferirá la cantidad de colateral retirado. (Liquídador)
      */
     function _redeemCollateral(
-        address _tokenCollateralAddress,
-        uint256 _amountCollateral,
         address _from,
-        address _to
+        address _to,
+        address _tokenCollateralAddress,
+        uint256 _amountCollateral
     )
         private
     {
-        s_collateralDeposited[_from][_tokeCollateralAddress] -= _amountCollateral;
+        s_collateralDeposited[_from][_tokenCollateralAddress] -= _amountCollateral;
         emit CollateralRedeemed(_from, _to, _tokenCollateralAddress, _amountCollateral);
-        bool success = IERC20(_tokeCollateralAddress).transfer(_to, _amountCollateral);
+        bool success = IERC20(_tokenCollateralAddress).transfer(_to, _amountCollateral);
         if (!success) revert CSCEngine__TransferFailed();
     }
 
@@ -341,7 +347,7 @@ contract CSCEngine is ReentrancyGuard {
      * ether, que se desea convertir en su equivalente en tokens del token de colateral especificado.
      */
     function getTokenAmountFromUsd(address _tokenCollateral, uint256 _usdAmounInWai) public view returns (uint256) {
-        AggregatorV3Interface priceFeed = AggregatorV3Interface(s_priceFeeds[_token]);
+        AggregatorV3Interface priceFeed = AggregatorV3Interface(s_priceFeeds[_tokenCollateral]);
         (, int256 price,,,) = priceFeed.latestRoundData();
         //(10e18 * 1e18) / ($2000e8 * 1e10)
         //0.005000000000000000

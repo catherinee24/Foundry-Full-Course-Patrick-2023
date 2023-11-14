@@ -70,7 +70,7 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
   7. Incentivamos al liquidador con 10% de bonus por liquidar a un bad user. 🤑 
 > 👽 Deberíamos implementar una función para liquidar en caso de que el protocolo esté insolvente y transferir cantidades adicionales a un tesoro.
 - Usamos la función de **_redeemCollateral()**
-- Quemamos **CSC Stablecoin**.
+- Quemamos **CSC Stablecoin**. usando la función privada **_burnCsc()**.
 
 ## redeemCollateral() function refactorización ✨
 - Hicimos cambios en la función de **redeemCollateral()** 
@@ -111,7 +111,7 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 -        if (!success) revert CSCEngine__TransferFailed();
 -        i_cscToken.burn(_amount);
 
-+        s_CSCMinted[_onBelhafOf] -= _amount;
++        s_CSCMinted[_onBelhafOf] -= _amountCscToBurn;
 +        bool success = i_cscToken.transferFrom(_cscFrom, address(this), _amountCscToBurn);
 +        if (!success) revert CSCEngine__TransferFailed();
 +        i_cscToken.burn(_amountCscToBurn);
