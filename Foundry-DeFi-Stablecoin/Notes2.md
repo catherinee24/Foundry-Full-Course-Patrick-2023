@@ -99,3 +99,20 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 - Ahora usamos esta funcion privada en la funcion regular **redeemCollateral()**. 
 
 ## _burnCSC private function ✨
+- La función recibe como parametros lo siguiente:
+  - Cantida de tokens Csc a quemar.
+  - Dirección de a nombre de quien se quema. **(On behalf of)**. A Quien le está pagando la deuda el liquidador.
+  - Dirección de donde estamos recibiendo el csc. **(cscFrom)**. 
+- **Refactorizando la funcion burnCsc()**: Ya no hardcodeamos el **msg.sender**.
+
+```diff
+-        s_CSCMinted[msg.sender] -= _amount;
+-        bool success = i_cscToken.transferFrom(msg.sender, address(this), _amount);
+-        if (!success) revert CSCEngine__TransferFailed();
+-        i_cscToken.burn(_amount);
+
++        s_CSCMinted[_onBelhafOf] -= _amount;
++        bool success = i_cscToken.transferFrom(_cscFrom, address(this), _amountCscToBurn);
++        if (!success) revert CSCEngine__TransferFailed();
++        i_cscToken.burn(_amountCscToBurn);
+```

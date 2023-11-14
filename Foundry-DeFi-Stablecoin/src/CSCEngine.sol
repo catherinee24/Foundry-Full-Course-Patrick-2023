@@ -200,9 +200,7 @@ contract CSCEngine is ReentrancyGuard {
      */
     function burnCsc(uint256 _amount) external moreThanZero(_amount) {
         //Removemos la deuda.
-        s_CSCMinted[msg.sender] -= _amount;
-        bool success = i_cscToken.transferFrom(msg.sender, address(this), _amount);
-        if (!success) revert CSCEngine__TransferFailed();
+        _burnCSC(msg.sender, msg.sender, _amount);
         _revertIfHealthFactorIsBroken(msg.sender); // No creo que esta linea sea necesaria.
     }
 
@@ -242,6 +240,25 @@ contract CSCEngine is ReentrancyGuard {
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                             PRIVATE & INTERNAL FUNCTIONS
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+    /**
+     * @notice Función diseñada para quemar una cantidad específica de la criptomoneda estable (CSC) en nombre de un
+     * tercero (_onBehalfOf).
+     * @param _amountCscToBurn Es la cantidad de la criptomoneda estable (CSC) que se desea quemar.
+     * @param _onBelhafOf Es la dirección del usuario en cuyo nombre se está quemando la criptomoneda estable. Indica
+     * la cuenta para la cual se reduce la deuda o la cantidad de CSC en circulación.
+     * @param _cscFrom Es la dirección desde la cual se está transfiriendo la cantidad de CSC a quemar. Indica la
+     * cuenta desde la cual se realiza la transferencia de CSC hacia el contrato antes de la quema.
+     * @dev Low-level internal function, no la llame, a menos que la funcion que llama, esté checkeando el rompimiento
+     * del health factor.
+     */
+    function _burnCSC(uint256 _amountCscToBurn, address _onBelhafOf, address _cscFrom) private {
+        //Removemos la deuda.
+        s_CSCMinted[_onBelhafOf] -= _amount;
+        bool success = i_cscToken.transferFrom(_cscFrom, address(this), _amountCscToBurn);
+        if (!success) revert CSCEngine__TransferFailed();
+        i_cscToken.burn(_amountCscToBurn);
+    }
 
     /**
      * @notice Esta función, está diseñada para facilitar la redención o retiro de una cantidad específica de
