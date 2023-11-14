@@ -267,7 +267,7 @@ contract CSCEngine is ReentrancyGuard {
     }
 
     /**
-     * @notice Esta función, está diseñada para facilitar la redención o retiro de una cantidad específica de
+     * @notice Esta función, está diseñada para facilitar el retiro de una cantidad específica de
      * colateral entre dos direcciones de usuarios.
      * @param _tokenCollateralAddress Es la dirección del token de colateral que se va a redimir. Indica qué tipo de
      * colateral se está retirando.

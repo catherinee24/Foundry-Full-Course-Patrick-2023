@@ -8,6 +8,7 @@ import { DecentralizedStableCoin } from "../../src/DecentralizedStableCoin.sol";
 import { CSCEngine } from "../../src/CSCEngine.sol";
 import { HelperConfig } from "../../script/HelperConfig.s.sol";
 import { ERC20Mock } from "@openzeppelin/contracts/mocks/token/ERC20Mock.sol";
+import { MockV3Aggregator } from "../test/mocks/MockV3Aggregator.sol";
 
 contract CSCEngineTest is Test {
     DeployCSCEngine deployer;
@@ -118,5 +119,16 @@ contract CSCEngineTest is Test {
         assertEq(AMOUNT_COLLATERAL, expectedDepositAmount);
     }
 
-    
+    // Este test tiene como objetivo verificar que, después de depositar colateral en el contrato cscEngine, el saldo del usuario
+    // en la criptomoneda estable (cscStableCoin) no cambia, es decir, que no se emiten nuevas unidades de la
+    // criptomoneda estable en este proceso.
+    function testCanDepositCollateralWithoutMinting() public depositCollateral {
+        uint256 userBalance = cscStableCoin.balanceOf(USER);
+        assertEq(userBalance, 0);
+    }
+
+    /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                    depositCollateralAndMintDsc TESTS
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
 }

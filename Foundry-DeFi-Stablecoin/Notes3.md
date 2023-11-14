@@ -1,4 +1,5 @@
 # Continuación de Notes2.md ✨
+//TODO: Llevar el coverage de CSCEngine a 85% 
 Foundry course: FOUNDRY-DEFI-STABLECOIN
 2:54:14
 
@@ -9,3 +10,4 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
     - Creamos  un nuevo token con el **ER20Mock de openzeppelin**.
     - Empezamos un **prank con un USER** y ese token lo depositamos en el protocolo.
     - Va a fallar por que los unicos tokens permitidos como collateral son weth y wbtc.
+  
