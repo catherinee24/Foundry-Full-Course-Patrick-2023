@@ -1,6 +1,6 @@
 # Continuación de Notes.md ✨
 Foundry course: FOUNDRY-DEFI-STABLECOIN
-2:09:05
+2:44:46 
 
 ## Testing mientras se desarrolla (Testing)✨
 ### priceFeed tests 👩‍💻
