@@ -50,3 +50,7 @@ contract MyContract {
 > Foundry Invariant = stateful fuzzing.
 
 ## Ejemplos de Invariantes en proyectos de la vida real ✨
+- Invarianta:
+  - New tokens minted < inflation rate 
+  - Only possible to have one winner in a lottery.
+  - Only withdraw what they deposited.
