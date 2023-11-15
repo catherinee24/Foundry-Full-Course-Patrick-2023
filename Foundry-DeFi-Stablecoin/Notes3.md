@@ -39,4 +39,14 @@ contract MyContract {
 2. Escribir un test de fuzzing para las invariantes, para tratar de romper esa invariantes.
 
 ### Stateless fuzzing:🤯
-- Donde el estado de la ejecución anterior se descarta para cada nueva ejecución.
+- Fuzzing donde el estado de la ejecución anterior se descarta para cada nueva ejecución.
+
+## Stateful fuzzing:🤯
+- Fuzzing donde el estado final de la ejecución anterior es el estado inicial de la siguiente ejecución.
+> ✨NOTE✨: Para escribir stateful fuzz test en foundry tenemos que usar la palabra clave `invariant_`.
+> En foundry = fuzz test= random data to one function. !!!!!
+> Invariant test = Random data and Random Function calls to many functions. !!!!!
+> Foundry Fuzzing = stateless fuzzing.
+> Foundry Invariant = stateful fuzzing.
+
+## Ejemplos de Invariantes en proyectos de la vida real ✨
