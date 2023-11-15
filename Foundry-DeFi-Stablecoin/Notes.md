@@ -18,6 +18,10 @@
    - Colateral que se orgina desde fuera del protocolo.
    - Usaremos **wBTC** & **wETH** como colateral.
 
+- Calcular el health factor.
+- Establecer el health factor si la deuda es cero.
+- aggregar un montón de view functions.
+
 ## Contrato DecentralizedStableCoin.sol ✨
 
 - Este contrato será el Token.🪙
