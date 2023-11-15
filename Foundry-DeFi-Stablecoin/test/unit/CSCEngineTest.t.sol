@@ -8,7 +8,6 @@ import { DecentralizedStableCoin } from "../../src/DecentralizedStableCoin.sol";
 import { CSCEngine } from "../../src/CSCEngine.sol";
 import { HelperConfig } from "../../script/HelperConfig.s.sol";
 import { ERC20Mock } from "@openzeppelin/contracts/mocks/token/ERC20Mock.sol";
-import { MockV3Aggregator } from "../test/mocks/MockV3Aggregator.sol";
 
 contract CSCEngineTest is Test {
     DeployCSCEngine deployer;

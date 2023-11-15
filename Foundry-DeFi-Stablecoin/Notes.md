@@ -1,6 +1,6 @@
 # Lesson 12: Foundry DeFi | Stablecoin (The PINNACLE PROJECT!! GET HERE!) https://github.com/catherinee24/Foundry-Course-Patrick 🤩
 
-## Arquitectura de nuestra Stablecoin!!✨
+## Arquitectura de nuestra StableCoin!!✨
 
 1. (Relative stability): Anchored or Pegged -----> $1.00 USD
 
