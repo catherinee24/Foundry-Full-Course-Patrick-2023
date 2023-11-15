@@ -118,7 +118,8 @@ contract CSCEngineTest is Test {
         assertEq(AMOUNT_COLLATERAL, expectedDepositAmount);
     }
 
-    // Este test tiene como objetivo verificar que, después de depositar colateral en el contrato cscEngine, el saldo del usuario
+    // Este test tiene como objetivo verificar que, después de depositar colateral en el contrato cscEngine, el saldo
+    // del usuario
     // en la criptomoneda estable (cscStableCoin) no cambia, es decir, que no se emiten nuevas unidades de la
     // criptomoneda estable en este proceso.
     function testCanDepositCollateralWithoutMinting() public depositCollateral {
@@ -129,5 +130,4 @@ contract CSCEngineTest is Test {
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                     depositCollateralAndMintDsc TESTS
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
-
 }

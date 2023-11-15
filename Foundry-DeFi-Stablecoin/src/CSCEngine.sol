@@ -309,6 +309,30 @@ contract CSCEngine is ReentrancyGuard {
     }
 
     /**
+     * @notice esta función calcula el factor de salud de una cuenta, teniendo en cuenta el colateral y la cantidad
+     * total de DSC minted. El factor de salud es una métrica importante en DeFi que indica la relación entre el valor
+     * del colateral y la deuda de un usuario. Un factor de salud más alto indica una posición financiera más segura.
+     * @notice Verifica si la cantidad total de DSC minted es cero. Si es así, la función devuelve el valor máximo
+     * posible de uint256.
+     * @param _totalCscMinted Representa la cantidad total de tokens CSC que han sido minted o generados para una cuenta
+     * en particular.
+     * @param _collateralValueInUsd Representa el valor total del colateral asociado con la cuenta en dólares
+     * estadounidenses
+     */
+    function _calculateHealthFactor(
+        uint256 _totalCscMinted,
+        uint256 _collateralValueInUsd
+    )
+        internal
+        pure
+        returns (uint256)
+    {
+        if (_totalCscMinted == 0) return type(uint256).max;
+        uint256 collateralAdjustedForThreshold = (_collateralValueInUsd * LIQUIDATION_THRESHOLD) / LIQUIDATION_PRECISION;
+        return (collateralAdjustedForThreshold * PRECISION) / _totalCscMinted;
+    }
+
+    /**
      * @notice  Funcion diseñada para calcular un factor de salud financiera (health Factor) de un usuario
      * @notice Si un usuario se va a bajo de 1(MIN_HEALTH_FACTOR), entonces puede ser liquidado.
      * @notice Ajusta el valor del colateral del usuario en función de un umbral de liquidación (Threshold) (utilizado
@@ -319,9 +343,8 @@ contract CSCEngine is ReentrancyGuard {
      * cerca de la liquidación está un usuario).
      */
     function _healthFactor(address _user) private view returns (uint256) {
-        (uint256 totalCscMinted, uint256 collateralValueInUSD) = _getAccountInformation(_user);
-        uint256 collateralAdjustedForThreshold = (collateralValueInUSD * LIQUIDATION_THRESHOLD) / LIQUIDATION_PRECISION;
-        return (collateralAdjustedForThreshold * PRECISION) / totalCscMinted;
+        (uint256 _totalCscMinted, uint256 _collateralValueInUsd) = _getAccountInformation(_user);
+        return _calculateHealthFactor(_totalCscMinted, _collateralValueInUsd);
     }
 
     /**
@@ -334,9 +357,44 @@ contract CSCEngine is ReentrancyGuard {
         if (userHealthFactor < MIN_HEALTH_FACTOR) revert CSCEngine__BreaksHealthFactor(userHealthFactor);
     }
 
+    /**
+     * @notice Esta función tiene como objetivo calcular el valor en dólares estadounidenses (USD) de una cierta
+     * cantidad de un token específico.
+     * @param _token La dirección del token del cual se está calculando el valor en USD.
+     * @param _amount La cantidad del token para la que se quiere determinar el valor en USD.
+     * @notice Se obtiene el precio del token en USD mediante un Price Feed (ChainLink) vinculado a ese token en
+     * particular, utilizando la interfaz `AggregatorV3Interface`. Se accede a los datos más recientes del feed de
+     * precios para obtener el valor del token en USD.
+     * @notice  1 ETH = 1000 USD
+     *     // The returned value from Chainlink will be 1000 * 1e8
+     *     // Most USD pairs have 8 decimals, so we will just pretend they all do
+     *     // We want to have everything in terms of WEI, so we add 10 zeros at the end
+     *
+     */
+
+    function _getUsdValue(address _token, uint256 _amount) private view returns (uint256) {
+        AggregatorV3Interface priceFeed = AggregatorV3Interface(s_priceFeeds[_token]);
+        (, int256 price,,,) = priceFeed.latestRoundData();
+        // 1 ETH = 1000 USD
+        // The returned value from Chainlink will be 1000 * 1e8
+        // Most USD pairs have 8 decimals, so we will just pretend they all do
+        // We want to have everything in terms of WEI, so we add 10 zeros at the end
+        return ((uint256(price) * ADDITIONAL_FEED_PRECISION) * _amount) / PRECISION;
+    }
+
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                      PUBLIC & EXTERNAL VIEW PURE FUNCTIONS
     /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+    function calculateHealthFactor(
+        uint256 _totalCscMinted,
+        uint256 _collateralValueInUsd
+    )
+        external
+        pure
+        returns (uint256)
+    {
+        return _calculateHealthFactor(_totalCscMinted, _collateralValueInUsd);
+    }
 
     /**
      * @notice Esta funcion tiene como objetivo calcular la cantidad de tokens ERC20 equivalentes que se pueden adquirir
@@ -371,21 +429,8 @@ contract CSCEngine is ReentrancyGuard {
         return totalCollateralValueInUSD;
     }
 
-    /**
-     * @notice Esta función tiene como objetivo calcular el valor en dólares estadounidenses (USD) de una cierta
-     * cantidad de un token específico.
-     * @param _token La dirección del token del cual se está calculando el valor en USD.
-     * @param _amount La cantidad del token para la que se quiere determinar el valor en USD.
-     * @notice Se obtiene el precio del token en USD mediante un Price Feed (ChainLink) vinculado a ese token en
-     * particular, utilizando la interfaz `AggregatorV3Interface`. Se accede a los datos más recientes del feed de
-     * precios para obtener el valor del token en USD.
-     * @notice 1 ETH = $1000
-     * @notice El valor retornado por el CL será 1000 * 1e8
-     */
     function getUsdValue(address _token, uint256 _amount) public view returns (uint256) {
-        AggregatorV3Interface priceFeed = AggregatorV3Interface(s_priceFeeds[_token]);
-        (, int256 price,,,) = priceFeed.latestRoundData();
-        return ((uint256(price) * ADDITIONAL_FEED_PRECISION) * _amount) / PRECISION;
+        return _getUsdValue(_token, _amount);
     }
 
     function getAccountInformation(address _user)
@@ -394,5 +439,45 @@ contract CSCEngine is ReentrancyGuard {
         returns (uint256 totalCscMinted, uint256 collateralValueInUSD)
     {
         (totalCscMinted, collateralValueInUSD) = _getAccountInformation(_user);
+    }
+
+        function getPrecision() external pure returns (uint256) {
+        return PRECISION;
+    }
+
+    function getAdditionalFeedPrecision() external pure returns (uint256) {
+        return ADDITIONAL_FEED_PRECISION;
+    }
+
+    function getLiquidationThreshold() external pure returns (uint256) {
+        return LIQUIDATION_THRESHOLD;
+    }
+
+    function getLiquidationBonus() external pure returns (uint256) {
+        return LIQUIDATION_BONUS;
+    }
+
+    function getLiquidationPrecision() external pure returns (uint256) {
+        return LIQUIDATION_PRECISION;
+    }
+
+    function getMinHealthFactor() external pure returns (uint256) {
+        return MIN_HEALTH_FACTOR;
+    }
+
+    function getCollateralTokens() external view returns (address[] memory) {
+        return s_collateralTokens;
+    }
+
+    function getCsc() external view returns (address) {
+        return address(i_cscToken);
+    }
+
+    function getCollateralTokenPriceFeed(address _token) external view returns (address) {
+        return s_priceFeeds[_token];
+    }
+
+    function getHealthFactor(address _user) external view returns (uint256) {
+        return _healthFactor(_user);
     }
 }
