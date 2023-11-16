@@ -22,6 +22,8 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 
 - **Empezando a desarrollar las funciones invariantes destro del protocolo:**
   - Las funciones inavariantes se definen con la palabra **invariant_NombreDeLaFuncion()**.
+  - Importamos **IERC20** de **openzeppelin** para poder utilizar la **función totalSupply()**. Para así saber cuanto supply hay de **CSC** **Stablecoin** en nuestro **protocolo**. 
+  - Sabemos que la única manera de mintear **csc** es a través de **CSCEngine** contract.
 
 ### Handler.t.sol ✨
 - El contrato "Handler" va a restringir la manera en que llamamos funciones.
