@@ -7,6 +7,10 @@ libs = ["lib"]
 
 remappings = ['@chainlink/contracts/=lib/chainlink-brownie-contracts/contracts/', '@openzeppelin/contracts=lib/openzeppelin-contracts/contracts']
 
+[invariant]
+  runs = 128
+  depth = 128
+
 [fmt]
 
   bracket_spacing = true
@@ -18,3 +22,4 @@ remappings = ['@chainlink/contracts/=lib/chainlink-brownie-contracts/contracts/'
   tab_width = 4
   wrap_comments = true
 # See more config options https://github.com/foundry-rs/foundry/tree/master/crates/config
+
