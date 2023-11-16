@@ -4,11 +4,12 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 3:27:18 -
 
 ## Open-Based Fuzz (Invariants) Tests ✨
-- Creamos dos archivos:
+- Creamos tres archivos:
+  - OpenInvariantsTest.t.sol
   - Invariants.t.sol
   - Handler.t.sol
 
-### Invariants.t.sol ✨
+## OpenInvariantsTest.t.sol ✨
 - Este archivo tendrá nuestras invariantes/ propiedades que el sistema siempre tiene que sostener.
   - **¿Cuales son nuestras invarariantes? /¿Cuales son las propiedades que nuestro sistema debe sostener?**
     1. El supply total de **CSC** **<---(La deuda)** debería ser menor que el valor total del **collateral**.
@@ -26,6 +27,16 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
   - Sabemos que la única manera de mintear **csc** es a través de **CSCEngine** contract.
   - Para obtener el valor en dolares de cada colateral usaremos la funcion de nuestro contrato **CSCEngine:getUsdValue().**
 
-### Handler.t.sol ✨
+### OpenInvariantsTest.t.sol Falló 👩‍💻
+- Comentamos todo el código desarrollado aquí ya que no lo usaremos.
+- Lo mejoraremos 😎
+- Creamos un nuevo archivo **Invariants.t.sol** y copiamos y pegamos el codigo que habíamos comentado en **OpenInvariantsTest.t.sol**.
+
+## Invariants.t.sol ✨
+- Este archivo ultilizará el **Handler.t.sol** contract.
+
+
+## Handle-based Fuzz (Invariant) Test setteando el fail_on_revert = true ✨
 - El contrato "Handler" va a restringir la manera en que llamamos funciones.
 >the contract handler is goin to norrow down the way we call functions
+
