@@ -441,7 +441,7 @@ contract CSCEngine is ReentrancyGuard {
         (totalCscMinted, collateralValueInUSD) = _getAccountInformation(_user);
     }
 
-        function getPrecision() external pure returns (uint256) {
+    function getPrecision() external pure returns (uint256) {
         return PRECISION;
     }
 

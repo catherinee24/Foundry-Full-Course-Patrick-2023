@@ -54,3 +54,6 @@ contract MyContract {
   - New tokens minted < inflation rate 
   - Only possible to have one winner in a lottery.
   - Only withdraw what they deposited.
+
+## Invariants ✨
+Las pruebas de invariantes son una herramienta poderosa para identificar lógica incorrecta en protocolos, especialmente en casos límite y estados complejos del protocolo. Involucra definir invariantes, configurar parámetros de prueba y aprovechar enfoques de prueba abiertos o basados en controladores para pruebas exhaustivas y efectivas.
