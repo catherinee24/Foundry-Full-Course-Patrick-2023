@@ -10,6 +10,9 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 
 ### Invariants.t.sol ✨
 - Este archivo tendrá nuestras invariantes/ propiedades que el sistema siempre tiene que sostener.
+  - **¿Cuales son nuestras invarariantes? /¿Cuales son las propiedades que nuestro sistema debe sostener?**
+    1. El supply total de **CSC** **<---(La deuda)** debería ser menor que el valor total del **collateral**.
+    2. Las funciones getter view nunca deberian revertir <---- **Evergreen Invariant**(se refiere a condiciones que deberían mantenerse válidas a lo largo de la ejecución del programa o en varias ejecuciones de pruebas).
 
 ### Handler.t.sol ✨
 - El contrato "Handler" va a restringir la manera en que llamamos funciones.
