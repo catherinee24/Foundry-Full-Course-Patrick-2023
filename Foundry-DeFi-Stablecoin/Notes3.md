@@ -13,6 +13,10 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
   - **¿Cuales son nuestras invarariantes? /¿Cuales son las propiedades que nuestro sistema debe sostener?**
     1. El supply total de **CSC** **<---(La deuda)** debería ser menor que el valor total del **collateral**.
     2. Las funciones getter view nunca deberian revertir <---- **Evergreen Invariant**(se refiere a condiciones que deberían mantenerse válidas a lo largo de la ejecución del programa o en varias ejecuciones de pruebas).
+- **Empezando a desarrollar el contrato:**
+  - Importamos el archivo **{ StdInvariant } from "forge-std/StdInvariant.sol"**. Ya que de este vamos a usar varias funciones útiles.
+  - Importamos tambien el ya conocido archivo **Test**.
+  - Empezamos nuestro contrato definiendo la también conocida **funcion setUp**.
 
 ### Handler.t.sol ✨
 - El contrato "Handler" va a restringir la manera en que llamamos funciones.
