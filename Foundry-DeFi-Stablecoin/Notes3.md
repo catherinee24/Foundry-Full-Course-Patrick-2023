@@ -45,4 +45,6 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 - El contrato "Handler" va a restringir la manera en que llamamos funciones.
 >the contract handler is goin to norrow down the way we call functions
 >🤯 En este contrato se hará desarrollo solidity de alto nivel, así que debo practicar esto varias veces!!!
-
+- **Pasos de lo que vamos haciendo para desarrollar este contrato:**
+  1. Creamos un **constructor** donde vamos a meter el contrato **CSCEngine**, así el **Handler** va a saber que es ese contrato.
+  2. Los primeros contratos que importaremos serán el **CSCEngine** y La **StableCoin CSC**.
