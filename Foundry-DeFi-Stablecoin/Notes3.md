@@ -1,7 +1,7 @@
 # continuacion de InvariantsExplicación.md ✨
 //TODO: Llevar el coverage de CSCEngine a 85% 
 Foundry course: FOUNDRY-DEFI-STABLECOIN
-3:27:18 -
+3:46:56 -
 
 ## Open-Based Fuzz (Invariants) Tests ✨
 - Creamos tres archivos:
