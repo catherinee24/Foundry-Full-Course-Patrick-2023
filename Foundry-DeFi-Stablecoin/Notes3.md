@@ -34,6 +34,8 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 
 ## Invariants.t.sol ✨
 - Este archivo ultilizará el **Handler.t.sol** contract.
+- Queremos asegurarnos de que se llamen a las funciones en un orden con sentido.
+  - **Por ejemplo** ----> No llames a la función **redeemCollateral()** al menos que haya collateral para redimir.
 
 
 ## Handle-based Fuzz (Invariant) Test setteando el fail_on_revert = true ✨

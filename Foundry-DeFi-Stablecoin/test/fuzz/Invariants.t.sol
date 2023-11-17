@@ -23,7 +23,7 @@ contract Invariants is StdInvariant, Test {
         (cscToken, cscEngine, helperConfig) = deployer.run();
         (,, weth, wbtc,) = helperConfig.activeNetworkConfig();
 
-        //Función del contrato `StdInvariant`
+        // `targetContract()` Función del contrato `StdInvariant`
         targetContract(address(cscEngine));
     }
 
