@@ -47,4 +47,7 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 >🤯 En este contrato se hará desarrollo solidity de alto nivel, así que debo practicar esto varias veces!!!
 - **Pasos de lo que vamos haciendo para desarrollar este contrato:**
   1. Creamos un **constructor** donde vamos a meter el contrato **CSCEngine**, así el **Handler** va a saber que es ese contr
-  2. Los primeros contratos que importaremos serán el **CSCEngine** y La **StableCoin CSC**. Y lo establecemos en el **constructor()**
+  2. Los primeros contratos que importaremos serán el **CSCEngine** y La **StableCoin CSC**, Porque son los contratos que queremos que el **Handler** maneje las llamadas a las funciones. Y lo establecemos en el **constructor()**.
+  3. Vamos a enfocarnos primero en la función **redeemCollateral()**, Queremos que se llame a esta función solo cuando haya collateral en el protocolo. Por esta razón lo primero que tenemos que hacer es depositar collateral. 
+  4. La **primera funcion** que creamos será **depositCollateral()** <--- en esta función la **tx** siempre debe ser **True**, no debe revertir.
+     1. **function depositCollateral(uint256 _collateralSeed, uint256 _amountCollateral) public {}** <-- Esta funcion es en realidad muy similar a un **Fuzz Test**, ya que en nuestros **Handlers** cualquier parametros que tenemos van a ser ramdonizados.

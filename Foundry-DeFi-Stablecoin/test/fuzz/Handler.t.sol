@@ -14,4 +14,6 @@ contract Handler is Test {
         cscEngine = _cscEngine;
         cscToken = _cscToken;
     }
+
+    function depositCollateral(uint256 _collateralSeed, uint256 _amountCollateral) public {}
 }
