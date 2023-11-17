@@ -36,9 +36,13 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 - Este archivo ultilizará el **Handler.t.sol** contract.
 - Queremos asegurarnos de que se llamen a las funciones en un orden con sentido.
   - **Por ejemplo** ----> No llames a la función **redeemCollateral()** al menos que haya collateral para redimir.
+  - Por esto creamos **Handler**, para que maneje la forma en la que vamos a llamar funciones en el contrato **CSCEngine.sol** 
+  - Y, en vez de que nuestro contrate target sea el CSCEngine va a ser el Handler.
+    - **targetContract(address(Handler));**
 
 
 ## Handle-based Fuzz (Invariant) Test setteando el fail_on_revert = true ✨
 - El contrato "Handler" va a restringir la manera en que llamamos funciones.
 >the contract handler is goin to norrow down the way we call functions
+>🤯 En este contrato se hará desarrollo solidity de alto nivel, así que debo practicar esto varias veces!!!
 
