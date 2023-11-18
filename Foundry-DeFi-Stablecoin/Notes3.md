@@ -1,4 +1,4 @@
-# continuacion de InvariantsExplicación.md ✨
+# continuacion de Notes2.md ✨
 //TODO: Llevar el coverage de CSCEngine a 85%
 Foundry course: FOUNDRY-DEFI-STABLECOIN
 4:07:58
@@ -119,3 +119,4 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
   - 📁 **failOnRevert** -> Esta se asegurará de que cada transacción en el que ejecutarás tu test de **invariantes (fuzz)**, va a pasar ✅
 
 - TIP: Patrick cree que es muy útil tener las dos carpetas mencionadas posteriormente cuando va a escribir pruebas invariantes, él suele empezar con la carpeta **continueOnRevert** porque es más rápido y a menudo puedes encontrar **bugs**
+
