@@ -107,6 +107,11 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
   - Empezamos un **prank del msg.sender**, para que mintee o cree csc tokens.
   - Paramos el prank despues de la llamada a la funcion **mint()**.
   - Establecemos el **fail_on_revert = false**
+  - Cuando corremos el test invariante **invariant_protocolMustHaveMoreValueThanTotalSupply()** el total supply que nos sale es cero lo cual no está bien. ¡Lo arreglaremos pronto! 
+  - **Recordemos que**: 💡 **Solo podemos mintear csc si la cantidad es menor que el collateral** 💡. 
+  - Así que lo que podemos hacer es llamar la función **getAccountInformation()** de **CSCEngine**, ya que esa función nos da el **valor del collateral en dólares** y el **total csc minteado**, y así asegurarnos de que siempre se mintee menos csc que el valor del collateral que tenemos. 
+
+
 
 - 💡 Aquí es donde vemos a algunas personas tener dos tipos de carpetas llamadas
   - 📁 **continueOnRevert** -> Tipo de prueba que se ejecutará más rápidamente en caso de que la operación falle o revierta. Este tipo de test puede lucir como la función **mintCsc()**.

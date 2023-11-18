@@ -26,7 +26,19 @@ contract Handler is Test {
 
     //La explicación del desarrollo de estas funciones están en `Notes3.md` 🤌
     function mintCsc(uint256 _amountToMint) public {
-        _amountToMint = bound(_amountToMint, 1, MAX_DEPOSIT_SIZED);
+        (uint256 totalCscMinted, uint256 collateralValueInUSD) = cscEngine.getAccountInformation(msg.sender);
+
+        // Usamos int aquí porque no queremos numeros negativos 
+        int256 maxCscToMint = (int256(collateralValueInUSD) / 2) - int256(totalCscMinted);
+        if(maxCscToMint < 0){
+            return;
+        }
+        
+        _amountToMint = bound(_amountToMint, 0, uint256(maxCscToMint));
+        if(_amountToMint == 0){
+            return;
+        }
+
         vm.startPrank(msg.sender);
         cscEngine.mintCsc(_amountToMint);
         vm.stopPrank();
