@@ -13,6 +13,8 @@ contract Handler is Test {
     ERC20Mock weth;
     ERC20Mock wbtc;
 
+    uint256 MAX_DEPOSIT_SIZED = type(uint96).max; //El valor maximos de uint96
+
     constructor(CSCEngine _cscEngine, DecentralizedStableCoin _cscToken) {
         cscEngine = _cscEngine;
         cscToken = _cscToken;
@@ -24,6 +26,7 @@ contract Handler is Test {
 
     function depositCollateral(uint256 _collateralSeed, uint256 _amountCollateral) public {
         ERC20Mock collateral = _getCollateralFromSeed(_collateralSeed);
+        _amountCollateral = bound(_amountCollateral, 1, MAX_DEPOSIT_SIZED);
         cscEngine.depositCollateral(address(collateral), _amountCollateral);
     }
 
