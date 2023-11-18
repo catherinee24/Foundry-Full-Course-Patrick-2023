@@ -9,12 +9,14 @@ import { HelperConfig } from "../../script/HelperConfig.s.sol";
 import { CSCEngine } from "../../src/CSCEngine.sol";
 import { DecentralizedStableCoin } from "../../src/DecentralizedStableCoin.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { Handler } from "../../test/fuzz/Handler.t.sol";
 
 contract Invariants is StdInvariant, Test {
     DeployCSCEngine deployer;
     HelperConfig helperConfig;
     CSCEngine cscEngine;
     DecentralizedStableCoin cscToken;
+    Handler handler;
     address weth;
     address wbtc;
 
@@ -24,7 +26,9 @@ contract Invariants is StdInvariant, Test {
         (,, weth, wbtc,) = helperConfig.activeNetworkConfig();
 
         // `targetContract()` Función del contrato `StdInvariant`
-        targetContract(address(cscEngine));
+        // targetContract(address(cscEngine));
+        handler = new Handler(cscEngine, cscToken);
+        targetContract(address(handler));
     }
 
     /**
