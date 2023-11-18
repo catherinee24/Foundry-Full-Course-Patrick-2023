@@ -107,3 +107,7 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
   - Empezamos un **prank del msg.sender**, para que mintee o cree csc tokens.
   - Paramos el prank despues de la llamada a la funcion **mint()**.
   - Establecemos el **fail_on_revert = false**
+
+- 💡 Aquí es donde vemos a algunas personas tener carpetas llamadas
+  - 📁 continueOnRevert
+  - 📁 failOnRevert
