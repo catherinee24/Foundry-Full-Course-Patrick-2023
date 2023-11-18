@@ -1,5 +1,4 @@
 # continuacion de InvariantsExplicación.md ✨
-
 //TODO: Llevar el coverage de CSCEngine a 85%
 Foundry course: FOUNDRY-DEFI-STABLECOIN
 4:07:58
