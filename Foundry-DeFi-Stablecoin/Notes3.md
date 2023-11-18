@@ -2,7 +2,7 @@
 
 //TODO: Llevar el coverage de CSCEngine a 85%
 Foundry course: FOUNDRY-DEFI-STABLECOIN
-3:46:56 -
+4:07:58
 
 ## Open-Based Fuzz (Invariants) Tests ✨
 
@@ -97,3 +97,4 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
   - Solo queremos permitirle a las personas que **rediman la cantidad máxima que ellos tengan en el sistema**. 
   - Por eso llamos a la función **getCollateralBalanceOfUsers** del contrato **CSCEngine** para tener el balance del usuario en el sistema.
   - Luego limitamos o hacemos un **bound()** de la cantidad máxima que puede redimir. 
+  - Llamamos la funcion **redeemCollateral() del cscEngine**.
