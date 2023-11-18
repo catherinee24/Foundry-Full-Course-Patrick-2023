@@ -108,6 +108,9 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
   - Paramos el prank despues de la llamada a la funcion **mint()**.
   - Establecemos el **fail_on_revert = false**
 
-- 💡 Aquí es donde vemos a algunas personas tener carpetas llamadas
-  - 📁 continueOnRevert
-  - 📁 failOnRevert
+- 💡 Aquí es donde vemos a algunas personas tener dos tipos de carpetas llamadas
+  - 📁 **continueOnRevert** -> Tipo de prueba que se ejecutará más rápidamente en caso de que la operación falle o revierta. Este tipo de test puede lucir como la función **mintCsc()**.
+  
+  - 📁 **failOnRevert** -> Esta se asegurará de que cada transacción en el que ejecutarás tu test de **invariantes (fuzz)**, va a pasar ✅
+
+- TIP: Patrick cree que es muy útil tener las dos carpetas mencionadas posteriormente cuando va a escribir pruebas invariantes, él suele empezar con la carpeta **continueOnRevert** porque es más rápido y a menudo puedes encontrar **bugs**
