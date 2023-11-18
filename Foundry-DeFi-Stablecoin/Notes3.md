@@ -69,3 +69,4 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
     - **function depositCollateral(uint256 _collateralSeed, uint256 _amountCollateral) public {}**
       - Para completar esta función haremos, una función helper.
         - **function _getCollateralFromSeed(uint256 _collateralSeed) private view returns (ERC20Mock){}**
+        - la función elige dinámicamente entre dos tokens ERC-20 simulados (weth o wbtc) basándose en la paridad de la semilla proporcionada. Si la semilla es par, devuelve el token asociado a weth; si es impar, devuelve el token asociado a wbtc.
