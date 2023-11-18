@@ -25,6 +25,13 @@ contract Handler is Test {
     }
 
     //La explicación del desarrollo de estas funciones están en `Notes3.md` 🤌
+    function mintCsc(uint256 _amountToMint) public {
+        _amountToMint = bound(_amountToMint, 1, MAX_DEPOSIT_SIZED);
+        vm.startPrank(msg.sender);
+        cscEngine.mintCsc(_amountToMint);
+        vm.stopPrank();
+    }
+
     function depositCollateral(uint256 _collateralSeed, uint256 _amountCollateral) public {
         ERC20Mock collateral = _getCollateralFromSeed(_collateralSeed);
 

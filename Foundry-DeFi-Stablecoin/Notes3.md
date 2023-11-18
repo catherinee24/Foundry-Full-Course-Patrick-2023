@@ -97,3 +97,13 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
   - Por eso llamos a la función **getCollateralBalanceOfUsers** del contrato **CSCEngine** para tener el balance del usuario en el sistema.
   - Luego limitamos o hacemos un **bound()** de la cantidad máxima que puede redimir. 
   - Llamamos la funcion **redeemCollateral() del cscEngine**.
+
+## Handle-based Fuzz (Invariant) Test Minting CSC ✨
+>👩‍💻Ok, ya tenemos funcion válida para depositar collateral, redimir collateral. Ahora haremos Mintear CSC StableCoin.
+
+- Desarrollando la función **mintCsc()**
+  - Nuestra función **mintCsc()** recibe como parametro de entrada la cantidad de **csc** para **mintear**. 
+  - limitamos o hacemos un **bound()** de la **cantidad de csc a mintear** ya que el protocolo establece que se tiene que **mintear más que 0**. 
+  - Empezamos un **prank del msg.sender**, para que mintee o cree csc tokens.
+  - Paramos el prank despues de la llamada a la funcion **mint()**.
+  - Establecemos el **fail_on_revert = false**
