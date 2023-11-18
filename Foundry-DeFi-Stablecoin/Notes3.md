@@ -57,6 +57,8 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
   - Creamos un **constructor** donde vamos a meter el contrato **CSCEngine**, así el **Handler** va a saber qué es ese contrato.
   - Los primeros contratos que importaremos serán el **CSCEngine** y La **StableCoin CSC**, Porque son los contratos que queremos que el **Handler** maneje las llamadas a las funciones. Y lo establecemos en el **constructor()**.
   - Vamos a enfocarnos primero en la función **redeemCollateral()**, Queremos que se llame a esta función solo cuando haya collateral en el protocolo. Por esta razón lo primero que tenemos que hacer es depositar collateral.
+
+### Handle-based Fuzz (Invariant) Test Dpositing Collateral ✨
   - La **primera funcion** que creamos será **depositCollateral()** <--- en esta función la **tx** siempre debe ser **True**, no debe revertir. - **function depositCollateral(address \_collateral, uint256 \_amountCollateral) public {}** <-- Esta funcion es en realidad muy similar a un **Fuzz Test**, ya que en nuestros **Handlers** cualquier parametros que tenemos van a ser ramdonizados. - La función **depositCollateral()** en realidad fallará, pero lo que **Patrick** quiso enseñarnos, es que a la hora de correr nuestro test de Invariante ---> **invariant_protocolMustHaveMoreValueThanTotalSupply** da como **output lo siguiente**:
     ```shell
     Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 9.84ms
@@ -81,5 +83,17 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 
     > ✨ Utilicamos --> bound()✨ Una función que viene de el archivo StdUtils.sol de Foundry. con esta funcion los parametros de entrada pueden estar limitados o bounded a valores esperados razonables.
 
-- La función seguia fallando ya que el protocolo no estaba aprovado para gastar los tokens. Por este motivo hicimos un **prank** del **msg.sender**, le **minteamos** **collateral**, le **aprovamos** al **CSCEngine** que tenga la cantidad de collateral y luego si **depositamos** el **collateral**. Luega **paramos** el **prank**.  
+- La función seguia fallando ya que el protocolo no estaba aprovado para gastar los tokens. Por este motivo hicimos un **prank** del **msg.sender**, le **minteamos** **collateral**, le **aprovamos** al **CSCEngine** que tenga la cantidad de collateral y luego si **depositamos** el **collateral**. Luega **paramos** el **prank**. 
+- Yyyy CHA CHANNN ✨✨✨✨ La función finalmente pasó, aun así con el **fail_on_revert = true** o **fail_on_revert = false** 🤌🎉🎊 OK Sigamos :)  
+> 👩‍💻Recap: Todo esto significa que, no importa que tan seguido llamemos la función `depositCollateral()`, no importa que tanto depositamos collateral, nunca haremos esta invariante `assert(wethValue + wbtcValue >= totalSupply);` false.
 
+## Handle-based Fuzz (Invariant) Test Redeeming Collateral ✨
+>👩‍💻Ok, ya tenemos una función válida para depositar collateral `depositCollateral()`, ahora hagamos una válida para redimir collateral `redeemCollateral()`.
+>👩‍💻 La función será similar a depositCollateral().
+
+- Desarrollando la función **redeemCollateral()**
+  - La función toma como parametro de entrada un **uint256 _collateralSeed y uint256 _amountCollateral**.
+  - Solo vamos a eligir un colateral válido, por eso llamamos a la función **_getCollateralFromSeed**.
+  - Solo queremos permitirle a las personas que **rediman la cantidad máxima que ellos tengan en el sistema**. 
+  - Por eso llamos a la función **getCollateralBalanceOfUsers** del contrato **CSCEngine** para tener el balance del usuario en el sistema.
+  - Luego limitamos o hacemos un **bound()** de la cantidad máxima que puede redimir. 

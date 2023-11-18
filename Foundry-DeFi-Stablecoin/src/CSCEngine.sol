@@ -72,7 +72,9 @@ contract CSCEngine is ReentrancyGuard {
     }
 
     modifier isAllowedToken(address token) {
-        if (s_priceFeeds[token] == address(0)) revert CSCEngine__TokenNotAllowed();
+        if (s_priceFeeds[token] == address(0)) {
+            revert CSCEngine__TokenNotAllowed();
+        }
         _;
     }
 
@@ -230,7 +232,9 @@ contract CSCEngine is ReentrancyGuard {
         nonReentrant
     {
         uint256 startingUserHealthFactor = _healthFactor(_user);
-        if (startingUserHealthFactor >= MIN_HEALTH_FACTOR) revert CSCEngine__HealthFactorOk();
+        if (startingUserHealthFactor >= MIN_HEALTH_FACTOR) {
+            revert CSCEngine__HealthFactorOk();
+        }
         uint256 tokenAmountFromDebtCovered = getTokenAmountFromUsd(_tokenCollateral, _debtToCover);
         //0.05 * 0.1 = 0.005. Obteniendo 0.055 ETH
         uint256 bonusCollateral = (tokenAmountFromDebtCovered * LIQUIDATION_BONUS) / LIQUIDATION_PRECISION;
@@ -239,7 +243,9 @@ contract CSCEngine is ReentrancyGuard {
         _burnCSC(_user, msg.sender, _debtToCover);
 
         uint256 endingUserHealthFactor = _healthFactor(_user);
-        if (endingUserHealthFactor <= startingUserHealthFactor) revert CSCEngine__HealthFactorNotImproved();
+        if (endingUserHealthFactor <= startingUserHealthFactor) {
+            revert CSCEngine__HealthFactorNotImproved();
+        }
         _revertIfHealthFactorIsBroken(msg.sender);
     }
 
@@ -354,7 +360,9 @@ contract CSCEngine is ReentrancyGuard {
      */
     function _revertIfHealthFactorIsBroken(address _user) internal view {
         uint256 userHealthFactor = _healthFactor(_user);
-        if (userHealthFactor < MIN_HEALTH_FACTOR) revert CSCEngine__BreaksHealthFactor(userHealthFactor);
+        if (userHealthFactor < MIN_HEALTH_FACTOR) {
+            revert CSCEngine__BreaksHealthFactor(userHealthFactor);
+        }
     }
 
     /**
@@ -479,5 +487,9 @@ contract CSCEngine is ReentrancyGuard {
 
     function getHealthFactor(address _user) external view returns (uint256) {
         return _healthFactor(_user);
+    }
+
+    function getCollateralBalanceOfUsers(address _user, address _token) external view returns (uint256) {
+        return s_collateralDeposited[_user][_token];
     }
 }
