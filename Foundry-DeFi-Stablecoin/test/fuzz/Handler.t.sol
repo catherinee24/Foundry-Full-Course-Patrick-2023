@@ -13,6 +13,8 @@ contract Handler is Test {
     ERC20Mock weth;
     ERC20Mock wbtc;
 
+    uint256 public timesMintIsCalled;
+
     uint256 MAX_DEPOSIT_SIZED = type(uint96).max; //El valor máximo de uint96
 
     constructor(CSCEngine _cscEngine, DecentralizedStableCoin _cscToken) {
@@ -34,6 +36,7 @@ contract Handler is Test {
             return;
         }
         
+        timesMintIsCalled+=1;
         _amountToMint = bound(_amountToMint, 0, uint256(maxCscToMint));
         if(_amountToMint == 0){
             return;

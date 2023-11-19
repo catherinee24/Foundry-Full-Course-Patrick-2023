@@ -52,6 +52,7 @@ contract Invariants is StdInvariant, Test {
         console.log("weth value: ", wethValue);
         console.log("wbtc value: ", wbtcValue);
         console.log("Total Supply: ", totalSupply);
+        console.log("Times mint is called: ", handler.timesMintIsCalled());
 
         //Tenemos que tener más collateral en nuestro protocolo que csc(deuda).
         assert(wethValue + wbtcValue >= totalSupply);
