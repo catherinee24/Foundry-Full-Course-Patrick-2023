@@ -1,7 +1,7 @@
 # continuacion de Notes3.md ✨
 //TODO: Llevar el coverage de CSCEngine a 85%
 Foundry course: FOUNDRY-DEFI-STABLECOIN
-4:07:58
+4:24:32
 
 ## Handler Ghost Variables ✨
 Dentro de los Handlers, se pueden seguir las **"variables fantasma"** a lo largo de varias llamadas de funciones para agregar información adicional para pruebas de invariantes. 
@@ -83,4 +83,5 @@ Un buen ejemplo de esto es sumar todas las participaciones que cada proveedor de
   - WETH Token
   - WBTC Token
 - Así que nuestro **handler** probablemente debería mostrar, a la gente haciendo cosas randoms con los tokens. Porque las personas seguramente harán cosas aleatorias con los tokens y necesitamos que el protocolo maneje todo apropiadamente.
-
+- Por ahora nos centraremos en el **PRICE FEED** por que es un sistema que definitivamente puede cambiar y es un sistema que realmente tiene un gran efecto en nuestro protocolo.
+- Así que vamos a incluir **actualizaciones de price feeds** en nuestro **handler**. 
