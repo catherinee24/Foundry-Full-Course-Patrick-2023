@@ -56,4 +56,15 @@ contract Invariants is StdInvariant, Test {
         //Tenemos que tener más collateral en nuestro protocolo que csc(deuda).
         assert(wethValue + wbtcValue >= totalSupply);
     }
+
+    function invariant_gettersShouldNotRevert() public view {
+        cscEngine.getAdditionalFeedPrecision();
+        cscEngine.getCollateralTokens();
+        cscEngine.getLiquidationBonus();
+        cscEngine.getLiquidationBonus();
+        cscEngine.getLiquidationThreshold();
+        cscEngine.getMinHealthFactor();
+        cscEngine.getPrecision();
+        cscEngine.getCsc();
+    }
 }

@@ -68,3 +68,10 @@ Un buen ejemplo de esto es sumar todas las participaciones que cada proveedor de
   Times mint is called:  23
 ```
 - 🤯Podemos observar que nuevamente nuestro **Times mint is called: 23** aumentó, lo que significa que no se está rompiendo y si se está llamando la función **mintCsc()**. 
+
+## 2. Las funciones getter view nunca deberian revertir 
+## Creando una nueva función en el contrato Invariant.t.sol ✨
+- Creamos una nueva **función public view** llamada -> **function invariant_gettersShouldNotRevert() public {}**
+- Dentro definimos todas nuestras funsiones getters -> **cscEngine.getPrecision()** y el resto .....
+> TIP 💡: escribiendo este comando en la consola -> $ forge inspect CSCEngine methods Nos aparecerán todas las funciones que están definidas en nuestro contrato CSCEngine ✨
+

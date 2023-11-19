@@ -46,6 +46,7 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
   - Y, en vez de que nuestro contrate target sea el CSCEngine va a ser el Handler.
     - **targetContract(address(Handler));**
 
+## 1. El supply total de **CSC** **<---(La deuda)** debería ser menor que el valor total del **collateral**.
 ## Handle-based Fuzz (Invariant) Test setteando el fail_on_revert = true ✨
 
 - El contrato "Handler" va a restringir la manera en que llamamos funciones.
