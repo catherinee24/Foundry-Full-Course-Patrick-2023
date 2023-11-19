@@ -75,3 +75,12 @@ Un buen ejemplo de esto es sumar todas las participaciones que cada proveedor de
 - Dentro definimos todas nuestras funsiones getters -> **cscEngine.getPrecision()** y el resto .....
 > TIP 💡: escribiendo este comando en la consola -> $ forge inspect CSCEngine methods Nos aparecerán todas las funciones que están definidas en nuestro contrato CSCEngine ✨
 
+## Price Feed Handling ✨
+- Una de las otras cosas fantásticas que podemos hacer con el **handler** es.. manejamos el contrato CSCEngine, pero tambien podemos hacerlo con otro contrato que queramos. Para simular también 💡
+- Hay muchas cosas que tenemos que mantener en mente cuando escribimos esto, especialmente el otro contrato con el que vamos a interactuar.
+- **¿Cúales son los otros contratos con los que vamos a interactuar?** 
+  - Price Feed contract
+  - WETH Token
+  - WBTC Token
+- Así que nuestro **handler** probablemente debería mostrar, a la gente haciendo cosas randoms con los tokens. Porque las personas seguramente harán cosas aleatorias con los tokens y necesitamos que el protocolo maneje todo apropiadamente.
+
