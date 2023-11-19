@@ -47,3 +47,24 @@ Un buen ejemplo de esto es sumar todas las participaciones que cada proveedor de
 - 🤯Podemos observar que ahora nuestro **Times mint is called: 33** aumentó, lo que significa que no se está rompiendo y si se está llamando la función **mintCsc()**   
   2. La otra manera de que la función **mintCsc()** sea llamada es:
      - -> Mantener el siguimiento de las personas que hayan **depositado collateral** **depositCollateral()** y luego vamos a la función **mintCsc()** que elige una dirección de alguien que ya haya depositado collateral.
+     - **¿Cómo podemos hacer esto?**
+
+- Con un array de addresses podemos mantener traqueado las cuentas que hayan depositado collateral.
+  - Creamos una variable de array de addresses llamada: **address[] public usersWithCollateralDeposited;**
+  - Esta variable la establecemos en la **función depositCollateral()**
+  - Pusheamos el msg.sender al array: **usersWithCollateralDeposited.push(msg.sender);**
+
+- Y ahora en la función **mintCsc()** hacemos algo similar que en la función **redeemCollateral()**:
+  - Le pasamos otro parametro de entrada llamado **_addressSeed** que será un **intiger sin signo (uint256)**.
+  - Creamos una variable local de tipo address llamado **msgSender** que guardará el _addressSeed % el length de los usuarios que han depositado collateral (usersWithCollateralDeposited.length).
+  - Y esta variable **msgSender** la usaremos en vez de el **msg.sender** que hemos estado usando.
+  
+- Despues de Implementar este nuevo array de addressess **usersWithCollateralDeposited** Corremos nuevamente el **test de invariante** y el output es el siguiente:
+```shell
+  Bound Result 1
+  weth value:  1867559056286543309640817713424000
+  wbtc value:  547375458383624690028499181681000
+  Total Supply:  258512600724431530044849647329644
+  Times mint is called:  23
+```
+- 🤯Podemos observar que nuevamente nuestro **Times mint is called: 23** aumentó, lo que significa que no se está rompiendo y si se está llamando la función **mintCsc()**. 

@@ -27,11 +27,10 @@ contract Invariants is StdInvariant, Test {
 
         // `targetContract()` Función del contrato `StdInvariant`
         // targetContract(address(cscEngine));
-        
-        //Ahora nuestro contrato target será el `Handler` 
+
+        //Ahora nuestro contrato target será el `Handler`
         handler = new Handler(cscEngine, cscToken);
         targetContract(address(handler));
-
     }
 
     /**

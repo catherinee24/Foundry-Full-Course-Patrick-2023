@@ -15,6 +15,10 @@ contract Handler is Test {
 
     uint256 public timesMintIsCalled;
 
+    //Array que guarda a los usuarios que ya han depositado collateral.
+    //Pusheamos al `msg.sender` en la función depositCollateral().
+    address[] public usersWithCollateralDeposited;
+
     uint256 MAX_DEPOSIT_SIZED = type(uint96).max; //El valor máximo de uint96
 
     constructor(CSCEngine _cscEngine, DecentralizedStableCoin _cscToken) {
@@ -27,24 +31,28 @@ contract Handler is Test {
     }
 
     //La explicación del desarrollo de estas funciones están en `Notes3.md` 🤌
-    function mintCsc(uint256 _amountToMint) public {
-        (uint256 totalCscMinted, uint256 collateralValueInUSD) = cscEngine.getAccountInformation(msg.sender);
+    function mintCsc(uint256 _amountToMint, uint256 _addressSeed) public {
+        if (usersWithCollateralDeposited.length == 0) {
+            return;
+        }
+        address msgSender = usersWithCollateralDeposited[_addressSeed % usersWithCollateralDeposited.length];
+        (uint256 totalCscMinted, uint256 collateralValueInUSD) = cscEngine.getAccountInformation(msgSender);
 
-        // Usamos int aquí porque no queremos numeros negativos 
+        // Usamos int aquí porque no queremos numeros negativos
         int256 maxCscToMint = (int256(collateralValueInUSD) / 2) - int256(totalCscMinted);
-        if(maxCscToMint < 0){
-            return;
-        }
-        
-        timesMintIsCalled+=1;
-        _amountToMint = bound(_amountToMint, 0, uint256(maxCscToMint));
-        if(_amountToMint == 0){
+        if (maxCscToMint < 0) {
             return;
         }
 
-        vm.startPrank(msg.sender);
+        _amountToMint = bound(_amountToMint, 0, uint256(maxCscToMint));
+        if (_amountToMint == 0) {
+            return;
+        }
+
+        vm.startPrank(msgSender);
         cscEngine.mintCsc(_amountToMint);
         vm.stopPrank();
+        timesMintIsCalled++;
     }
 
     function depositCollateral(uint256 _collateralSeed, uint256 _amountCollateral) public {
@@ -58,6 +66,7 @@ contract Handler is Test {
         collateral.approve(address(cscEngine), _amountCollateral);
         cscEngine.depositCollateral(address(collateral), _amountCollateral);
         vm.stopPrank();
+        usersWithCollateralDeposited.push(msg.sender);
     }
 
     function redeemCollateral(uint256 _collateralSeed, uint256 _amountCollateral) public {
