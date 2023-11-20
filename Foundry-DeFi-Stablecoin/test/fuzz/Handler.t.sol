@@ -15,10 +15,11 @@ contract Handler is Test {
     ERC20Mock wbtc;
 
     uint256 public timesMintIsCalled;
-
     //Array que guarda a los usuarios que ya han depositado collateral.
     //Pusheamos al `msg.sender` en la función depositCollateral().
     address[] public usersWithCollateralDeposited;
+    MockV3Aggregator public wethUsdPriceFeed;
+
 
     uint256 MAX_DEPOSIT_SIZED = type(uint96).max; //El valor máximo de uint96
 
@@ -30,7 +31,8 @@ contract Handler is Test {
         weth = ERC20Mock(collateralTokens[0]);
         wbtc = ERC20Mock(collateralTokens[1]);
 
-        cscEngine.getCollateralTokenPriceFeed(address(weth));
+        //weth usd price feed.
+        wethUsdPriceFeed = MockV3Aggregator(cscEngine.getCollateralTokenPriceFeed(address(weth)));
     }
 
     //La explicación del desarrollo de estas funciones están en `Notes3.md` 🤌
@@ -84,6 +86,11 @@ contract Handler is Test {
         }
 
         cscEngine.redeemCollateral(address(collateral), _amountCollateral);
+    }
+
+    function updateCollateralPrice(uint96 _newPrice) public {
+        int256 newPriceInt = int256(uint256(newPrice));
+        wethUsdPriceFeed.updateAnswer(newPriceInt); 
     }
 
     /**

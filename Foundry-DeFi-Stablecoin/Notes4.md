@@ -89,4 +89,13 @@ Un buen ejemplo de esto es sumar todas las participaciones que cada proveedor de
 - **Empezando con el desarrollo del **PRICE FEED** en el handler.sol** ✨
   - 📁 Primero importamos el archivo **MockV3Aggregator.sol**
   - Este archivo tiene una función que queremos usar que es **updateAnswer()** queremos que nuestro protocolo pueda actualizar precios facilmente.
-  - En el **constructor del handler** pondremos la función que creamos en **cscEngine -> getCollateralTokenPriceFeed** y le pasamos el token collateral, **weth/wbtc**.
+  - En el **constructor del handler** pondremos la función que creamos en **cscEngine -> getCollateralTokenPriceFeed** y le pasamos el token collateral, **weth/wbtc**. 
+- Ahora vamos a agregar una nueva función en nuestro handler:
+  - **UpdateCollateralPrice()** -> está función tomará como parametro de entrada un **uint96 newPrice**
+  - Necesitamos convertir el **uint96** en **int256** porque la función **updateAnswer()** que llamaremos del **MockV3Aggregator.sol** toma como parametro de entrada un **int256**:
+    - **function updateAnswer(int256 _answer) public {}**
+- Ahora podemos hacer 4 cosas en nuestro sistema,
+  - Podemos actualizar el precio de los collaterales a usd.
+  - Redimir collateral.
+  - Depositar collaterale.
+  - Mintear CSC token.
