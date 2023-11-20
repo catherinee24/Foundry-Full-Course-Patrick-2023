@@ -6,7 +6,7 @@ import { Test } from "forge-std/Test.sol";
 import { CSCEngine } from "../../src/CSCEngine.sol";
 import { DecentralizedStableCoin } from "../../src/DecentralizedStableCoin.sol";
 import { ERC20Mock } from "@openzeppelin/contracts/mocks/token/ERC20Mock.sol";
-import {MockV3Aggregator} from "../mocks/MockV3Aggregator.sol";
+import { MockV3Aggregator } from "../mocks/MockV3Aggregator.sol";
 
 contract Handler is Test {
     CSCEngine cscEngine;
@@ -19,7 +19,6 @@ contract Handler is Test {
     //Pusheamos al `msg.sender` en la función depositCollateral().
     address[] public usersWithCollateralDeposited;
     MockV3Aggregator public wethUsdPriceFeed;
-
 
     uint256 MAX_DEPOSIT_SIZED = type(uint96).max; //El valor máximo de uint96
 
@@ -88,10 +87,10 @@ contract Handler is Test {
         cscEngine.redeemCollateral(address(collateral), _amountCollateral);
     }
 
-    //Esta función rompe nuestra suite de pruebas de invariantes 
+    //Esta función rompe nuestra suite de pruebas de invariantes
     // function updateCollateralPrice(uint96 _newPrice) public {
     //     int256 newPriceInt = int256(uint256(_newPrice));
-    //     wethUsdPriceFeed.updateAnswer(newPriceInt); 
+    //     wethUsdPriceFeed.updateAnswer(newPriceInt);
     // }
 
     /**

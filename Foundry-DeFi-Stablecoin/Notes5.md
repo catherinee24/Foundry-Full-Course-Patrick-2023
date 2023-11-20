@@ -9,3 +9,8 @@ Foundry course: FOUNDRY-DEFI-STABLECOIN
 - Preparación para una auditora de Smart Contracts.
 
 ## OracleLib ✨
+En nuestro proyecto estamos usando por supuesto un oráculo, -> (Chainlink Price Feeds). Necesitamos agregar algunos check es nuestro sistema CSCEngine solo para asegurarnos si esto⬆️ rompe o algo dentro de eso rompe, nuestro sistema no este roto. 
+- Así que lo que haremos es usar la metodología de librería.
+- 📁 Hacemos una carpeta llamada libraries
+  - Dentro definimos un **smart contract** llamado **OracleLib.sol** 
+  - Lo que vamos a hacer es asegurarnos de que los precios que nos de price feed de chainlink no esten obsoletos o (stales).
