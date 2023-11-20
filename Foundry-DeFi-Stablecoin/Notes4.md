@@ -1,7 +1,7 @@
 # continuacion de Notes3.md ✨
 //TODO: Llevar el coverage de CSCEngine a 85%
 Foundry course: FOUNDRY-DEFI-STABLECOIN
-4:24:32
+4:24:32-
 
 ## Handler Ghost Variables ✨
 Dentro de los Handlers, se pueden seguir las **"variables fantasma"** a lo largo de varias llamadas de funciones para agregar información adicional para pruebas de invariantes. 
