@@ -99,3 +99,6 @@ Un buen ejemplo de esto es sumar todas las participaciones que cada proveedor de
   - Redimir collateral.
   - Depositar collaterale.
   - Mintear CSC token.
+- Algo que nos tenemos que preguntar es que hacer si el precio del collateral se desploma en un solo bloque. Ahora mismo tenemos un tipo de assertions en **CSCEngine**, tenemos -> **LIQUIDATION_BONUS** y el collateral tiene que estar 200% overcollateralized -> **LIQUIDATION_THRESHOLD**. Con esto estamos diciendo:
+  - Ok, entre **200% <-> 110%** de **sobre colateralizacion**, nuestro sistema está aun a salvo. 
+> 💔 La funcion UpdateCollateralPrice() de nuestro handler, rompe nuestra suite de prubas de invariantes.💔 
