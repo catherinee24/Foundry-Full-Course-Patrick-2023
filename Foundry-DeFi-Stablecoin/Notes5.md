@@ -14,3 +14,7 @@ En nuestro proyecto estamos usando por supuesto un oráculo, -> (Chainlink Price
 - 📁 Hacemos una carpeta llamada libraries
   - Dentro definimos un **smart contract** llamado **OracleLib.sol** 
   - Lo que vamos a hacer es asegurarnos de que los precios que nos de price feed de chainlink no esten obsoletos o (stales).
+
+- Desarrollando la librería **OracleLib.sol**
+  - Empezamos creando una función llamada **stalePriceCheck()** vamos a tener esta función en **AggregatorV3Interface** 
+  - Esta funcion tomará como parametro de entrada el **AggregatorV3Interface**.
