@@ -6,6 +6,7 @@ import { Test } from "forge-std/Test.sol";
 import { CSCEngine } from "../../src/CSCEngine.sol";
 import { DecentralizedStableCoin } from "../../src/DecentralizedStableCoin.sol";
 import { ERC20Mock } from "@openzeppelin/contracts/mocks/token/ERC20Mock.sol";
+import {MockV3Aggregator} from "../mocks/MockV3Aggregator.sol";
 
 contract Handler is Test {
     CSCEngine cscEngine;
@@ -28,6 +29,8 @@ contract Handler is Test {
         address[] memory collateralTokens = cscEngine.getCollateralTokens();
         weth = ERC20Mock(collateralTokens[0]);
         wbtc = ERC20Mock(collateralTokens[1]);
+
+        cscEngine.getCollateralTokenPriceFeed(address(weth));
     }
 
     //La explicación del desarrollo de estas funciones están en `Notes3.md` 🤌

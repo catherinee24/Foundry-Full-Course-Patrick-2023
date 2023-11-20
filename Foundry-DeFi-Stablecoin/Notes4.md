@@ -76,7 +76,7 @@ Un buen ejemplo de esto es sumar todas las participaciones que cada proveedor de
 > TIP 💡: escribiendo este comando en la consola -> $ forge inspect CSCEngine methods Nos aparecerán todas las funciones que están definidas en nuestro contrato CSCEngine ✨
 
 ## Price Feed Handling ✨
-- Una de las otras cosas fantásticas que podemos hacer con el **handler** es.. manejamos el contrato CSCEngine, pero tambien podemos hacerlo con otro contrato que queramos. Para simular también 💡
+- 💡Una de las otras cosas fantásticas que podemos hacer con el **handler** es.. manejamos el contrato CSCEngine, pero tambien podemos hacerlo con otro contrato que queramos. Para simular también💡
 - Hay muchas cosas que tenemos que mantener en mente cuando escribimos esto, especialmente el otro contrato con el que vamos a interactuar.
 - **¿Cúales son los otros contratos con los que vamos a interactuar?** 
   - Price Feed contract
@@ -85,3 +85,8 @@ Un buen ejemplo de esto es sumar todas las participaciones que cada proveedor de
 - Así que nuestro **handler** probablemente debería mostrar, a la gente haciendo cosas randoms con los tokens. Porque las personas seguramente harán cosas aleatorias con los tokens y necesitamos que el protocolo maneje todo apropiadamente.
 - Por ahora nos centraremos en el **PRICE FEED** por que es un sistema que definitivamente puede cambiar y es un sistema que realmente tiene un gran efecto en nuestro protocolo.
 - Así que vamos a incluir **actualizaciones de price feeds** en nuestro **handler**. 
+
+- **Empezando con el desarrollo del **PRICE FEED** en el handler.sol** ✨
+  - 📁 Primero importamos el archivo **MockV3Aggregator.sol**
+  - Este archivo tiene una función que queremos usar que es **updateAnswer()** queremos que nuestro protocolo pueda actualizar precios facilmente.
+  - En el **constructor del handler** pondremos la función que creamos en **cscEngine -> getCollateralTokenPriceFeed** y le pasamos el token collateral, **weth/wbtc**.
