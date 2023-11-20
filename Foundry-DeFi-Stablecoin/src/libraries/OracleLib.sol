@@ -44,7 +44,7 @@ library OracleLib {
      * @return answeredInRound
      */
 
-    function staleCkeckLatesRoundData(AggregatorV3Interface priceFeed)
+    function staleCkeckLatestRoundData(AggregatorV3Interface priceFeed)
         public
         view
         returns (uint80, int256, uint256, uint256, uint80)

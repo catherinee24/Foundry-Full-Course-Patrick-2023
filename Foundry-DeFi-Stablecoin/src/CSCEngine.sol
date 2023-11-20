@@ -6,6 +6,7 @@ import { DecentralizedStableCoin } from "../src/DecentralizedStableCoin.sol";
 import { ReentrancyGuard } from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { AggregatorV3Interface } from "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import { OracleLib } from "./libraries/OracleLib.sol";
 
 /// @title CSCEngine (Catella StableCoin Engine)
 /// @author Catherine Maverick from catellatech.
@@ -33,6 +34,11 @@ contract CSCEngine is ReentrancyGuard {
     error CSCEngine__MintFaild();
     error CSCEngine__HealthFactorOk();
     error CSCEngine__HealthFactorNotImproved();
+
+    /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                    TYPES
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+    using OracleLib for AggregatorV3Interface;
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                 CONSTANT VARIABLES 
@@ -382,7 +388,7 @@ contract CSCEngine is ReentrancyGuard {
 
     function _getUsdValue(address _token, uint256 _amount) private view returns (uint256) {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(s_priceFeeds[_token]);
-        (, int256 price,,,) = priceFeed.latestRoundData();
+        (, int256 price,,,) = priceFeed.staleCkeckLatestRoundData();
         // 1 ETH = 1000 USD
         // The returned value from Chainlink will be 1000 * 1e8
         // Most USD pairs have 8 decimals, so we will just pretend they all do
@@ -414,7 +420,7 @@ contract CSCEngine is ReentrancyGuard {
      */
     function getTokenAmountFromUsd(address _tokenCollateral, uint256 _usdAmounInWai) public view returns (uint256) {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(s_priceFeeds[_tokenCollateral]);
-        (, int256 price,,,) = priceFeed.latestRoundData();
+        (, int256 price,,,) = priceFeed.staleCkeckLatestRoundData();
         //(10e18 * 1e18) / ($2000e8 * 1e10)
         //0.005000000000000000
         return ((_usdAmounInWai * PRECISION) / (uint256(price) * ADDITIONAL_FEED_PRECISION));

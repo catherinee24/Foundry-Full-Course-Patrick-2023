@@ -21,3 +21,4 @@ En nuestro proyecto estamos usando por supuesto un oráculo, -> (Chainlink Price
   - hacemos una variable de estado constante llamada TIMEOUT que guardará los días que tienen que pasar para que se actualice el price feed, que serán 3 dias o 10800 en segundos.
 
 - Ahora lo que podemos hacer ya que esta es una librería es usar la función **staleCkeckLatesRoundData()** para chequear automáticamente si un **precio esta obsoleto.**  
+- En nuestro CSCEngine en vez de llamar a **latestRoundData()** de **AggregatorV3Interface**, ahora llamaremos a **staleCkeckLatesRoundData()**
