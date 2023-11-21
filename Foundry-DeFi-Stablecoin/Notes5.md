@@ -26,3 +26,5 @@ En nuestro proyecto estamos usando por supuesto un oráculo, -> (Chainlink Price
 
 - Ahora lo que podemos hacer ya que esta es una librería es usar la función **staleCkeckLatesRoundData()** para chequear automáticamente si un **precio esta obsoleto.**
 - En nuestro CSCEngine en vez de llamar a **latestRoundData()** de **AggregatorV3Interface**, ahora llamaremos a **staleCkeckLatesRoundData()**
+
+## 🎊🎊🎊🎊🎊🎊🎊🎊 COMPLETED LESSON 12 🎊🎊🎊🎊🎊🎊🎊🎊
