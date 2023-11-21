@@ -1,8 +1,5 @@
 ## Lesson 13: Foundry Upgrades ✨
 
-Foundry course: FOUNDRY-UPGRADES
-5:00:50
-
 ## Proxy Terminology ✨
 
 El objetivo principal de un proxy es permitir actualizaciones en un contrato inteligente sin afectar su dirección o la lógica principal que realiza.
@@ -21,6 +18,7 @@ El objetivo principal de un proxy es permitir actualizaciones en un contrato int
 ## Las 3 implementaciones de contratos Proxy ✨
 
 - **Transparent Proxy Patten:**
+
   - Los administradores no pueden llamar a las funciones del contrato de implementación.
   - Los administradores solo pueden llamar a las admin functions
     - **Admin functions**: Funciones que goviernan las actualizaciones.
@@ -29,22 +27,25 @@ El objetivo principal de un proxy es permitir actualizaciones en un contrato int
 - **Universal Upgradeable Proxies:**
   - Los administradores solo actualizan funciones que estan en el contrato de implementación en vez del proxy.
 
-
 ## Como crear Proxies? ✨
+
 - Ahora vamos a aprender a como construir estos **Smart Contracts actualizables (Proxies)**.
 - Para aprender a consruir proxies debemos saber que es **Delegatecall**?
 
 ### Delegatecall ✨
-- **delegatecall** es una instrucción en Solidity y la Ethereum Virtual Machine (EVM) que permite a un contrato ejecutar la lógica de otro contrato en su propio contexto. 
-- Esto se utiliza para implementar patrones de proxy que facilitan la actualización de la lógica de un contrato sin cambiar su dirección. 
-- También se usa para crear bibliotecas compartidas, permitiendo que varios contratos utilicen la misma lógica sin duplicar código. 
+
+- **delegatecall** es una instrucción en Solidity y la Ethereum Virtual Machine (EVM) que permite a un contrato ejecutar la lógica de otro contrato en su propio contexto.
+- Esto se utiliza para implementar patrones de proxy que facilitan la actualización de la lógica de un contrato sin cambiar su dirección.
+- También se usa para crear bibliotecas compartidas, permitiendo que varios contratos utilicen la misma lógica sin duplicar código.
 - Es poderoso pero debe manejarse con precaución, especialmente en lo que respecta al almacenamiento compartido.
-[Delegatecall](https://solidity-by-example.org/delegatecall/)
+  [Delegatecall](https://solidity-by-example.org/delegatecall/)
+
   - **delegatecall is a low level function similar to call**.
   - When contract A executes delegatecall to contract B, B's code is executed
   - with contract A's storage, msg.sender and msg.value.
 
 - **Example 💡**
+
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
@@ -77,6 +78,5 @@ contract A {
 }
 ```
 
-## Pequeño ejemplo de un proxy ✨
 - **EIP-1967: Standard Proxy Storage Slot**
-    A consistent location where proxies store the address of the logic contract they delegate to, as well as other proxy-specific information.
+  A consistent location where proxies store the address of the logic contract they delegate to, as well as other proxy-specific information.
