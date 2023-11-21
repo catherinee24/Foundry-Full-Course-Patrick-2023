@@ -15,4 +15,10 @@ Foundry course: FOUNDRY-UPGRADES
   - este contrato **BoxV1** es bastante simple y sirve como un contenedor de un número entero y una función para obtener ese número. También tiene una función adicional para proporcionar información sobre la versión del contrato.
 
 - Creamos una función llamada **BoxV2.sol**
-  - Copiamos y pegamos el contrato BoxV1 al BoxV2
+  - Copiamos y pegamos el contrato **BoxV1** al **BoxV2** y lo cambiamos un poco.
+  - Va a retornar el **numero 2** como versión en la función **version()**.
+  - Agregamos una función nueva llamada **setNumber(unit256 _number)**
+>💡 Vamos a installar openzeppelin-contracts-upgradeable del repo de openzeppelin, porque necesitamos importar varios archivos que necesitaremos.
+- [openzeppelin-contracts-upgradeable](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable)
+
+- Lo primero que necesitaremos es importar el **UUPSUpgradeable** contract from **OZ**
