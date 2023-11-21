@@ -77,6 +77,3 @@ contract A {
     }
 }
 ```
-
-- **EIP-1967: Standard Proxy Storage Slot**
-  A consistent location where proxies store the address of the logic contract they delegate to, as well as other proxy-specific information.
