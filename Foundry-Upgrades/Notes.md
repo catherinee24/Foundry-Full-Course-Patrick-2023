@@ -29,4 +29,50 @@ El objetivo principal de un proxy es permitir actualizaciones en un contrato int
 - **Universal Upgradeable Proxies:**
   - Los administradores solo actualizan funciones que estan en el contrato de implementación en vez del proxy.
 
-## Delegatecall ✨
+
+## Como crear Proxies? ✨
+- Ahora vamos a aprender a como construir estos **Smart Contracts actualizables (Proxies)**.
+- Para aprender a consruir proxies debemos saber que es **Delegatecall**?
+
+### Delegatecall ✨
+- **delegatecall** es una instrucción en Solidity y la Ethereum Virtual Machine (EVM) que permite a un contrato ejecutar la lógica de otro contrato en su propio contexto. 
+- Esto se utiliza para implementar patrones de proxy que facilitan la actualización de la lógica de un contrato sin cambiar su dirección. 
+- También se usa para crear bibliotecas compartidas, permitiendo que varios contratos utilicen la misma lógica sin duplicar código. 
+- Es poderoso pero debe manejarse con precaución, especialmente en lo que respecta al almacenamiento compartido.
+[Delegatecall](https://solidity-by-example.org/delegatecall/)
+  - **delegatecall is a low level function similar to call**.
+  - When contract A executes delegatecall to contract B, B's code is executed
+  - with contract A's storage, msg.sender and msg.value.
+
+- **Example 💡**
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+// NOTE: Deploy this contract first
+contract B {
+    // NOTE: storage layout must be the same as contract A
+    uint public num;
+    address public sender;
+    uint public value;
+
+    function setVars(uint _num) public payable {
+        num = _num;
+        sender = msg.sender;
+        value = msg.value;
+    }
+}
+
+contract A {
+    uint public num;
+    address public sender;
+    uint public value;
+
+    function setVars(address _contract, uint _num) public payable {
+        // A's storage is set, B is not modified.
+        (bool success, bytes memory data) = _contract.delegatecall(
+            abi.encodeWithSignature("setVars(uint256)", _num)
+        );
+    }
+}
+```
