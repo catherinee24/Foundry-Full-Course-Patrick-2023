@@ -1,7 +1,4 @@
-## Lesson 13: Foundry Upgrades ✨
-
-Foundry course: FOUNDRY-UPGRADES
-5:00:50
+# Lesson 13: Foundry Upgrades ✨
 
 ## (UUPS) Universal Upgradeable Proxy Standard (Setup) ✨
 
@@ -47,33 +44,40 @@ Foundry course: FOUNDRY-UPGRADES
         _disableInitializers();
     }
 ```
+
 - Ahora agregamos la funcion **initialize()** que será como el **constructor()** que usamos normalmente en los smart contracts. Aqui adentro establecemos lo que queramos inicializar.
-- Importamos **OwnableUpgradeable** from **OZ** para poder hacer uso de la funcion **__Ownable_init**
+- Importamos **OwnableUpgradeable** from **OZ** para poder hacer uso de la funcion **\_\_Ownable_init**
+
   - Aquí estamos seteando el **owner** al **msg.sender** es como si hicieramos -> **owner = msg.sender**
 
-- También es muy común ver **__UUPSUpgradeable_init();** que teoría no hace nada pero es una buena practica agregarlo a la funcion **initialize()**, para decir, **¡¡¡Heyy este es un UUPS contract!!!**
+- También es muy común ver **\_\_UUPSUpgradeable_init();** que teoría no hace nada pero es una buena practica agregarlo a la funcion **initialize()**, para decir, **¡¡¡Heyy este es un UUPS contract!!!**
 
 ### Arreglando BoxV2 ✨
-- En este contrato vamos a hacer un poco lo mismo que en BoxV1. 
-- Importamos los archivos **UUPSUpgradeable, Initializable, OwnableUpgradeable de Openzeppelin**. 
-> 💡Important: La herencia se debe de hacer por orden alfábetico.
-- También agregamos la funcion **function _authorizeUpgrade(address newImplementation) internal override { }** del archivo **UUPSUpgradeable** De openzeppelin. 
+
+- En este contrato vamos a hacer un poco lo mismo que en BoxV1.
+- Importamos los archivos **UUPSUpgradeable, Initializable, OwnableUpgradeable de Openzeppelin**.
+  > 💡Important: La herencia se debe de hacer por orden alfábetico.
+- También agregamos la funcion **function \_authorizeUpgrade(address newImplementation) internal override { }** del archivo **UUPSUpgradeable** De openzeppelin.
 - También agregamos el **constructor** y el **initialize()**
 
 ## (UUPS) Universal Upgradeable Proxy Standard (DEPLOY) ✨
-- Vamos a **deployar BoxV1**
-  -  vamos a obtener un address
-  -  vamos a usar ese proxy address para asegurarnos de que nuestras funciones funcionen.
 
-- Luego vamos a **deployar BoxV2** 
+- Vamos a **deployar BoxV1**
+
+  - vamos a obtener un address
+  - vamos a usar ese proxy address para asegurarnos de que nuestras funciones funcionen.
+
+- Luego vamos a **deployar BoxV2**
   - vamos a apuntar nuestro proxy(**BoxV1**) a **BoxV2**
   - Lo cúal esencialmente significa que vamos a actualizar nuestro contrato. Y va a permanecer la misma address.
 
 ### Empezando a desarrollar los archivos scripts para deployar nuestros contratos ✨
+
 - Hacemos dos archivos en scripts llamados **DeployBox.s.sol** y **UpgradeBox.s.sol**
 
 #### DeployBox.s.sol 🧑‍🔬
-- Importamos BoxV1. 
+
+- Importamos BoxV1.
 - Empezamos con la conocida función **run()** que va a retornar un **address**
 - Creamos una segunda función llamada **deployBox()** que retornará un **address**
   - Dentro de esta funcion deployamos el **BoxV1**. Que es el **contrato de implementación**, el que tiene la lógica.
@@ -83,8 +87,10 @@ Foundry course: FOUNDRY-UPGRADES
 - Deployamos **ERC1967Proxy** y le pasamos como parametro el **boxV1 address**.
 
 #### UpgradeBox.s.sol 🧑‍🔬
+
 - Escribimos la función **run()** y necesitamos el deployment más reciente. Por eso instalaremos el archivo **DevOpsTools** de cyfrin.
 - Importamos el **BoxV2.** y el **BoxV1**
 
 ## (UUPS) Universal Upgradeable Proxy Standard (TEST/DEMO) ✨
+
 - Para el test hacemos lo mismo que venimos haciendo anteriorment, importamos los archivos necesarios, deployamos los contratos que vamos a testear.
