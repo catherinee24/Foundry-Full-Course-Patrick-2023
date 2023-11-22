@@ -55,4 +55,7 @@ Foundry course: FOUNDRY-UPGRADES
 
 ### Arreglando BoxV2 ✨
 - En este contrato vamos a hacer un poco lo mismo que en BoxV1. 
-- 
+- Importamos los archivos **UUPSUpgradeable, Initializable, OwnableUpgradeable de Openzeppelin**. 
+> 💡Important: La herencia se debe de hacer por orden alfábetico.
+- También agregamos la funcion **function _authorizeUpgrade(address newImplementation) internal override { }** del archivo **UUPSUpgradeable** De openzeppelin. 
+- También agregamos el **constructor** y el **initialize()**
