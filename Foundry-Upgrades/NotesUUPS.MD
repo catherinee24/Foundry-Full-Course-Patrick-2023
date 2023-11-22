@@ -84,4 +84,4 @@ Foundry course: FOUNDRY-UPGRADES
 
 #### UpgradeBox.s.sol 🧑‍🔬
 - Escribimos la función **run()** y necesitamos el deployment más reciente. Por eso instalaremos el archivo **DevOpsTools** de cyfrin.
-- Importamos **Boxv2.**
+- Importamos el **BoxV2.** y el **BoxV1**
