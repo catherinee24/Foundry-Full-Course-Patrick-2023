@@ -8,16 +8,6 @@ import { UUPSUpgradeable } from "@openzeppelin/contracts-upgradeable/proxy/utils
 contract BoxV2 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     uint256 internal value;
 
-    /// @custom:oz-upgrades-unsafe-allow constructor
-    constructor() {
-        _disableInitializers();
-    }
-
-    function initialize() public initializer {
-        __Ownable_init(address(this));
-        __UUPSUpgradeable_init();
-    }
-
     function setValue(uint256 newValue) public {
         value = newValue;
     }
