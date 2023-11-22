@@ -72,9 +72,16 @@ Foundry course: FOUNDRY-UPGRADES
 ### Empezando a desarrollar los archivos scripts para deployar nuestros contratos ✨
 - Hacemos dos archivos en scripts llamados **DeployBox.s.sol** y **UpgradeBox.s.sol**
 
-#### DeployBox.s.sol
+#### DeployBox.s.sol 🧑‍🔬
 - Importamos BoxV1. 
 - Empezamos con la conocida función **run()** que va a retornar un **address**
 - Creamos una segunda función llamada **deployBox()** que retornará un **address**
   - Dentro de esta funcion deployamos el **BoxV1**. Que es el **contrato de implementación**, el que tiene la lógica.
-  - Ahora necesitamos obtener nuestro proxy. El que vamos a usar es -> **ERC1967Proxy**
+  - Ahora necesitamos obtener nuestro proxy. El que vamos a usar es -> **ERC1967Proxy** exte proxy es el que apuntará a nuestra **implementación**.
+- **Importamos ERC1967Proxy from Openzeppelin**.
+  > import {ERC1967Proxy} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
+- Deployamos **ERC1967Proxy** y le pasamos como parametro el **boxV1 address**.
+
+#### UpgradeBox.s.sol 🧑‍🔬
+- Escribimos la función **run()** y necesitamos el deployment más reciente. Por eso instalaremos el archivo **DevOpsTools** de cyfrin.
+- Importamos **Boxv2.**
