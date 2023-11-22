@@ -47,3 +47,12 @@ Foundry course: FOUNDRY-UPGRADES
         _disableInitializers();
     }
 ```
+- Ahora agregamos la funcion **initialize()** que será como el **constructor()** que usamos normalmente en los smart contracts. Aqui adentro establecemos lo que queramos inicializar.
+- Importamos **OwnableUpgradeable** from **OZ** para poder hacer uso de la funcion **__Ownable_init**
+  - Aquí estamos seteando el **owner** al **msg.sender** es como si hicieramos -> **owner = msg.sender**
+
+- También es muy común ver **__UUPSUpgradeable_init();** que teoría no hace nada pero es una buena practica agregarlo a la funcion **initialize()**, para decir, **¡¡¡Heyy este es un UUPS contract!!!**
+
+### Arreglando BoxV2 ✨
+- En este contrato vamos a hacer un poco lo mismo que en BoxV1. 
+- 
