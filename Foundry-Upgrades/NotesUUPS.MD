@@ -87,4 +87,4 @@ Foundry course: FOUNDRY-UPGRADES
 - Importamos el **BoxV2.** y el **BoxV1**
 
 ## (UUPS) Universal Upgradeable Proxy Standard (TEST/DEMO) ✨
-- 
+- Para el test hacemos lo mismo que venimos haciendo anteriorment, importamos los archivos necesarios, deployamos los contratos que vamos a testear.

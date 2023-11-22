@@ -11,13 +11,13 @@ import { UpgradeBox } from "../script/UpgradeBox.s.sol";
 contract DeployAndUpgradeTest is Test {
     DeployBox public deployer;
     UpgradeBox public upgrader;
-    addrees public proxy;
+    address public proxy;
     address public OWNER = makeAddr("owner");
 
     function setUp() public {
         deployer = new DeployBox();
         upgrader = new UpgradeBox();
-        proxy = new deployer.run(); //El proxy ahora mismo, apunta a BoxV1.
+        proxy = deployer.run(); //El proxy ahora mismo, apunta a BoxV1.
     }
 
     function testProxyStartAsBoxV1() public {

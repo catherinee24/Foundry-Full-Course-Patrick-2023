@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-
-pragma solidity ^0.8.18;
+pragma solidity ^0.8.19;
 
 import { Script } from "forge-std/Script.sol";
 import { BoxV1 } from "../src/BoxV1.sol";
@@ -14,8 +13,9 @@ contract DeployBox is Script {
 
     function deployBox() public returns (address) {
         vm.startBroadcast();
-        BoxV1 boxV1 = new BoxV1(); // Implementation contract (Logic)
-        ERC1967Proxy proxy = new ERC1967Proxy(address(boxV1), "");
+        BoxV1 box = new BoxV1();
+        ERC1967Proxy proxy = new ERC1967Proxy(address(box), "");
+        BoxV1(address(proxy)).initialize();
         vm.stopBroadcast();
         return address(proxy);
     }
