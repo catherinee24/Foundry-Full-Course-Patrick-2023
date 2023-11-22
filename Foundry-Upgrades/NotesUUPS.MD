@@ -59,3 +59,22 @@ Foundry course: FOUNDRY-UPGRADES
 > 💡Important: La herencia se debe de hacer por orden alfábetico.
 - También agregamos la funcion **function _authorizeUpgrade(address newImplementation) internal override { }** del archivo **UUPSUpgradeable** De openzeppelin. 
 - También agregamos el **constructor** y el **initialize()**
+
+## (UUPS) Universal Upgradeable Proxy Standard (DEPLOY) ✨
+- Vamos a **deployar BoxV1**
+  -  vamos a obtener un address
+  -  vamos a usar ese proxy address para asegurarnos de que nuestras funciones funcionen.
+
+- Luego vamos a **deployar BoxV2** 
+  - vamos a apuntar nuestro proxy(**BoxV1**) a **BoxV2**
+  - Lo cúal esencialmente significa que vamos a actualizar nuestro contrato. Y va a permanecer la misma address.
+
+### Empezando a desarrollar los archivos scripts para deployar nuestros contratos ✨
+- Hacemos dos archivos en scripts llamados **DeployBox.s.sol** y **UpgradeBox.s.sol**
+
+#### DeployBox.s.sol
+- Importamos BoxV1. 
+- Empezamos con la conocida función **run()** que va a retornar un **address**
+- Creamos una segunda función llamada **deployBox()** que retornará un **address**
+  - Dentro de esta funcion deployamos el **BoxV1**. Que es el **contrato de implementación**, el que tiene la lógica.
+  - Ahora necesitamos obtener nuestro proxy. El que vamos a usar es -> **ERC1967Proxy**
