@@ -85,3 +85,6 @@ Foundry course: FOUNDRY-UPGRADES
 #### UpgradeBox.s.sol 🧑‍🔬
 - Escribimos la función **run()** y necesitamos el deployment más reciente. Por eso instalaremos el archivo **DevOpsTools** de cyfrin.
 - Importamos el **BoxV2.** y el **BoxV1**
+
+## (UUPS) Universal Upgradeable Proxy Standard (TEST/DEMO) ✨
+- 
