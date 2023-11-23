@@ -27,3 +27,6 @@ Una **DAO** describe a cualquier grupo que está gorvernado por una serie de reg
 
 4. Ahora necesitamos la **DAO**, necesitamos un contrato que maneje **Box** y **GovernaceToken**.
    - Wizard de Openzeppelin tiene un contrato, Llamado **MyGovernor** 
+
+5. Por ultimo necesitamos hacer el **contrato TimeLock()**
+   - Importamos **TimeLockController** contract by openzeppelin y lo heredamos a nuestro contrato **TimeLock.sol**
