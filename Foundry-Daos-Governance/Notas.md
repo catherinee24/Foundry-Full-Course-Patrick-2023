@@ -30,3 +30,9 @@ Una **DAO** describe a cualquier grupo que está gorvernado por una serie de reg
 
 5. Por ultimo necesitamos hacer el **contrato TimeLock()**
    - Importamos **TimeLockController** contract by openzeppelin y lo heredamos a nuestro contrato **TimeLock.sol**
+
+## Foundry DAO / Governance (TEST) ✨
+- Escribios como siempre nuestro contrato que se llamará **MyGovernorTest.t.sol** 
+- Primero deployamos el **token de governanza** y le minteamos algo de tokens a USER. También le delegamos esos Tokens.
+- Luego deployamos el **TimeLock**, porque para poder deployar el contrato **MyGovernor** vamos a necesitar ambos, el **token de governanza y el Time lock**.
+- Minteamos ahora nuestro contrato **MyGovernor** y le pasamos el **token de governanza y el TimeLock**.
