@@ -27,6 +27,7 @@ contract MyGovernorTest is Test {
     function setUp() public {
         governanceToken = new GovernanceToken();
         governanceToken.mint(VOTER, INITIAL_SUPPLY);
+        
         vm.startPrank(VOTER);
         governanceToken.delegate(VOTER);
 
@@ -39,10 +40,10 @@ contract MyGovernorTest is Test {
 
         // Solo el governor puede proponer cosas al timelock.
         // Nadie puede ejecutar proposals.
-        // El USER no va a seguir siendo el admin.
+        // El VOTER no va a seguir siendo el admin.
         timeLock.grantRole(proposerRole, address(myGovernor));
         timeLock.grantRole(executorRole, address(0));
-        timeLock.revokeRole(adminRole, USER);
-
+        timeLock.revokeRole(adminRole, VOTER);
+        vm.stopPrank();
     }
 }
