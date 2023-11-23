@@ -1,7 +1,7 @@
 # Lesson 14: Foundry DAO / Governance ✨
 > 💡 Plutocracy is bad! Don't default to ERC20 token voting!!
 Foundry course: FOUNDRY-DAOs-GOVERNANCE
-6:05:58-
+7:00:50 
 
 ## Artículos recomendados sobre DAOs ✨
 - [Governance, Part 2: Plutocracy Is Still Bad](https://vitalik.ca/general/2018/03/28/plutocracy.html)
@@ -35,4 +35,7 @@ Una **DAO** describe a cualquier grupo que está gorvernado por una serie de reg
 - Escribios como siempre nuestro contrato que se llamará **MyGovernorTest.t.sol** 
 - Primero deployamos el **token de governanza** y le minteamos algo de tokens a USER. También le delegamos esos Tokens.
 - Luego deployamos el **TimeLock**, porque para poder deployar el contrato **MyGovernor** vamos a necesitar ambos, el **token de governanza y el Time lock**.
-- Minteamos ahora nuestro contrato **MyGovernor** y le pasamos el **token de governanza y el TimeLock**.
+- Deployamos ahora nuestro contrato **MyGovernor** y le pasamos el **token de governanza y el TimeLock**.
+- Deployamos el **Box**.
+- Ahora le pasamos el **ownership** al del **Box** al **TimeLock**.
+> ✨ El timeLock owns the dao.

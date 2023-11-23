@@ -45,5 +45,8 @@ contract MyGovernorTest is Test {
         timeLock.grantRole(executorRole, address(0));
         timeLock.revokeRole(adminRole, VOTER);
         vm.stopPrank();
+
+        box = new Box();
+        box._transferOwnership(address(timeLock));
     }
 }
