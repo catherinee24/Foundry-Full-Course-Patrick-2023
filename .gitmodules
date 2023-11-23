@@ -52,3 +52,6 @@
 [submodule "Foundry-Upgrades/lib/foundry-devops"]
 	path = Foundry-Upgrades/lib/foundry-devops
 	url = https://github.com/Cyfrin/foundry-devops
+[submodule "Foundry-Daos-Governance/lib/openzeppelin-contracts"]
+	path = Foundry-Daos-Governance/lib/openzeppelin-contracts
+	url = https://github.com/openzeppelin/openzeppelin-contracts

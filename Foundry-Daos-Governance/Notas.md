@@ -16,3 +16,7 @@ Una **DAO** describe a cualquier grupo que está gorvernado por una serie de reg
 - **Company / Organization operado exclusivamente a través de código**.
 
 ## Foundry DAO / Governance (SetUp) ✨
+1. Vamos a tener una contrato controlado por una **DAO**.
+   - Vamos a hacer esto Ownable.
+2. Cada votacion que la DAO quiere mandar tiene que haber sido votado.
+3. Usaremos ERC20 Tokens para el modelo de votación (Modelo no recomendado a seguir, haz más investigaciones sobre que modelo usar, a medida que te vuelves mejor).
