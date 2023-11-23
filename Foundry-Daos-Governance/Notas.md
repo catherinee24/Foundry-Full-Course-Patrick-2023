@@ -23,4 +23,7 @@ Una **DAO** describe a cualquier grupo que está gorvernado por una serie de reg
 2. Cada votacion que la DAO quiere mandar tiene que haber sido votado.
 3. Usaremos ERC20 Tokens para el modelo de votación (Modelo no recomendado a seguir, haz más investigaciones sobre que modelo usar, a medida que te vuelves mejor).
    - Vamos a crear nuestro Token de governanza.
-   - Usamos **contracts wizard by openzeppelin** para crear rapidamente nuestro **Token**. 
+   - Usamos **contracts wizard by openzeppelin** para crear rapidamente nuestro **Token**. Clicamos en la opcion de votin y oz wizard hace todo por nosotros.
+
+4. Ahora necesitamos la **DAO**, necesitamos un contrato que maneje **Box** y **GovernaceToken**.
+   - Wizard de Openzeppelin tiene un contrato, Llamado **MyGovernor** 
