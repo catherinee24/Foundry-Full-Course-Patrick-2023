@@ -31,5 +31,18 @@ contract MyGovernorTest is Test {
         governanceToken.delegate(VOTER);
 
         timeLock = new TimeLock(MIN_DELAY, proposers, executors);
+        myGovernor = new MyGovernor(governanceToken, timeLock);
+
+        bytes32 proposerRole = timeLock.PROPOSER_ROLE();
+        bytes32 executorRole = timeLock.EXECUTOR_ROLE();
+        bytes32 adminRole = timeLock.DEFAULT_ADMIN_ROLE();
+
+        // Solo el governor puede proponer cosas al timelock.
+        // Nadie puede ejecutar proposals.
+        // El USER no va a seguir siendo el admin.
+        timeLock.grantRole(proposerRole, address(myGovernor));
+        timeLock.grantRole(executorRole, address(0));
+        timeLock.revokeRole(adminRole, USER);
+
     }
 }
