@@ -17,6 +17,10 @@ contract MyGovernorTest is Test {
     address[] proposers;
     address[] executors;
 
+    uint256[] values;
+    bytes[] calldatas;
+    address[] targets;
+
     address VOTER = address(1);
     uint256 public constant INITIAL_SUPPLY = 100 ether;
     uint256 public constant MIN_DELAY = 3600 seconds; //1 hora: después de que una votación sea aprobada, tienes 1 hora antes de poder votar.
@@ -57,5 +61,24 @@ contract MyGovernorTest is Test {
         box.store(1);
     }
 
-    function testGovernanceUpdateBox() public {}
+/** Governor.sol by Openzeppelin
+    function _propose(
+        address[] memory targets,
+        uint256[] memory values,
+        bytes[] memory calldatas,
+        string memory description,
+        address proposer 
+*/
+    function testGovernanceUpdateBox() public {
+        uint256 valueStore = 28;
+        string memory description = "Store 1 in Box";
+        bytes memory encodedFunctionCall = abi.encodeWithSignature("store(uint256)", valueStore);
+        address proposer = address(timeLock);
+        
+        values.push(0);
+        calldatas.push(encodedFunctionCall);
+        targets.push(address(box));
+
+
+    }
 }

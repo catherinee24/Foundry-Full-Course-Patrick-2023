@@ -45,3 +45,11 @@ Una **DAO** describe a cualquier grupo que está gorvernado por una serie de reg
 - Hacemos una función que pruebe que el Governance actualiza el **Box**
   - Lo primero que necesitamos hacer para arrancar cualquier cosas es proponer algo.
   - Así que vamos a proponer que el **Box** actualice este **_newNumber** -> function store(uint256 _newNumber) a 28.
+  - Por ese razón usaremos la función propose del contrato **Governor.sol** de **openzeppelin**.
+    - function _propose(
+        address[] memory targets,
+        uint256[] memory values,
+        bytes[] memory calldatas,
+        string memory description,
+        address proposer
+ - Desarrollamos todos los parametros que tiene pa función propose, y luego hacemos la llamada a la función.
