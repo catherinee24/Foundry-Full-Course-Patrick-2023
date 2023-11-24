@@ -47,6 +47,14 @@ contract MyGovernorTest is Test {
         vm.stopPrank();
 
         box = new Box();
-        box._transferOwnership(address(timeLock));
+        box.transferOwnership(address(timeLock));
     }
+
+    //Esto deberia pasar porque no puedes actualizar el box a menos que se a través del governor/Dao
+    function testCannotUpdateBoxWithoutGovernance() public {
+        vm.expectRevert();
+        box.store(1);
+    }
+
+    
 }

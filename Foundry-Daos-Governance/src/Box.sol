@@ -11,7 +11,7 @@ contract Box is Ownable {
 
     event NumberChanged(uint256 number);
 
-    // Esta función solo puede ser llamada por la DAO
+    // Esta función solo puede ser llamada por la DAO -> Contrato MyGovernor
     function store(uint256 _newNumber) public onlyOwner {
         s_number = _newNumber;
         emit NumberChanged(_newNumber);
