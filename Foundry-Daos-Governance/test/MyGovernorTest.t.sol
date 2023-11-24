@@ -36,7 +36,7 @@ contract MyGovernorTest is Test {
         governanceToken = new GovernanceToken();
         governanceToken.mint(VOTER, INITIAL_SUPPLY);
 
-        vm.startPrank(VOTER);
+        vm.prank(VOTER);
         governanceToken.delegate(VOTER);
 
         timeLock = new TimeLock(MIN_DELAY, proposers, executors);
@@ -52,8 +52,7 @@ contract MyGovernorTest is Test {
         //grantRole -> Conceder Rol
         timeLock.grantRole(proposerRole, address(myGovernor));
         timeLock.grantRole(executorRole, address(0));
-        timeLock.revokeRole(adminRole, VOTER);
-        vm.stopPrank();
+        timeLock.revokeRole(adminRole, msg.sender);
 
         box = new Box();
         box.transferOwnership(address(timeLock));
@@ -102,11 +101,9 @@ contract MyGovernorTest is Test {
          */
         string memory reason = "Because i wanna be a better dev and security researcher";
 
-        // Para votar necesitamos poner por qué estamos votando, las opciones son:
-        //Againts, for, abstain.
-        // vamos a votar for, y for esta en el index 1.
+        // 0 = Against, 1 = For, 2 = Abstain for this example
         uint8 voteWay = 1;
-        vm.startPrank(VOTER);
+        vm.prank(VOTER);
         myGovernor.castVoteWithReason(proposalId, voteWay, reason);
 
         vm.warp(block.timestamp + VOTIN_PERIOD + 1);
@@ -115,17 +112,25 @@ contract MyGovernorTest is Test {
         /**
          * 3. "Queue the txs"/poner en cola las transacciones
          * GovernorTomelockControl.sol by openzeppelin
-         * function _queueOperations(
-         *     uint256 proposalId,
+         * function queue(
          *     address[] memory targets,
          *     uint256[] memory values,
          *     bytes[] memory calldatas,
          *     bytes32 descriptionHash
-         * ) internal virtual override returns (uint48) {
+         * ) public virtual returns (uint256) {}
          */
+        bytes32 descriptionHash = keccak256(abi.encodePacked(description));
+        myGovernor.queue(targets, values, calldatas, descriptionHash);
+
+        vm.warp(block.timestamp + MIN_DELAY + 1);
+        vm.roll(block.number + MIN_DELAY + 1);
 
         /**
          * 4. Ejecutar la txs
          */
+        myGovernor.execute(targets, values, calldatas, descriptionHash);
+
+        console.log("Box Value: ", box.getNumber());
+        assert(box.getNumber() == valueStore);
     }
 }
