@@ -39,3 +39,9 @@ Una **DAO** describe a cualquier grupo que está gorvernado por una serie de reg
 - Deployamos el **Box**.
 - Ahora le pasamos el **ownership** al del **Box** al **TimeLock**.
 > ✨ El timeLock owns the dao.
+
+- **Desarrollando las funciones del test** ✨
+- Escribimos un test para probar que el contrato **Box** no se puede actualizar a menos de que se actualice a través del contrato **MyGovernor** que es la DAO.
+- Hacemos una función que pruebe que el Governance actualiza el **Box**
+  - Lo primero que necesitamos hacer para arrancar cualquier cosas es proponer algo.
+  - Así que vamos a proponer que el **Box** actualice este **_newNumber** -> function store(uint256 _newNumber) a 28.

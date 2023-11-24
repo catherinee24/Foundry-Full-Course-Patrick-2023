@@ -41,6 +41,7 @@ contract MyGovernorTest is Test {
         // Solo el governor puede proponer cosas al timelock.
         // Nadie puede ejecutar proposals.
         // El VOTER no va a seguir siendo el admin.
+        //grantRole -> Conceder Rol
         timeLock.grantRole(proposerRole, address(myGovernor));
         timeLock.grantRole(executorRole, address(0));
         timeLock.revokeRole(adminRole, VOTER);
@@ -56,5 +57,5 @@ contract MyGovernorTest is Test {
         box.store(1);
     }
 
-    
+    function testGovernanceUpdateBox() public {}
 }
