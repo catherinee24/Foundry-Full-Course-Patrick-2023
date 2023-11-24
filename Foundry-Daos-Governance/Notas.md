@@ -46,10 +46,11 @@ Una **DAO** describe a cualquier grupo que está gorvernado por una serie de reg
   - Lo primero que necesitamos hacer para arrancar cualquier cosas es proponer algo.
   - Así que vamos a proponer que el **Box** actualice este **_newNumber** -> function store(uint256 _newNumber) a 28.
   - Por ese razón usaremos la función propose del contrato **Governor.sol** de **openzeppelin**.
-    - function _propose(
+    - function propose(
         address[] memory targets,
         uint256[] memory values,
         bytes[] memory calldatas,
-        string memory description,
-        address proposer
- - Desarrollamos todos los parametros que tiene pa función propose, y luego hacemos la llamada a la función.
+        string memory description
+    ) public virtual returns (uint256) {}
+ - Desarrollamos todos los parametros que tiene La función propose, y luego hacemos la llamada a la función.
+   - Lo primero que tenemos que hacer es proponer a la Dao.

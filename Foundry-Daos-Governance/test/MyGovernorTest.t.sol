@@ -24,6 +24,7 @@ contract MyGovernorTest is Test {
     address VOTER = address(1);
     uint256 public constant INITIAL_SUPPLY = 100 ether;
     uint256 public constant MIN_DELAY = 3600 seconds; //1 hora: después de que una votación sea aprobada, tienes 1 hora antes de poder votar.
+    uint256 public constant VOTING_DELAY= 1; // Representa la cantidad de un bloque hasta que la votación esté activa.
 
     // Le minteamos algo de tokens a VOTER
     //llamamos a la funcion delegate de el archivo Votes.sol heredado por GovernanceToken, para delegarle los tokens
@@ -62,23 +63,35 @@ contract MyGovernorTest is Test {
     }
 
 /** Governor.sol by Openzeppelin
-    function _propose(
+    function propose(
         address[] memory targets,
         uint256[] memory values,
         bytes[] memory calldatas,
-        string memory description,
-        address proposer 
+        string memory description
+    ) public virtual returns (uint256) {} 
 */
     function testGovernanceUpdateBox() public {
         uint256 valueStore = 28;
         string memory description = "Store 1 in Box";
         bytes memory encodedFunctionCall = abi.encodeWithSignature("store(uint256)", valueStore);
-        address proposer = address(timeLock);
         
         values.push(0);
         calldatas.push(encodedFunctionCall);
         targets.push(address(box));
 
+        // 1. propuesta a la DAO.
+        uint256 proposalId = myGovernor.propose(targets, values, calldatas, description);
+
+        // Podemos ver el estado de la propuesta. La propuesta estará pending.
+        console.log("Proposal State: ", uint256(myGovernor.state(proposalId)));
+
+        vm.warp(block.timestamp + VOTING_DELAY +1);
+        vm.roll(block.number + VOTING_DELAY + 1);
+
+        // Podemos ver el estado de la propuesta. La propuesta estará active.
+        console.log("Proposal State: ", uint256(myGovernor.state(proposalId)));
+
+        // Podemos empezar a votar.
 
     }
 }
