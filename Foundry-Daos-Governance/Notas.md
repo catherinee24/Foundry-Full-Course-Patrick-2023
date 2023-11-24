@@ -1,7 +1,7 @@
 # Lesson 14: Foundry DAO / Governance ✨
 > 💡 Plutocracy is bad! Don't default to ERC20 token voting!!
 Foundry course: FOUNDRY-DAOs-GOVERNANCE
-7:00:50 
+7:00:50 -
 
 ## Artículos recomendados sobre DAOs ✨
 - [Governance, Part 2: Plutocracy Is Still Bad](https://vitalik.ca/general/2018/03/28/plutocracy.html)
