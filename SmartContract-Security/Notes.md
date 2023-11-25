@@ -1,25 +1,29 @@
 # Lesson 14: Foundry DAO / Governance ✨
-> 💡 Plutocracy is bad! Don't default to ERC20 token voting!!
-Foundry course: SECURITY-AUDITING
+> Foundry course: SECURITY-AUDITING
 
 ## ¿Qué es una auditoria de Smart Contract? ✨
-- Una auditoría de Smart Contract es un proceso de revisión minuciosa del código fuente de un contrato inteligente para identificar y corregir posibles problemas de seguridad, vulnerabilidades y errores. 
+
+- Una auditoría de Smart Contract es un proceso de revisión minuciosa del código fuente de un contrato inteligente para identificar y corregir posibles problemas de seguridad, vulnerabilidades y errores.
 - Esta práctica es esencial para garantizar que el contrato sea seguro, cumpla con los requisitos y funcione como se espera, especialmente en entornos de blockchain donde la inmutabilidad y la ejecución automática de los contratos pueden tener consecuencias significativas en caso de errores.
 
 ## Cúal es la meta de un auditor? ✨
+
 - El goal del auditor es identificar cuantas vulnerabilidades sean posibles y educar al protocolo sobre las mejores prácticas de seguridad y codigo.
 - Los auditores usan una combinación de revisión manual y herramientas de automatización para identificar las vulnerabilidades.
 
 ## Una típica auditoria luce como esto : ✨
+
 ### Precio y cronología:
+
 - Primero un protocolo necesita ponerse en contacto, se pueden poner de acuerdo antes o despues de terminar de codear el proyecto.
-- Una vez que se ponen en contacto, el protocolo y los auditores descutirán los siiguientes temas:
-    - Complejidad del código.
-    - Scope
-    - Duración
-    - Timeline
+- Una vez que se ponen en contacto, el protocolo y los auditores descutirán los siguientes temas:
+  - Complejidad del código.
+  - Scope
+  - Duración
+  - Timeline
 - Scope: El código que será auditado.
 - Duración de una auditoría segun las líneas de código sin incluir natspec:
+
   - 2.5: days
   - 500: 1 week
   - 1000: 1/2 weeks
@@ -27,4 +31,21 @@ Foundry course: SECURITY-AUDITING
   - 5000: 3/5 weeks
   - 5000+: 5+ weeks
 
-- Commit hash, down payment, Start date:
+- **Commit hash, down payment, Start date:**
+  - El commit hash es el Id único del codebase con el que estás trabajando.
+  - Algunos auditores cobrán un pago inicial para poder agendarte.
+  - La auditoria comienza, y los auditores identificaran la cantidad de bugs que les sea posible.
+
+- **Initial Report:**
+  - Despues de que termine el periodo de inicio de la auditoria, los auditores le darán al protocolo un reporte, con todos los hallazgos y severidades usualmente catagorizados como:
+    - Highs
+    - Mediums
+    - Lows
+    - Informationals / Non-Criticals
+    - Gass efficiencies
+
+- **Mitigations begins:**
+  - El equipo de desarrolladores del protocolo tendrán algo de tiempo para corregir las vulnerabilidades halladas en el reporte de auditoria. A veces dependiendo de el nivel de complejidad de la vulnerabilidad se tiene que empezar desde cero, en caso de que no sea así pueden usar las recomendaciones que los auditores proveen.
+
+- **Final Report:**
+  - Despue de que el protocolo haga los cambios especificado, el auditor hará un reporte final exclusivamente sobre los cambios. 
