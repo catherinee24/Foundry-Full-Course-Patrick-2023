@@ -1,4 +1,4 @@
-# Lesson 14: Foundry DAO / Governance ✨
+# Lesson 15: Smart Contract Security & Auditing (For developers) ✨
 
 ## ¿Qué es una auditoria de Smart Contract? ✨
 
