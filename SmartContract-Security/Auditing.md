@@ -23,7 +23,7 @@
 - Scope: El código que será auditado.
 - Duración de una auditoría segun las líneas de código sin incluir natspec:
 
-  - 2.5: days
+  - 100: 2.5 days
   - 500: 1 week
   - 1000: 1/2 weeks
   - 2500: 2/3 weeks
