@@ -15,5 +15,5 @@
   - **Symbolic execution:** Una forma de Formal verfication seria, convertir tu software a expresión matemática.
 > ✨ Take solidity function -> Math. Math can be solved.
 
-## Formal Verification ✨
+
   
